@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="..\..\..\common.props" />
+
+	<PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+	  <IsPackable>true</IsPackable>
+	  <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Volo.Abp.Http.Client.IdentityModel.WebAssembly" Version="$(AbpVersion)" />
+
+		<PackageReference Include="Volo.Abp.AspNetCore.Components.WebAssembly" Version="$(AbpVersion)" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\admin\Admin.Blazor\Admin.Blazor.csproj" />
+		<ProjectReference Include="..\Tchivs.Abp.Blazor\Tchivs.Abp.Blazor.csproj" />
+	</ItemGroup>
+</Project>

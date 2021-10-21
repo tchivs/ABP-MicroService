@@ -1,0 +1,35 @@
+﻿@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Components
+@using Volo.Abp.Users
+@using Volo.Abp.MultiTenancy
+@using global::Localization.Resources.AbpUi
+@inherits AbpComponentBase
+@inject ICurrentTenant CurrentTenant
+@inject IJSRuntime JsRuntime
+@inject NavigationManager Navigation
+@inject IStringLocalizer<AbpUiResource> UiLocalizer
+<AuthorizeView>
+    <Authorized>
+
+        <li class="nav-item dropdown menu">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+                <span class="mx-1">@CurrentUser.UserName</span>
+            </a>
+            <div class="dropdown-menu">
+                <div class="dropdown-menu-arrow"></div>
+                @if (Menu != null)
+                {
+                    @foreach (var menuItem in Menu.Items)
+                    {
+                        <a class="dropdown-item" href="@menuItem.Url?.TrimStart('~')" target="@menuItem.Target">@menuItem.DisplayName</a>
+                    }
+
+                }
+             <a class="dropdown-item" @onclick="BeginSignOut">@UiLocalizer["Logout"]</a>
+            </div> 
+        </li>
+    </Authorized>
+    <NotAuthorized>
+        <a class="nav-link" href="authentication/login">@UiLocalizer["Login"]</a>
+    </NotAuthorized>
+</AuthorizeView>

@@ -1,0 +1,20 @@
+﻿@using Microsoft.JSInterop
+@using Volo.Abp.Localization
+@using System.Globalization
+@using System.Collections.Immutable
+@inject ILanguageProvider LanguageProvider
+@inject IJSRuntime JsRuntime
+@if (_otherLanguages != null && _otherLanguages.Any())
+{
+    <div>
+        <label>@_currentLanguage.DisplayName</label>
+        <Select Value="@_currentLanguage.UiCultureName" OnSelectedItemChanged="@SetCulture">
+        <Options>
+            @foreach (var language in _otherLanguages)
+            {
+                <SelectOption Text="@language.DisplayName" Value="@language.UiCultureName" />
+            }
+        </Options>
+    </Select>
+    </div>
+}

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="..\..\..\common.props" />
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<IsPackable>true</IsPackable>
+		<OutputType>Library</OutputType>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Tchivs.Abp.Blazor.WebAssembly\Tchivs.Abp.Blazor.WebAssembly.csproj" />
+		<ProjectReference Include="..\Tchivs.Abp.Blazor.Theme.Bootstrap\Tchivs.Abp.Blazor.Theme.Bootstrap.csproj" />
+	</ItemGroup>
+</Project>

@@ -252,8 +252,5 @@ paket-files/
 *.sln.iml
 
 # Basic
-host/Basic.IdentityServer/Logs/logs.txt
-host/Basic.HttpApi.Host/Logs/logs.txt
-host/Basic.Web.Host/Logs/logs.txt
-host/Basic.Web.Unified/Logs/logs.txt
-host/Basic.Blazor.Server.Host/Logs/logs.txt
+[Ll]ogs/*
+MSBuild_Logs/

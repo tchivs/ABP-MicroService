@@ -7,4 +7,5 @@
 - BasicService-基础服务：https://localhost:3003
 - InternalGateway-内部网关:https://localhost:3004
 - BackendAdminAppGateway-后台管理网关：https://localhost:3005
+- BackendAdminBlazorServer：https://localhost:3009
 - BackendAdminBlazorWebassembly：https://localhost:3010
