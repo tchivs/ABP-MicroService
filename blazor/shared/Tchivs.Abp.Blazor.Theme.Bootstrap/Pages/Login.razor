@@ -1,0 +1,43 @@
+﻿@page "/login"
+@using Volo.Abp.Ui.Branding
+@layout Layouts.DefaultLayout
+@inject IBrandingProvider BrandingProvider
+<div class="login-weaper">
+    <div class="row g-2">
+        <div class="col-12">
+            <img src="@BrandingProvider.LogoUrl" />
+        </div>
+        <div class="col-12">
+            <h3>@BrandingProvider.AppName</h3>
+        </div>
+    </div>
+    <ValidateForm Model="@Model" OnInvalidSubmit="@OnInvalidSubmit1"
+                  OnValidSubmit="@OnValidSubmit1">
+        <div class="row g-3 form-inline">
+            <div class="col-12">
+                <BootstrapInput @bind-Value="@Model.Username" />
+            </div>
+            <div class="col-12">
+                <BootstrapInput @bind-Value="@Model.Password" />
+            </div>
+            <div class="col-12">
+                <Button class="btn-block" ButtonType="ButtonType.Submit" Text="登录" IsAsync="true" />
+            </div>
+        </div>
+    </ValidateForm>
+</div>
+<style>
+    .login-weaper {
+     position: relative;
+    margin: 0 auto;
+    width: 380px;
+    padding: 0 40px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0 7px 25px rgb(0 0 0 / 8%);
+    box-shadow: 0 7px 25px rgb(0 0 0 / 8%);
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+</style>

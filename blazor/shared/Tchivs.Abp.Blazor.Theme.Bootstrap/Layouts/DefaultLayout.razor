@@ -1,9 +1,29 @@
 ﻿@inherits LayoutComponentBase
-<nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm flex-column flex-md-row mb-4" id="main-navbar" style="min-height: 4rem;">
-    <div class="container">
-        <Branding />
-    </div>
-</nav>
-<div class="container">
+<div class="default-container">
     @Body
 </div>
+<style>
+    default-container {
+        background-color: #f0f2f5;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        -webkit-animation: animate-cloud 20s linear infinite;
+        animation: animate-cloud 20s linear infinite;
+    }
+</style>
+@*<nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm flex-column flex-md-row mb-4" id="main-navbar" style="min-height: 4rem;">
+    <div class="container">
+    <Branding />
+    </div>
+    </nav>
+    <div class="container">
+    </div>
+*@
