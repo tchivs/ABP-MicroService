@@ -14,7 +14,7 @@ using Tchivs.Abp.Blazor.Routing;
 namespace Admin.Blazor
 {
     [DependsOn(
-        typeof(Tchivs.Abp.Blazor.TchivsAbpBlazorModule),
+        typeof(Tchivs.Abp.Blazor.Theme.Bootstrap.TchivsAbpBlazorThemeBootstrapModule),
         typeof(AbpAccountApplicationContractsModule),
         typeof(AbpFeatureManagementApplicationContractsModule),
         typeof(AbpIdentityApplicationContractsModule),

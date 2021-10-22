@@ -4,3 +4,6 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.JSInterop
+@using Tchivs.Abp.Blazor.Theme.Bootstrap.Layouts
+@layout MainLayout
+@attribute [Authorize(Roles = "admin")]

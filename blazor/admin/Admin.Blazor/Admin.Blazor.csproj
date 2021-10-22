@@ -17,7 +17,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\modules\Basic\src\Basic.Application.Contracts\Basic.Application.Contracts.csproj" />
-	  <ProjectReference Include="..\..\shared\Tchivs.Abp.Blazor\Tchivs.Abp.Blazor.csproj" />
+	  <ProjectReference Include="..\..\shared\Tchivs.Abp.Blazor.Theme.Bootstrap\Tchivs.Abp.Blazor.Theme.Bootstrap.csproj" />
 	</ItemGroup>
 
 

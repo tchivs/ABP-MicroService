@@ -22,5 +22,4 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
             context.Services.AddBootstrapBlazor();
         }
     }
-
 }

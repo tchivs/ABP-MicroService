@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +12,9 @@ namespace Admin.Blazor.Server.Host
     {
         public static int Main(string[] args)
         {
+            // 设置默认文化为 zh-CN
+            CultureInfo.CurrentCulture = new CultureInfo("zh-CN");
+            CultureInfo.CurrentUICulture = new CultureInfo("zh-CN");
             Log.Logger = new LoggerConfiguration()
 #if DEBUG
                 .MinimumLevel.Debug()

@@ -8,6 +8,7 @@ namespace Admin.Blazor.Server.Host
     public class AdminBrandingProvider : DefaultBrandingProvider
     {
         public override string AppName => "后台管理系统|Server";
+        public override string LogoUrl { get=>""; }
     }
     public abstract class AdminComponentBase : AbpComponentBase
     {

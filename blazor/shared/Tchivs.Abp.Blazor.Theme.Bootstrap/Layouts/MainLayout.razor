@@ -19,13 +19,14 @@
             TabItemTextDictionary="@TabItemTextDictionary"
             AdditionalAssemblies="@RouterOptions.Value.AdditionalAssemblies" class="@Theme">
         <Header>
-            <Navbar></Navbar>
-            <div class="layout-drawer" @onclick="@(e => IsOpen = !IsOpen)"><i class="fa fa-gears"></i></div>
+            <HeaderComponent  DrawerSwitch="@(e => IsOpen = !IsOpen)"></HeaderComponent>
         </Header>
         <Side>
             <div class="layout-banner">
-                <img class="layout-logo" src="/images/brand.png" />
-                <div class="layout-title"><span>后台管理</span></div>
+                <img class="layout-logo" src="/images/brand.png"/>
+                <div class="layout-title">
+                    <span>后台管理</span>
+                </div>
             </div>
             <div class="layout-user">
                 @*<img class="layout-avatar" src="_content/BootstrapBlazorApp.Shared/images/Argo-C.png">*@
@@ -147,9 +148,9 @@
             </div>
         </div>
     </Drawer>
-    <Toast />
-    <Dialog />
-    <PopoverConfirm />
-    <Message />
-    <SweetAlert />
+    <Toast/>
+    <Dialog/>
+    <PopoverConfirm/>
+    <Message/>
+    <SweetAlert/>
 </CascadingValue>

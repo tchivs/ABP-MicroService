@@ -252,5 +252,6 @@ paket-files/
 *.sln.iml
 
 # Basic
-[Ll]ogs/*
+[Ll]ogs/
+[Ll]ogs.txt
 MSBuild_Logs/
