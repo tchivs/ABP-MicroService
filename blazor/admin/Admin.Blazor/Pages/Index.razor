@@ -3,13 +3,13 @@
 @using global::Basic.Localization
 @inject IStringLocalizer<BasicResource> L
 @inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
-
 @{
 }
 <h1>Admin</h1>
 <p>@L["SamplePageMessage"]</p>
 @if (this.CurrentUser.IsAuthenticated)
 {
+    <span>username:</span>
     <p>@this.CurrentUser.UserName</p>
 }
 else

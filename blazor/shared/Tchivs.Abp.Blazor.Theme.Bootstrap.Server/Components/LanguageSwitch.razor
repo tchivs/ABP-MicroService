@@ -4,76 +4,53 @@
 @using Microsoft.AspNetCore.RequestLocalization
 @inject ILanguageProvider LanguageProvider
 @inject NavigationManager NavigationManager
-@inject IAbpRequestLocalizationOptionsProvider RequestLocalizationOptionsProvider
-@if (languages != null && languages.Any())
+@if (languages.Any())
 {
-    <li class="nav-item">
-        @*<label>@_currentLanguage.DisplayName</label>*@
-        <Select Items="@SelectedItems" Value="@_currentUiCultureName" OnSelectedItemChanged="@SetCulture">
-        </Select>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            @_currentLanguage.DisplayName
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            @foreach (var lan in this.languages)
+            {
+                <li>
+                    @if (lan == this._currentLanguage)
+                    {
+                        <a id="@lan.UiCultureName" class="dropdown-item active" @onclick="() => this.ChangeLanguage(lan)" href="#">@lan.DisplayName</a>
+                    }
+                    else
+                    {
+                        <a id="@lan.UiCultureName" class="dropdown-item" @onclick="() => this.ChangeLanguage(lan)" href="#">@lan.DisplayName</a>
+                    }
+                </li>
+            }
+
+        </ul>
     </li>
 }
+
 @code {
-    public List<SelectedItem> SelectedItems { get; set; }
-    public string _currentUiCultureName { get; set; }
     private IReadOnlyList<LanguageInfo> languages;
     private LanguageInfo _currentLanguage;
-    string _last;
+
     protected override async Task OnInitializedAsync()
     {
         languages = await LanguageProvider.GetLanguagesAsync();
-        var currentLanguage = languages.FindByCulture(
+        _currentLanguage = languages.FindByCulture(
             CultureInfo.CurrentCulture.Name,
             CultureInfo.CurrentUICulture.Name
             );
-        _last = currentLanguage.UiCultureName;
-        if (currentLanguage == null)
-        {
-            var localizationOptions = await RequestLocalizationOptionsProvider.GetLocalizationOptionsAsync();
-            if (localizationOptions.DefaultRequestCulture != null)
-            {
-                currentLanguage = new LanguageInfo(
-                    localizationOptions.DefaultRequestCulture.Culture.Name,
-                    localizationOptions.DefaultRequestCulture.UICulture.Name,
-                    localizationOptions.DefaultRequestCulture.UICulture.DisplayName);
-            }
-            else
-            {
-                currentLanguage = new LanguageInfo(
-                    CultureInfo.CurrentCulture.Name,
-                    CultureInfo.CurrentUICulture.Name,
-                    CultureInfo.CurrentUICulture.DisplayName);
-            }
-        }
-        _currentLanguage = currentLanguage;
-        _currentUiCultureName = _currentLanguage.UiCultureName;
-        SelectedItems = new List<SelectedItem>();
-        foreach (var item in languages)
-        {
-            SelectedItems.Add(new SelectedItem()
-                {
-                    Text = item.DisplayName,
-                    Value = item.UiCultureName
-                });
-        }
-        // _otherLanguages = languages.Where(l => l != _currentLanguage).ToImmutableList();
-    }
-    private Task SetCulture(SelectedItem item)
-    {
-        if (_last != item.Value)
-        {
-            var language = this.languages.First(x => x.UiCultureName == item.Value);
-            this.ChangeLanguage(language);
-        }
 
-        return Task.CompletedTask;
+    // _otherLanguages = languages.Where(l => l != _currentLanguage).ToImmutableList();
     }
+
     private void ChangeLanguage(LanguageInfo language)
     {
         var relativeUrl = NavigationManager.Uri.RemovePreFix(NavigationManager.BaseUri).EnsureStartsWith('/');
         NavigationManager.NavigateTo(
             $"/Abp/Languages/Switch?culture={language.CultureName}&uiCulture={language.UiCultureName}&returnUrl={relativeUrl}",
             forceLoad: true
-        );
+            );
     }
+
 }

@@ -217,11 +217,10 @@ namespace AuthServer
                 scopes: adminScope,
                 new[] { "hybrid" },
                 commonSecret,
-                permissions: new[] { IdentityPermissions.Users.Default, "ProductManagement.Product" },
                 redirectUri: $"{blazorServerRootUrl}/signin-oidc",
                 postLogoutRedirectUri: $"{blazorServerRootUrl}/signout-callback-oidc",
                 frontChannelLogoutUri: $"{blazorServerRootUrl}/Account/FrontChannelLogout",
-                 corsOrigins: new[] { blazorServerRootUrl }
+                 corsOrigins: new[] { blazorServerRootUrl.RemovePostFix("/") }
             );
         }
 

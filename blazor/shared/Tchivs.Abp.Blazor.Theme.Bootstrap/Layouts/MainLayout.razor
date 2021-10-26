@@ -19,13 +19,13 @@
             TabItemTextDictionary="@TabItemTextDictionary"
             AdditionalAssemblies="@RouterOptions.Value.AdditionalAssemblies" class="@Theme">
         <Header>
-            <HeaderComponent  DrawerSwitch="@(e => IsOpen = !IsOpen)"></HeaderComponent>
+            <HeaderComponent DrawerSwitch="@(e => IsOpen = !IsOpen)"></HeaderComponent>
         </Header>
         <Side>
             <div class="layout-banner">
-                <img class="layout-logo" src="/images/brand.png"/>
+                <img class="layout-logo" src="@BrandingProvider.LogoUrl"/>
                 <div class="layout-title">
-                    <span>后台管理</span>
+                    <span>@BrandingProvider.AppName</span>
                 </div>
             </div>
             <div class="layout-user">
@@ -43,7 +43,7 @@
         </Main>
         <Footer>
             <div class="text-center flex-fill">
-                <a class="page-layout-demo-footer-link" href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank">Admin后台管理</a>
+                <a class="page-layout-demo-footer-link" href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank">@this.BrandingProvider.AppName</a>
             </div>
         </Footer>
     </Layout>

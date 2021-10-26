@@ -1,38 +1,62 @@
 ﻿@using Volo.Abp.Ui.Branding
 @inject IBrandingProvider _brandingProvider
+@inject IToolbarManager _toolbarManager
 @inherits BootstrapComponent
 <div class="container-fluid">
-    <div class="layout-header-right flex-row">
-        @* <span class="mx-3 d-none d-sm-block">@CurrentUser.UserName</span> *@
-        <ul class="nav" id="toolbar">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Active</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
-            <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-        </ul>
-        <div class="layout-drawer" @onclick="DrawerSwitch">
-            <i class="fa fa-gears"></i>
-        </div>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">@_brandingProvider.AppName</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav navbar-nav-left">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#">Action</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Another action</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
 
+                    @foreach (var render in ToolbarItemRenders)
+                    {
+                        @render
+                    }
+                    <li class="nav-item">
+                        <div class="layout-drawer" @onclick="DrawerSwitch">
+                            <i class="fa fa-gears"></i>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+    </nav>
 
 </div>
 
@@ -40,5 +64,24 @@
 
     [Parameter]
     public EventCallback DrawerSwitch { get; set; }
+
+    private List<RenderFragment> ToolbarItemRenders { get; set; } = new List<RenderFragment>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var toolbar = await this._toolbarManager.GetAsync(StandardToolbars.Main);
+
+        ToolbarItemRenders.Clear();
+
+        var sequence = 0;
+        foreach (var item in toolbar.Items)
+        {
+            ToolbarItemRenders.Add(builder =>
+            {
+                builder.OpenComponent(sequence++, item.ComponentType);
+                builder.CloseComponent();
+            });
+        }
+    }
 
 }

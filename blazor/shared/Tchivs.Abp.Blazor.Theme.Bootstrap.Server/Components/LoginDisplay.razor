@@ -10,15 +10,25 @@
 <AuthorizeView>
     <Authorized>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 @CurrentUser.UserName
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-    @*            <li><a class="dropdown-item" href="#">@L["PersonalInfo"]</a></li>
-                <li><a class="dropdown-item" href="#">@L["ChangePassword"]</a></li>
-                <li><a class="dropdown-item" href="#">@L["ManageYourAccount"]</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Help</a></li>*@
+                <li>
+                    <a class="dropdown-item" href="#">@L["PersonalInfo"]</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">@L["ChangePassword"]</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">@L["ManageYourAccount"]</a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Help</a>
+                </li>
                 @if (Menu != null)
                 {
                     @foreach (var menuItem in Menu.Items)
@@ -26,7 +36,8 @@
                         <li>
                             <a class="dropdown-item" href="@menuItem.Url?.TrimStart('~')" target="@menuItem.Target">@menuItem.DisplayName</a>
                         </li>
-                    }}
+                    }
+                }
             </ul>
         </li>
     </Authorized>

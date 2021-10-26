@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
+	<Import Project="..\..\..\common.props" />
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
@@ -15,16 +15,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Volo.Abp.Autofac.WebAssembly" Version="4.4.3" />
-		<PackageReference Include="Volo.Abp.AspNetCore.Components.WebAssembly.BasicTheme" Version="4.4.3" />
+		<PackageReference Include="Volo.Abp.Autofac.WebAssembly" Version="$(AbpVersion)" />
+		<PackageReference Include="Volo.Abp.AspNetCore.Components.WebAssembly.BasicTheme" Version="$(AbpVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Volo.Abp.Identity.Application.Contracts" Version="4.4.3" />
-		<PackageReference Include="Volo.Abp.Account.Application.Contracts" Version="4.4.3" />
-		<PackageReference Include="Volo.Abp.FeatureManagement.Blazor.WebAssembly" Version="4.4.3" />
-		<PackageReference Include="Volo.Abp.Identity.Blazor.WebAssembly" Version="4.4.3" />
-		<PackageReference Include="Volo.Abp.TenantManagement.Blazor.WebAssembly" Version="4.4.3" />
-		<PackageReference Include="Volo.Abp.SettingManagement.Blazor.WebAssembly" Version="4.4.3" />
+		<PackageReference Include="Volo.Abp.Identity.Application.Contracts" Version="$(AbpVersion)" />
+		<PackageReference Include="Volo.Abp.Account.Application.Contracts" Version="$(AbpVersion)" />
+		<PackageReference Include="Volo.Abp.FeatureManagement.Blazor.WebAssembly" Version="$(AbpVersion)" />
+		<PackageReference Include="Volo.Abp.Identity.Blazor.WebAssembly" Version="$(AbpVersion)" />
+		<PackageReference Include="Volo.Abp.TenantManagement.Blazor.WebAssembly" Version="$(AbpVersion)" />
+		<PackageReference Include="Volo.Abp.SettingManagement.Blazor.WebAssembly" Version="$(AbpVersion)" />
 	</ItemGroup>
 </Project>

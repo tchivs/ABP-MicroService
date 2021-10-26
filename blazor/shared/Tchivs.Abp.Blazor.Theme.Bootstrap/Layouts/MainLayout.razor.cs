@@ -28,8 +28,8 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Layouts
         private List<MenuItem> Menus { get; set; }
 
         private Dictionary<string, string> TabItemTextDictionary { get; set; }
-        [Inject]
-        public IMenuManager MenuManager { get; set; }
+        [Inject] public IMenuManager MenuManager { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -45,7 +45,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Layouts
             {
                 //[""] = "Index"
             };
-            var ms = await MenuManager.GetAsync(StandardMenus.Main);
+            var ms = await MenuManager.GetMainMenuAsync();
             Menus = GetIconSideMenuItems(ms.Items);
         }
 
@@ -62,10 +62,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Layouts
                     Url = item.Url,
                 };
                 menus.Add(menu);
-                if (menu.Items != null)
-                {
-                    menu.Items = GetIconSideMenuItems(item.Items);
-                }
+                menu.Items = GetIconSideMenuItems(item.Items);
             }
 
             //{
@@ -83,7 +80,6 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Layouts
         {
             NavigationManager.LocationChanged += OnLocationChanged;
         }
-
 
 
         public void Dispose()

@@ -14,7 +14,6 @@ using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Authentication.OAuth;
 using Volo.Abp.AspNetCore.Authentication.OpenIdConnect;
-
 using Volo.Abp.AspNetCore.Mvc.Client;
 using Volo.Abp.AspNetCore.Mvc.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI;
@@ -31,7 +30,6 @@ using Volo.Abp.AutoMapper;
 using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.FeatureManagement;
-using Volo.Abp.Http.Client.IdentityModel.Web;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -55,29 +53,28 @@ namespace Admin.Blazor.Server.Host
         typeof(AbpAspNetCoreAuthenticationOAuthModule),
         typeof(AbpCachingStackExchangeRedisModule),
         typeof(AbpAspNetCoreAuthenticationOpenIdConnectModule),
-        typeof(AbpHttpClientIdentityModelWebModule),
+        typeof(Volo.Abp.Http.Client.IdentityModel.Web.AbpHttpClientIdentityModelWebModule),
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
         typeof(AbpAspNetCoreSerilogModule),
         typeof(AbpIdentityHttpApiClientModule),
         typeof(AbpFeatureManagementHttpApiClientModule), typeof(BasicHttpApiClientModule),
         typeof(AbpTenantManagementHttpApiClientModule),
         typeof(AbpPermissionManagementHttpApiClientModule),
-     typeof(AdminBlazorModule),
+        typeof(AdminBlazorModule),
         typeof(Tchivs.Abp.Blazor.Theme.Bootstrap.Server.TchivsAbpBlazorThemeBootstrapServerModule)
-
     )]
     public class AdminBlazorServerHostModule : AbpModule
     {
-        //public override void PreConfigureServices(ServiceConfigurationContext context)
-        //{
-        //    context.Services.PreConfigure<AbpMvcDataAnnotationsLocalizationOptions>(options =>
-        //    {
-        //        options.AddAssemblyResource(
-        //             typeof(BasicResource),
-        //            typeof(AdminBlazorServerHostModule).Assembly
-        //        );
-        //    });
-        //}
+        public override void PreConfigureServices(ServiceConfigurationContext context)
+        {
+            context.Services.PreConfigure<AbpMvcDataAnnotationsLocalizationOptions>(options =>
+            {
+                options.AddAssemblyResource(
+                    typeof(BasicResource),
+                    typeof(AdminBlazorServerHostModule).Assembly
+                );
+            });
+        }
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
@@ -109,10 +106,7 @@ namespace Admin.Blazor.Server.Host
 
         private void ConfigureCache()
         {
-            Configure<AbpDistributedCacheOptions>(options =>
-            {
-                options.KeyPrefix = "Admin:";
-            });
+            Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Admin:"; });
         }
 
         private void ConfigureBundles()
@@ -122,10 +116,7 @@ namespace Admin.Blazor.Server.Host
                 // MVC UI
                 options.StyleBundles.Configure(
                     BasicThemeBundles.Styles.Global,
-                    bundle =>
-                    {
-                        bundle.AddFiles("/global-styles.css");
-                    }
+                    bundle => { bundle.AddFiles("/global-styles.css"); }
                 );
 
                 //BLAZOR UI
@@ -156,10 +147,7 @@ namespace Admin.Blazor.Server.Host
                     options.DefaultScheme = "Cookies";
                     options.DefaultChallengeScheme = "oidc";
                 })
-                .AddCookie("Cookies", options =>
-                {
-                    options.ExpireTimeSpan = TimeSpan.FromDays(365);
-                })
+                .AddCookie("Cookies", options => { options.ExpireTimeSpan = TimeSpan.FromDays(365); })
                 .AddAbpOpenIdConnect("oidc", options =>
                 {
                     options.Authority = configuration["AuthServer:Authority"];
@@ -187,8 +175,11 @@ namespace Admin.Blazor.Server.Host
                 Configure<AbpVirtualFileSystemOptions>(options =>
                 {
                     //  options.FileSets.ReplaceEmbeddedByPhysical<AdminDomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Abp.Admin.Domain.Shared"));
-                    options.FileSets.ReplaceEmbeddedByPhysical<Admin.Blazor.AdminBlazorModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Admin.Blazor"));
-                    options.FileSets.ReplaceEmbeddedByPhysical<AdminBlazorServerHostModule>(hostingEnvironment.ContentRootPath);
+                    options.FileSets.ReplaceEmbeddedByPhysical<Admin.Blazor.AdminBlazorModule>(
+                        Path.Combine(hostingEnvironment.ContentRootPath,
+                            $"..{Path.DirectorySeparatorChar}Admin.Blazor"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<AdminBlazorServerHostModule>(hostingEnvironment
+                        .ContentRootPath);
                 });
             }
         }
@@ -213,15 +204,12 @@ namespace Admin.Blazor.Server.Host
 
         private void ConfigureMenu(IConfiguration configuration)
         {
-            Configure<AbpNavigationOptions>(options =>
-            {
-                //  options.MenuContributors.Add(new AdminMenuContributor(configuration));
-            });
+            // Configure<AbpNavigationOptions>(options =>
+            // {
+            //       options.MenuContributors.Add(new AdminMenuContributor(configuration));
+            // });
 
-            Configure<AbpToolbarOptions>(options =>
-            {
-                options.Contributors.Add(new AdminToolbarContributor());
-            });
+            Configure<AbpToolbarOptions>(options => { options.Contributors.Add(new AdminToolbarContributor()); });
         }
 
         private void ConfigureRouter(ServiceConfigurationContext context)
@@ -234,10 +222,7 @@ namespace Admin.Blazor.Server.Host
 
         private void ConfigureAutoMapper()
         {
-            Configure<AbpAutoMapperOptions>(options =>
-            {
-                options.AddMaps<AdminBlazorServerHostModule>();
-            });
+            Configure<AbpAutoMapperOptions>(options => { options.AddMaps<AdminBlazorServerHostModule>(); });
         }
 
         private void ConfigureSwaggerServices(IServiceCollection services)
@@ -245,7 +230,7 @@ namespace Admin.Blazor.Server.Host
             services.AddAbpSwaggerGen(
                 options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Admin API", Version = "v1" });
+                    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Admin API", Version = "v1"});
                     options.DocInclusionPredicate((docName, description) => true);
                     options.CustomSchemaIds(type => type.FullName);
                 }
@@ -295,10 +280,7 @@ namespace Admin.Blazor.Server.Host
 
             app.UseAuthorization();
             app.UseSwagger();
-            app.UseAbpSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Admin API");
-            });
+            app.UseAbpSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "Admin API"); });
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
         }

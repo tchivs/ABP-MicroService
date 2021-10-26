@@ -6,21 +6,33 @@
     min-height: 100%;
     height: 100%;
 }
-body {
-    margin: 0!important;
+
+.layout.is-page .layout-header {
+    height: auto;
 }
+
+body {
+    margin: 0 !important;
+}
+
 html, body, #app {
     height: 100%;
     padding: 0;
 }
-.layout-header-right{
-    float:right;
-    display: flex;
-    align-items: center;
+
+.layout.is-page .layout-side .layout-banner {
+    height: 56px;
 }
-#toolbar .nav-link{
-    color:white;
+
+.navbar-nav-left {
+    margin-left: 0;
+    margin-right: auto;
 }
+
+#toolbar .nav-link {
+    color: white;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -32,6 +44,7 @@ html, body, #app {
     width: 100%;
     z-index: 1080;
 }
+
 #blazor-error-ui .dismiss {
     cursor: pointer;
     position: absolute;
@@ -73,7 +86,7 @@ html, body, #app {
 }
 
 .layout-drawer {
-    padding: 13px;
+    padding: 8px;
     margin-right: -1rem;
     cursor: pointer;
 }

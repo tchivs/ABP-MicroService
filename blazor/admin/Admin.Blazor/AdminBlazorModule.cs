@@ -10,6 +10,7 @@ using Volo.Abp.Account;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Localization.ExceptionHandling;
 using Tchivs.Abp.Blazor.Routing;
+using Volo.Abp.UI.Navigation;
 
 namespace Admin.Blazor
 {
@@ -31,24 +32,19 @@ namespace Admin.Blazor
         {
             //var hostingEnvironment = context.Services.GetHostingEnvironment();
             var configuration = context.Services.GetConfiguration();
-
             context.Services.AddAutoMapperObjectMapper<AdminBlazorModule>();
-
+            Configure<AbpNavigationOptions>(options =>
+            {
+                options.MenuContributors.Add(new AdminMenuContributor(configuration));
+            });
             Configure<AbpAutoMapperOptions>(options =>
             {
                 options.AddProfile<AdminBlazorAutoMapperProfile>(validate: true);
             });
-
-            Configure<Volo.Abp.UI.Navigation.AbpNavigationOptions>(options =>
-            {
-                options.MenuContributors.Add(new AdminMenuContributor(configuration));
-            });
-
             Configure<AbpRouterOptions>(options =>
             {
                 options.AdditionalAssemblies.Add(typeof(AdminBlazorModule).Assembly);
             });
-           
         }
     }
 }
