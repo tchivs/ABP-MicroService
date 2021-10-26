@@ -1,0 +1,21 @@
+﻿@typeparam TAppService
+@typeparam TItem
+@typeparam TKey
+@typeparam TGetListInput
+@typeparam TCreateInput
+@typeparam TUpdateInput
+@inherits BootstrapComponent
+<Table TItem=TItem  PageItemsSource="@PageItemsSource"
+                          AutoGenerateColumns="@AutoGenerateColumns"
+                          IsPagination="true"
+                          IsStriped="true"
+                          IsBordered="true"
+                          IsMultipleSelect="true"
+                          ShowToolbar="true"
+                          ShowExtendButtons="true"
+                          ShowSkeleton="true"
+                          ShowLoading="true"
+                          ShowSearch="true"
+                          ShowDefaultButtons="false"
+                             OnQueryAsync="@OnQueryAsync"
+                          ></Table>

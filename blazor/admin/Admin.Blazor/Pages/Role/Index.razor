@@ -1,6 +1,33 @@
 ﻿@page "/system/role"
-<h3>role</h3>
+@using Volo.Abp.Identity
+@using Volo.Abp.Identity.Localization
+@attribute [Authorize(IdentityPermissions.Roles.Default)]
+@inject AbpBlazorMessageLocalizerHelper<IdentityResource> LH
+@inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent
+<Card>
+    <CardHeader>
+        @L["Roles"]
+    </CardHeader>
+    <CardBody>
+        <TableEx
+            TItem=IdentityRoleDto
+            TAppService=IIdentityRoleAppService
+            TKey=Guid TGetListInput=GetIdentityRolesInput
+            TCreateInput=IdentityRoleCreateDto
+            TUpdateInput=IdentityRoleUpdateDto
+            AutoGenerateColumns="true"
+            CreatePolicyName="@IdentityPermissions.Roles.Create"
+            UpdatePolicyName="@IdentityPermissions.Roles.Update"
+            DeletePolicyName="@IdentityPermissions.Roles.Delete">
+        </TableEx>
+    </CardBody>
+</Card>
 
 @code {
-    
+
+    public Index()
+    {
+        LocalizationResource = typeof(IdentityResource);
+    }
+
 }

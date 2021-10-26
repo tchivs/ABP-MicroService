@@ -100,7 +100,7 @@ namespace AuthServer
             await CreateApiResourceAsync("BasicService", commonApiUserClaims);
             await CreateApiResourceAsync("InternalGateway", commonApiUserClaims);
             await CreateApiResourceAsync("BackendAdminAppGateway", commonApiUserClaims);
-             await CreateApiResourceAsync("PublicWebSiteGateway", commonApiUserClaims);
+            await CreateApiResourceAsync("PublicWebSiteGateway", commonApiUserClaims);
         }
 
         private async Task<ApiResource> CreateApiResourceAsync(string name, IEnumerable<string> claims)
@@ -143,13 +143,13 @@ namespace AuthServer
                 "address"
             };
             var adminScope = commonScopes.Union(new[]
-                {
+            {
                 "BackendAdminAppGateway",
                 "IdentityService",
                 "TenantService",
                 "LaborService",
                 "BasicService"
-                }).ToArray();
+            }).ToArray();
 
             //await CreateClientAsync(
             //    "console-client-demo",
@@ -185,42 +185,41 @@ namespace AuthServer
             //    commonSecret,
             //    permissions: new[] { IdentityPermissions.UserLookup.Default }
             //);
-
             // Swagger Client
             var swaggerRootUrl = "https://localhost:3005";
             await CreateClientAsync(
                 name: "Gateway_Swagger",
                 scopes: adminScope,
-                grantTypes: new[] { "authorization_code" },
+                grantTypes: new[] {"authorization_code"},
                 secret: commonSecret,
                 requireClientSecret: false,
                 redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
-                corsOrigins: new[] { swaggerRootUrl.RemovePostFix("/") }
+                corsOrigins: new[] {swaggerRootUrl.RemovePostFix("/")}
             );
             // Blazor WebAssembly Client
             var blazorAdminRootUrl = "https://localhost:3010";
             await CreateClientAsync(
-                    name: "backend-admin-app-blazor-webAssembly-client",
-                    scopes: adminScope,
-                    grantTypes: new[] { "authorization_code" },
-                    secret: commonSecret,
-                    requireClientSecret: false,
-                    redirectUri: $"{blazorAdminRootUrl}/authentication/login-callback",
-                    postLogoutRedirectUri: $"{blazorAdminRootUrl}/authentication/logout-callback",
-                    corsOrigins: new[] { blazorAdminRootUrl }
-                );
+                name: "backend-admin-app-blazor-webAssembly-client",
+                scopes: adminScope,
+                grantTypes: new[] {"authorization_code"},
+                secret: commonSecret,
+                requireClientSecret: false,
+                redirectUri: $"{blazorAdminRootUrl}/authentication/login-callback",
+                postLogoutRedirectUri: $"{blazorAdminRootUrl}/authentication/logout-callback",
+                corsOrigins: new[] {blazorAdminRootUrl}
+            );
 
             //Blazor Server Tiered Client
             var blazorServerRootUrl = "https://localhost:3009";
             await CreateClientAsync(
                 name: "backend-admin-app-blazor-server-client",
                 scopes: adminScope,
-                new[] { "hybrid" },
+                new[] {"hybrid"},
                 commonSecret,
                 redirectUri: $"{blazorServerRootUrl}/signin-oidc",
                 postLogoutRedirectUri: $"{blazorServerRootUrl}/signout-callback-oidc",
                 frontChannelLogoutUri: $"{blazorServerRootUrl}/Account/FrontChannelLogout",
-                 corsOrigins: new[] { blazorServerRootUrl.RemovePostFix("/") }
+                corsOrigins: new[] {blazorServerRootUrl.RemovePostFix("/")}
             );
         }
 
@@ -234,8 +233,7 @@ namespace AuthServer
             bool requireClientSecret = true,
             string frontChannelLogoutUri = null,
             IEnumerable<string> permissions = null,
-
-        IEnumerable<string> corsOrigins = null)
+            IEnumerable<string> corsOrigins = null)
         {
             var client = await _clientRepository.FindByClientIdAsync(name);
             if (client == null)
@@ -309,6 +307,7 @@ namespace AuthServer
                     permissions
                 );
             }
+
             if (corsOrigins != null)
             {
                 foreach (var origin in corsOrigins)
@@ -319,6 +318,7 @@ namespace AuthServer
                     }
                 }
             }
+
             return await _clientRepository.UpdateAsync(client);
         }
     }
