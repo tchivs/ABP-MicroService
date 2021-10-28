@@ -14,6 +14,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            
             Configure<AbpRouterOptions>(options =>
             {
                 options.AdditionalAssemblies.Add(typeof(TchivsAbpBlazorThemeBootstrapModule).Assembly);

@@ -2,36 +2,40 @@
 @using Volo.Abp.Users
 @using Microsoft.Extensions.Options
 @using Tchivs.Abp.Blazor.Routing
-@using Localization.Resources.AbpUi
 @using Microsoft.AspNetCore.Components
 @using Microsoft.Extensions.Localization
 @inherits LayoutComponentBase
-@inject ICurrentUser User
-@inject IOptions<AbpRouterOptions> RouterOptions
-@inject IBrandingProvider BrandingProvider
+@inject ICurrentUser _user
+@inject IOptions<AbpRouterOptions> _routerOptions
+@inject IBrandingProvider _brandingProvider
 <CascadingValue Value="this" IsFixed="true">
-    <Layout SideWidth="0" IsPage="true" ShowGotoTop="true" ShowCollapseBar="true"
-            IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader"
+    <Layout SideWidth="0"
+            IsPage="true"
+            ShowGotoTop="true"
+            ShowCollapseBar="true"
+            IsFullSide="@IsFullSide"
+            IsFixedHeader="@IsFixedHeader"
             IsFixedFooter="@IsFixedFooter"
             ShowFooter="@ShowFooter"
             Menus="@Menus"
             UseTabSet="@UseTabSet"
             TabItemTextDictionary="@TabItemTextDictionary"
-            AdditionalAssemblies="@RouterOptions.Value.AdditionalAssemblies" class="@Theme">
+            AdditionalAssemblies="@_routerOptions.Value.AdditionalAssemblies"
+            class="@Theme">
         <Header>
             <HeaderComponent DrawerSwitch="@(e => IsOpen = !IsOpen)"></HeaderComponent>
         </Header>
         <Side>
             <div class="layout-banner">
-                <img class="layout-logo" src="@BrandingProvider.LogoUrl"/>
+                <img class="layout-logo" src="@_brandingProvider.LogoUrl"/>
                 <div class="layout-title">
-                    <span>@BrandingProvider.AppName</span>
+                    <span>@_brandingProvider.AppName</span>
                 </div>
             </div>
             <div class="layout-user">
                 @*<img class="layout-avatar" src="_content/BootstrapBlazorApp.Shared/images/Argo-C.png">*@
                 <div class="layout-title">
-                    <span>@User.Name</span>
+                    <span>@_user.Name</span>
                 </div>
                 <div class="layout-user-state"></div>
             </div>
@@ -43,7 +47,7 @@
         </Main>
         <Footer>
             <div class="text-center flex-fill">
-                <a class="page-layout-demo-footer-link" href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank">@this.BrandingProvider.AppName</a>
+                <a class="page-layout-demo-footer-link" href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank">@this._brandingProvider.AppName</a>
             </div>
         </Footer>
     </Layout>

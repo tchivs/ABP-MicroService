@@ -87,7 +87,6 @@ namespace Admin.Blazor
                 AdminMenus.IdentityMenuNames.Users,
                 identityResource["Users"],
                 url: "/system/user").RequirePermissions(Volo.Abp.Identity.IdentityPermissions.Users.Default));
-
             var abpTenantManagementResource = context.GetLocalizer<AbpTenantManagementResource>();
             var tenantManagementMenuItem = new ApplicationMenuItem(
                 AdminMenus.TenantManagementMenuNames.GroupName,

@@ -1,36 +1,37 @@
-﻿using Volo.Abp.Modularity;
+﻿
+using Volo.Abp.Modularity;
 using Volo.Abp.Localization;
-using Basic.Localization;
+using Tchivs.Abp.Blazor.Localization;
 using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Validation;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 
-namespace Basic
+namespace Tchivs.Abp.Blazor
 {
     [DependsOn(
         typeof(AbpValidationModule)
     )]
-    public class BasicDomainSharedModule : AbpModule
+    public class TchivsAbpBlazorSharedModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
-                options.FileSets.AddEmbedded<BasicDomainSharedModule>();
+                options.FileSets.AddEmbedded<TchivsAbpBlazorSharedModule>();
             });
 
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources
-                    .Add<BasicResource>("zh-Hans")
+                    .Add<BlazorResource>("zh-Hans")
                     .AddBaseTypes(typeof(AbpValidationResource))
                     .AddVirtualJson("/Localization/Basic");
             });
 
             Configure<AbpExceptionLocalizationOptions>(options =>
             {
-                options.MapCodeNamespace("Basic", typeof(BasicResource));
+                options.MapCodeNamespace("Basic", typeof(BlazorResource));
             });
         }
     }

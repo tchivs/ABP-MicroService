@@ -52,7 +52,6 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Layouts
         private static List<MenuItem> GetIconSideMenuItems(ApplicationMenuItemList items)
         {
             var menus = new List<MenuItem>();
-
             foreach (var item in items)
             {
                 var menu = new MenuItem()
@@ -61,10 +60,14 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Layouts
                     Icon = item.Icon,
                     Url = item.Url,
                 };
+                if (menu.Url == "/")
+                {
+                    menu.Match = NavLinkMatch.All;
+                }
+
                 menus.Add(menu);
                 menu.Items = GetIconSideMenuItems(item.Items);
             }
-
             //{
             //    new MenuItem() { Text = "返回组件库", Icon = "fa fa-fw fa-home", Url = "https://www.blazor.zone/components" },
             //    new MenuItem() { Text = "仪表盘", Icon = "fa fa-fw fa-fa", Url = "/admin" , Match = NavLinkMatch.All},

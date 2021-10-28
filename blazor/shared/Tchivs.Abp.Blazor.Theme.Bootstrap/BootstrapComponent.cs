@@ -1,7 +1,10 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using BootstrapBlazor.Components;
+using Localization.Resources;
 using Localization.Resources.AbpUi;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Volo.Abp.AspNetCore.Components;
 using Volo.Abp.AspNetCore.Components.Messages;
@@ -12,8 +15,16 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
     public abstract class BootstrapComponent : AbpComponentBase
 
     {
+        [Inject][NotNull]
+        protected DialogService? DialogService { get; set; }
+
+        [Inject] 
+        public   IStringLocalizer<AbpUiResource>? Localizer { get; set; }
+        [Inject]
+        protected ToastService? Toast { get; set; }
         protected BootstrapComponent()
         {
+            LocalizationResource = typeof( Tchivs.Abp.Blazor.Localization.BlazorResource);
         }
     }
 

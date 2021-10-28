@@ -2,6 +2,7 @@
   "culture": "zh-Hans",
   "texts": {
     "MyAccount": "我的账户",
-    "SamplePageMessage": "Basic模块的示例页面"
+    "SamplePageMessage": "Basic模块的示例页面",
+    "Menu:Home": "首页","LockoutEnabled": "登录尝试失败后锁定帐户"
   }
 }
