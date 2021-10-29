@@ -1,0 +1,12 @@
+﻿@using System.Xml.Linq
+@inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent
+<Tree ShowCheckbox="true" Items="Items">
+
+</Tree>
+<div class="modal-footer table-modal-footer">
+    <button type="button" class="btn btn-secondary" @onclick="@(e => OnClose?.Invoke())">
+        <i class="fa fa-times"></i>
+        <span>@L["Close"]</span>
+    </button>
+    <Button Color="Color.Primary" ButtonType="ButtonType.Submit" @onclick="(e => Save())" Icon="fa fa-save" Text="保存"/>
+</div>

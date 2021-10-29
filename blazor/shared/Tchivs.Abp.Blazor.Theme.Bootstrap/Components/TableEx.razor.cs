@@ -5,6 +5,7 @@ using BootstrapBlazor.Components;
 using Localization.Resources.AbpUi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using Volo.Abp.Application.Dtos;
@@ -13,8 +14,12 @@ using Console = System.Console;
 
 namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
 {
+    public interface ITable<TKey>
+    {
+        TKey Id { get; set; }
+    }
     public partial class TableEx<TAppService, TItem, TKey, TGetListInput, TCreateInput,
-        TUpdateInput> : BootstrapComponent where TAppService : ICrudAppService<TItem, TKey, TGetListInput, TCreateInput,
+        TUpdateInput> : BootstrapComponent, ITable<TKey> where TAppService : ICrudAppService<TItem, TKey, TGetListInput, TCreateInput,
             TUpdateInput>
         where TItem : class, IEntityDto<TKey>, new()
         where TCreateInput : class, new()
@@ -22,6 +27,8 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
         where TGetListInput : new()
     {
         #region properties
+
+        [Parameter] public string? AddModalTitle { get; set; }
 
         /// <summary>
         /// 获得/设置 表格 Toolbar 按钮模板
@@ -103,16 +110,17 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
         private async Task EditAsync(TItem item)
         {
             TUpdateInput editInput = ObjectMapper.Map<TItem, TUpdateInput>(item);
-            var id = item.Id;
+            this.Id = item.Id;
+           
             await this.DialogService.ShowEditDialog(new EditDialogOption<TUpdateInput>()
             {
                 IsScrolling = table.ScrollingDialogContent,
                 ShowLoading = true,
                 Title = table.AddModalTitle,
                 DialogBodyTemplate = this.EditTemplate,
-                Model = editInput,Size = this.EditSize,
+                Model = editInput, Size = this.EditSize,
                 RowType = table.EditDialogRowType,
-                ItemsPerRow = table.EditDialogItemsPerRow,
+                ItemsPerRow = table.EditDialogItemsPerRow, 
                 LabelAlign = table.EditDialogLabelAlign,
                 OnCloseAsync = async () => { },
                 OnSaveAsync = async context =>
@@ -121,7 +129,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
                     var valid = false;
                     try
                     {
-                        await this.AppService.UpdateAsync(id,(TUpdateInput) context.Model);
+                        await this.AppService.UpdateAsync(Id, (TUpdateInput) context.Model);
                         valid = true;
                     }
                     catch (Exception e)
@@ -132,18 +140,20 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
                     finally
                     {
                         await table.ToggleLoading(false);
-                      //  table.SelectedRows?.Clear();
+                        //  table.SelectedRows?.Clear();
                     }
-
+            
                     if (valid)
                     {
                         await InvokeAsync(table.QueryAsync);
                     }
-
+            
                     return valid;
                 }
             });
         }
+
+        public TKey Id { get; set; }
 
         public async Task AddAsync()
         {
@@ -161,9 +171,9 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
             {
                 IsScrolling = table.ScrollingDialogContent,
                 ShowLoading = true,
-                Title = table.AddModalTitle,
+                Title = AddModalTitle ?? table.AddModalTitle,
                 DialogBodyTemplate = this.AddTemplate,
-                Model = createInput,Size = this.AddSize,
+                Model = createInput, Size = this.AddSize,
                 RowType = table.EditDialogRowType,
                 ItemsPerRow = table.EditDialogItemsPerRow,
                 LabelAlign = table.EditDialogLabelAlign,

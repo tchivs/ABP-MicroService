@@ -1,7 +1,9 @@
 ﻿@page "/system/user"
 @using Volo.Abp.Identity.Localization
 @using Volo.Abp.Identity
-@inject AbpBlazorMessageLocalizerHelper<IdentityResource> LH
+@using Admin.Blazor.Components
+@using Basic.Localization
+@using Microsoft.Extensions.Localization
 @inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent
 @attribute [Authorize(IdentityPermissions.Users.Default)]
 <Card>
@@ -9,25 +11,75 @@
         @L["Users"]
     </CardHeader>
     <CardBody>
-        <TableEx
-            TItem=IdentityUserDto
-            TAppService=IIdentityUserAppService
-            TKey=Guid TGetListInput=GetIdentityUsersInput
-            TCreateInput=IdentityUserCreateDto
-            TUpdateInput=IdentityUserUpdateDto
-            AutoGenerateColumns="true"
-            CreatePolicyName="@IdentityPermissions.Users.Create"
-            UpdatePolicyName="@IdentityPermissions.Users.Update"
-            DeletePolicyName="@IdentityPermissions.Users.Delete">
+        <TableEx @ref="table"
+                 TItem=IdentityUserDto
+                 TAppService=IIdentityUserAppService
+                 TKey=Guid TGetListInput=GetIdentityUsersInput
+                 TCreateInput=IdentityUserCreateDto
+                 TUpdateInput=IdentityUserUpdateDto
+                 AutoGenerateColumns="false"
+                 CreatePolicyName="@IdentityPermissions.Users.Create"
+                 UpdatePolicyName="@IdentityPermissions.Users.Update"
+                 DeletePolicyName="@IdentityPermissions.Users.Delete">
+            <AddTemplate>
+                <AddModal Context="@context"></AddModal>
+            </AddTemplate>
+            <EditTemplate>
+                <EditModal Id="@table.Id" Context="@context"></EditModal>
+            </EditTemplate>
+            <TableColumns>
+                <TableColumn @bind-Field="@context.UserName" Text="@L["UserName"]"/>
+                <TableColumn @bind-Field="@context.Email" Text="@L["Email"]"/>
+                <TableColumn @bind-Field="@context.PhoneNumber" Text="@L["PhoneNumber"]"/>
+                <TableColumn @bind-Field="@context.CreationTime" Text="@L["CreationTime"]" FormatString="yyyy-MM-dd"/>
+            </TableColumns>
+            <RowButtonTemplate>
+                @if (this.HasManagePermissionsPermission)
+                {
+                    <Button Size="Size.ExtraSmall" OnClick="@ClickPermissionCallback(context)" Color="Color.Secondary" Icon="fa fa-shield" Text="@L["Permissions"]"/>
+                }
+            </RowButtonTemplate>
         </TableEx>
     </CardBody>
 </Card>
 
 @code {
+    protected bool HasManagePermissionsPermission { get; set; }
 
     public Index()
     {
         LocalizationResource = typeof(IdentityResource);
+    }
+
+    [Inject]
+    public IStringLocalizer<BasicResource>? Localizer { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        HasManagePermissionsPermission =
+            await AuthorizationService.IsGrantedAsync(IdentityPermissions.Users.ManagePermissions);
+    }
+
+    private ITable<Guid> table;
+
+    EventCallback<MouseEventArgs> ClickPermissionCallback(IdentityUserDto item) =>
+        EventCallback.Factory.Create<MouseEventArgs>(this, () => ShowPermission(item));
+
+    private async Task ShowPermission(IdentityUserDto context)
+    {
+        var op = new DialogOption()
+        {
+            Size = Size.Small,
+            ShowFooter = false,
+            Title = $"{L["Users"]}{L["Permissions"]} - {context.UserName}",
+        };
+        op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<PermissionModal>(new KeyValuePair<string, object>[]
+        {
+            new(nameof(PermissionModal.ProviderName), "U"),
+            new(nameof(PermissionModal.ProviderKey), context.Id.ToString()),
+            new(nameof(PermissionModal.OnClose), new Action(async () => await op.Dialog.Close()))
+        }).Render();
+        await DialogService.Show(op);
     }
 
 }

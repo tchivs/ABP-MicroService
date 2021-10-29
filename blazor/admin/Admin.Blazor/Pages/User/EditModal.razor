@@ -1,6 +1,7 @@
 ﻿@using Volo.Abp.Identity.Localization
 @using Microsoft.Extensions.Localization
 @using Microsoft.AspNetCore.Components
+@using Volo.Abp.Identity
 @inject IStringLocalizer<IdentityResource> LH
 @inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent
 <div class="row g-3 form-inline">
@@ -29,3 +30,35 @@
         </Checkbox>
     </div>
 </div>
+
+@code{
+
+    [Parameter]
+    public Guid Id { get; set; }
+
+    [Parameter]
+    public IdentityUserUpdateDto Context { get; set; }
+
+    [Inject]
+    private IIdentityUserAppService AppService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Roles = new List<SelectedItem>();
+        var result = await this.AppService.GetAssignableRolesAsync();
+        foreach (var item in result.Items)
+        {
+            Roles.Add(new SelectedItem(item.Name, item.Name));
+        }
+    }
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var roles = await AppService.GetRolesAsync(this.Id);
+        this.Context.RoleNames = roles.Items.Select(x => x.Name).ToArray();
+    }
+
+    public List<SelectedItem> Roles { get; set; }
+
+}

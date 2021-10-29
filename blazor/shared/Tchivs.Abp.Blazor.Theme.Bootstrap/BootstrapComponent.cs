@@ -64,9 +64,12 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
             throw new NotImplementedException();
         }
 
-        public Task Error(string message, string title = null, Action<UiMessageOptions> options = null)
+        public async Task Error(string message, string title = null, Action<UiMessageOptions> options = null)
         {
-            throw new NotImplementedException();
+            await  _messageService.Show(new MessageOption()
+            { 
+                Content = message, Color = Color.Danger,
+            });
         }
 
         public Task<bool> Confirm(string message, string title = null, Action<UiMessageOptions> options = null)
