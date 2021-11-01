@@ -43,6 +43,7 @@ namespace BackendAdminAppGateway
        typeof(AbpIdentityHttpApiModule),
        typeof(AbpIdentityHttpApiClientModule),
        typeof(Basic.BasicHttpApiModule),
+        typeof(SystemManagement.SystemManagementHttpApiModule),
        typeof(AbpEntityFrameworkCoreSqlServerModule),
        typeof(AbpPermissionManagementEntityFrameworkCoreModule),
        typeof(AbpPermissionManagementApplicationModule),
@@ -121,6 +122,7 @@ namespace BackendAdminAppGateway
                     {"IdentityService", "IdentityService API"},
                     {"TenantService", "TenantService API"},
                     {"BasicService", "BasicService API"},
+                    {"SystemService","SystemService API" },
                     {"BackendAdminAppGateway", "BackendAdminAppGateway API"},
 
                 },

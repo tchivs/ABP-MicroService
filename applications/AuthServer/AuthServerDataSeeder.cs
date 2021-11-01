@@ -58,6 +58,7 @@ namespace AuthServer
             await CreateApiScopeAsync("IdentityService");
             await CreateApiScopeAsync("TenantService");
             await CreateApiScopeAsync("BasicService");
+            await CreateApiScopeAsync("SystemService");
             await CreateApiScopeAsync("LaborService");
             await CreateApiScopeAsync("InternalGateway");
             await CreateApiScopeAsync("BackendAdminAppGateway");
@@ -93,10 +94,10 @@ namespace AuthServer
                 "phone_number_verified",
                 "role"
             };
-
             await CreateApiResourceAsync("IdentityService", commonApiUserClaims);
             await CreateApiResourceAsync("TenantService", commonApiUserClaims);
             await CreateApiResourceAsync("LaborService", commonApiUserClaims);
+            await CreateApiResourceAsync("SystemService", commonApiUserClaims);
             await CreateApiResourceAsync("BasicService", commonApiUserClaims);
             await CreateApiResourceAsync("InternalGateway", commonApiUserClaims);
             await CreateApiResourceAsync("BackendAdminAppGateway", commonApiUserClaims);
@@ -148,7 +149,8 @@ namespace AuthServer
                 "IdentityService",
                 "TenantService",
                 "LaborService",
-                "BasicService"
+                "BasicService",
+                "SystemService"
             }).ToArray();
 
             //await CreateClientAsync(

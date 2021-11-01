@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="..\..\common.props" />
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<IsPackable>true</IsPackable>
+		<OutputType>Library</OutputType>
+		<Nullable>enable</Nullable>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Volo.Abp.AspNetCore.Components.Web" Version="$(AbpVersion)" />
+		<PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)" />
+		<PackageReference Include="Volo.Abp.UI.Navigation" Version="$(AbpVersion)" />
+		<PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)" />
+	</ItemGroup>
+
+	<ItemGroup>
+<!--	  <ProjectReference Include="..\..\modules\Basic\src\Basic.Domain.Shared\Basic.Domain.Shared.csproj" />-->
+	  <ProjectReference Include="..\Tchivs.Abp.Blazor.Shared\Tchivs.Abp.Blazor.Shared.csproj" />
+	</ItemGroup>
+</Project>

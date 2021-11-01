@@ -33,6 +33,7 @@ namespace InternalGateway
        typeof(AbpPermissionManagementEntityFrameworkCoreModule),
        typeof(AbpSettingManagementEntityFrameworkCoreModule),
        typeof(AbpTenantManagementHttpApiModule),
+        typeof(SystemManagement.SystemManagementHttpApiModule),
        typeof(AbpAspNetCoreMultiTenancyModule)
        )]
     internal class InternalGatewayModule:AbpModule

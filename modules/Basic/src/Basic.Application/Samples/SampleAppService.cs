@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Basic.Permissions;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Basic.Samples
@@ -15,7 +16,7 @@ namespace Basic.Samples
             );
         }
 
-        [Authorize]
+        [Authorize(BasicPermissions.GroupName)]
         public Task<SampleDto> GetAuthorizedAsync()
         {
             return Task.FromResult(

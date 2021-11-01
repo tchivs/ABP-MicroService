@@ -9,6 +9,7 @@ namespace Basic.Permissions
         public override void Define(IPermissionDefinitionContext context)
         {
             var myGroup = context.AddGroup(BasicPermissions.GroupName, L("Permission:Basic"));
+            myGroup.AddPermission("jkl", L("xxdf"));
         }
 
         private static LocalizableString L(string name)
