@@ -7,6 +7,25 @@
 
         //Add your menu items here...
         //public const string Home = Prefix + ".MyNewMenuItem";
+    public static class IdentityServer
+    {
+        public const string Default = "IdentityServer";
+        public const string Clients = Default + ".Clients";
 
+    }
+    public class IdentityMenuNames
+    {
+        public const string GroupName = "AbpIdentity";
+
+        public const string Roles = GroupName + ".Roles";
+        public const string Users = GroupName + ".Users";
+    }
+
+    public class TenantManagementMenuNames
+    {
+        public const string GroupName = "TenantManagement";
+
+        public const string Tenants = GroupName + ".Tenants";
+    }
     }
 }

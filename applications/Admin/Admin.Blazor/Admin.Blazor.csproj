@@ -20,6 +20,9 @@
 	  <ProjectReference Include="..\..\..\modules\SystemManagement\src\SystemManagement.Blazor\SystemManagement.Blazor.csproj" />
 	  <ProjectReference Include="..\..\..\shared\Tchivs.Abp.Blazor.Theme.Bootstrap\Tchivs.Abp.Blazor.Theme.Bootstrap.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Pages\IdentityServer\Client\Index.razor" />
+	</ItemGroup>
 
 
 </Project>

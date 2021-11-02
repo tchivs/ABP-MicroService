@@ -2,7 +2,23 @@
   "culture": "zh-Hans",
   "texts": {
     "MyAccount": "我的账户",
+    "Menu:Home": "首页",
+    "ExecutionTime": "执行时间",
+    "client": "客户端",
+    
+    "SamplePageMessage": "SystemManagement模块的示例页面",
+    "Permission:SystemManagement": "系统管理",
     "Permission:AuditLogManagement": "审计日志",
-    "SamplePageMessage": "SystemManagement模块的示例页面"
+    "Permission:IdentityServerManagement": "IdentityServer",
+    "Permission:IdentityServerManagement:Client": "客户端",
+    "Permission:IdentityServerManagement:ApiResource": "API资源",
+    "Permission:IdentityServerManagement:IdentityResources": "Identity资源",
+    "Permission:IdentityServerManagement:ApiScope": "ApiScope",
+    "Permission:Create": "新增",
+    "Permission:Update": "编辑",
+    "Permission:Export": "导出",
+    "Permission:Enable": "启用|禁用",
+    "Permission:Import": "导入",
+    "Permission:Delete": "删除"
   }
 }

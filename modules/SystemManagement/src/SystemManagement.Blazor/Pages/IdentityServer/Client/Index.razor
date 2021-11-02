@@ -1,0 +1,9 @@
+﻿@page "/identityServer/client"
+@using global::SystemManagement.Permissions
+@inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent
+@attribute [Authorize(SystemManagementPermissions.IdentityServer.Client.Default)]
+<h3>client</h3>
+
+@code {
+    
+}

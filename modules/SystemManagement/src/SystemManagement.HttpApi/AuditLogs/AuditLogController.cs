@@ -10,7 +10,6 @@ using Volo.Abp.Auditing;
 namespace SystemManagement.AuditLogs
 {
 
-    [DisableAuditing]
     [Route("api/system/auditLog")]
     public class AuditLogController : SystemManagementController,IAuditLogAppService
     {
@@ -20,9 +19,10 @@ namespace SystemManagement.AuditLogs
         {
             _auditLogAppService = auditLogAppService;
         }
+        [DisableAuditing] 
         [HttpGet()]
         [SwaggerOperation(summary: "分页获取审计日志信息", Tags = new[] { "AuditLogs" })]
-        public Task<PagedResultDto<GetAuditLogPageListOutput>> GetListAsync(PagingAuditLogListInput input)
+        public virtual Task<PagedResultDto<GetAuditLogPageListOutput>> GetListAsync(PagingAuditLogListInput input)
         {
             return _auditLogAppService.GetListAsync(input);
         }

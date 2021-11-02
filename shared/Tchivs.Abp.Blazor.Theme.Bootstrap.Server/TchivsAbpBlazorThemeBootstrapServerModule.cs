@@ -50,6 +50,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Server
         public override void ConfigureBundle(BundleConfigurationContext context)
         {
             context.Files.AddIfNotContains("/_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");
+            context.Files.AddIfNotContains("/_content/BootstrapBlazor/css/motronic.min.css");
             context.Files.AddIfNotContains("/_content/Tchivs.Abp.Blazor.Theme.Bootstrap/css/site.css");
         }
     }

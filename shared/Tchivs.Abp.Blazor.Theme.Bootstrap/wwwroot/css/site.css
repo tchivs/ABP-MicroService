@@ -20,6 +20,14 @@ html, body, #app {
     padding: 0;
 }
 
+.menu .nav-link {
+    /* color: #3f4254; */
+    color: inherit;
+}
+.layout.is-page .layout-side {
+    background-color: #001428;
+    /*color: #c2c7d0;*/
+}
 .layout.is-page .layout-side .layout-banner {
     height: 56px;
 }

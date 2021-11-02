@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using SystemManagement.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Auditing;
 using Volo.Abp.AuditLogging;
 
 namespace SystemManagement.AuditLogs
-{
-
+{    
     public class AuditLogAppService : SystemManagementAppService, IAuditLogAppService
     {
         private readonly IAuditLogRepository _auditLogRepository;
@@ -23,7 +23,7 @@ namespace SystemManagement.AuditLogs
         /// <param name="input"></param>
         /// <returns></returns>
          [Authorize(Policy = SystemManagement.Permissions.SystemManagementPermissions.AuditLog)]
-        public async Task<PagedResultDto<GetAuditLogPageListOutput>> GetListAsync(PagingAuditLogListInput input)
+       public async Task<PagedResultDto<GetAuditLogPageListOutput>> GetListAsync(PagingAuditLogListInput input)
         {
             var list = await _auditLogRepository.GetListAsync(
                 input.Sorting,

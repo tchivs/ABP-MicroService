@@ -74,33 +74,35 @@ namespace Admin.Blazor
                     order: 0
                 )
             );
-            var administrationMenu = context.Menu.GetAdministration();
-            var identityResource = context.GetLocalizer<IdentityResource>();
-            var identityMenuItem = new ApplicationMenuItem(AdminMenus.IdentityMenuNames.GroupName,
-                identityResource["Menu:IdentityManagement"],
-                icon: "far fa-id-card");
-            administrationMenu.AddItem(identityMenuItem);
-            identityMenuItem.AddItem(new ApplicationMenuItem(
-                AdminMenus.IdentityMenuNames.Roles,
-                identityResource["Roles"], icon: "fa fa-lock",
-                url: "/system/role").RequirePermissions(Volo.Abp.Identity.IdentityPermissions.Roles.Default));
-            identityMenuItem.AddItem(new ApplicationMenuItem(
-                AdminMenus.IdentityMenuNames.Users,
-                identityResource["Users"], icon: "fa fa-user",
-                url: "/system/user").RequirePermissions(Volo.Abp.Identity.IdentityPermissions.Users.Default));
-
-            var abpTenantManagementResource = context.GetLocalizer<AbpTenantManagementResource>();
-            var tenantManagementMenuItem = new ApplicationMenuItem(
-                AdminMenus.TenantManagementMenuNames.GroupName,
-                abpTenantManagementResource["Menu:TenantManagement"],
-                icon: "fa fa-users"
-            );
-            administrationMenu.AddItem(tenantManagementMenuItem);
-            tenantManagementMenuItem.AddItem(new ApplicationMenuItem(
-                AdminMenus.TenantManagementMenuNames.Tenants,
-                abpTenantManagementResource["Tenants"],
-                url: "/tenants"
-            ).RequirePermissions(TenantManagementPermissions.Tenants.Default));
+            // var administrationMenu = context.Menu.GetAdministration();
+            // context.Menu.GetMenuItem(AdminMenus.IdentityMenuNames.GroupName);
+            // var identityResource = context.GetLocalizer<IdentityResource>();
+            // var identityMenuItem = new ApplicationMenuItem(AdminMenus.IdentityMenuNames.GroupName,
+            //     identityResource["Menu:IdentityManagement"],
+            //     icon: "far fa-id-card");
+            // administrationMenu.AddItem(identityMenuItem);
+            //
+            // identityMenuItem.AddItem(new ApplicationMenuItem(
+            //     AdminMenus.IdentityMenuNames.Roles,
+            //     identityResource["Roles"], icon: "fa fa-lock",
+            //     url: "/system/role").RequirePermissions(Volo.Abp.Identity.IdentityPermissions.Roles.Default));
+            // identityMenuItem.AddItem(new ApplicationMenuItem(
+            //     AdminMenus.IdentityMenuNames.Users,
+            //     identityResource["Users"], icon: "fa fa-user",
+            //     url: "/system/user").RequirePermissions(Volo.Abp.Identity.IdentityPermissions.Users.Default));
+            //
+            // var abpTenantManagementResource = context.GetLocalizer<AbpTenantManagementResource>();
+            // var tenantManagementMenuItem = new ApplicationMenuItem(
+            //     AdminMenus.TenantManagementMenuNames.GroupName,
+            //     abpTenantManagementResource["Menu:TenantManagement"],
+            //     icon: "fa fa-users"
+            // );
+            // administrationMenu.AddItem(tenantManagementMenuItem);
+            // tenantManagementMenuItem.AddItem(new ApplicationMenuItem(
+            //     AdminMenus.TenantManagementMenuNames.Tenants,
+            //     abpTenantManagementResource["Tenants"],
+            //     url: "/tenants"
+            // ).RequirePermissions(TenantManagementPermissions.Tenants.Default));
             //var adminResource = context.GetLocalizer<AdminResource>();
             //var auditLogMenuItem = new ApplicationMenuItem(
             //    AdminMenus.AuditLogs,
