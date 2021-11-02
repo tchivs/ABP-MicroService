@@ -44,6 +44,7 @@ using Basic;
 using Basic.Localization;
 using Tchivs.Abp.Blazor.Routing;
 using Volo.Abp.Http.Client.IdentityModel.Web;
+using SystemManagement.Blazor.Server;
 
 namespace Admin.Blazor.Server.Host
 {
@@ -62,7 +63,7 @@ namespace Admin.Blazor.Server.Host
         typeof(AbpTenantManagementHttpApiClientModule),
         typeof(AbpPermissionManagementHttpApiClientModule),
         typeof(AdminBlazorModule), 
-        typeof(SystemManagement.SystemManagementHttpApiClientModule),typeof(SystemManagement.SystemManagementBlazorServerModule)
+        typeof(SystemManagement.SystemManagementHttpApiClientModule),typeof(SystemManagementBlazorServerModule)
     )]
     public class AdminBlazorServerHostModule : AbpModule
     {
