@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using SystemManagement.IdentityServer;
 using SystemManagement.IdentityServer.IdentityResources;
 using SystemManagement.IdentityServer.IdentityResources.Dtos;
+using SystemManagement.Permissions;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.IdentityServer.IdentityResources;
 
 namespace SystemManagement.IdentityServer.Mappers.IdentityResources
 {
+    [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Default)]
+
     public class IdentityResourceAppService : SystemManagementAppService, IIdentityResourceAppService
     {
         private readonly IdentityResourceManager _identityResourceManager;
@@ -48,6 +52,7 @@ namespace SystemManagement.IdentityServer.Mappers.IdentityResources
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Create)]
         public Task CreateAsync(CreateIdentityResourceInput input)
         {
             return _identityResourceManager.CreateAsync(input.Name, input.DisplayName, input.Description,
@@ -59,6 +64,7 @@ namespace SystemManagement.IdentityServer.Mappers.IdentityResources
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Update)]
         public Task UpdateAsync(UpdateIdentityResourceInput input)
         {
             return _identityResourceManager.UpdateAsync(input.Name, input.DisplayName, input.Description,
@@ -70,6 +76,7 @@ namespace SystemManagement.IdentityServer.Mappers.IdentityResources
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Delete)]
         public Task DeleteAsync(Guid id)
         {
             return _identityResourceManager.DeleteAsync(id);

@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-    <Import Project="..\..\common.props" />
+    <Import Project="..\..\..\..\common.props" />
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
@@ -20,5 +20,9 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\shared\Tchivs.Abp.Blazor.Theme.Bootstrap\Tchivs.Abp.Blazor.Theme.Bootstrap.csproj" />
         <ProjectReference Include="..\SystemManagement.Application.Contracts\SystemManagement.Application.Contracts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\SystemManagement\Index.razor" />
     </ItemGroup>
 </Project>

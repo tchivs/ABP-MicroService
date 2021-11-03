@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using SystemManagement.IdentityServer;
 using SystemManagement.IdentityServer.ApiScopes.Dtos;
+using SystemManagement.Permissions;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.IdentityServer.ApiScopes;
 
 namespace SystemManagement.IdentityServer.ApiScopes
 {
+    [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Default)]
     public class ApiScopeAppService : SystemManagementAppService, IApiScopeAppService
     {
         private readonly IdenityServerApiScopeManager _idenityServerApiScopeManager;
@@ -30,18 +33,21 @@ namespace SystemManagement.IdentityServer.ApiScopes
             return new PagedResultDto<PagingApiScopeListOutput>(totalCount,
                 ObjectMapper.Map<List<ApiScope>, List<PagingApiScopeListOutput>>(list));
         }
+        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Create)]
 
         public Task CreateAsync(CreateApiScopeInput input)
         {
             return _idenityServerApiScopeManager.CreateAsync(input.Name, input.DisplayName, input.Description,
                 input.Enabled, input.Required, input.Emphasize, input.ShowInDiscoveryDocument);
         }
+        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Update)]
 
         public Task UpdateAsync(UpdateCreateApiScopeInput input)
         {
             return _idenityServerApiScopeManager.UpdateAsync(input.Name, input.DisplayName, input.Description,
                 input.Enabled, input.Required, input.Emphasize, input.ShowInDiscoveryDocument);
         }
+        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Delete)]
 
         public Task DeleteAsync(Guid id)
         {

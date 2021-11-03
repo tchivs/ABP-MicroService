@@ -2,8 +2,101 @@
 @using global::SystemManagement.Permissions
 @inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent
 @attribute [Authorize(SystemManagementPermissions.IdentityServer.Client.Default)]
-<h3>client</h3>
+@using SystemManagement.IdentityServer.Clients
+<Table
+    TItem=PagingClientListOutput
+    AutoGenerateColumns="false"
+    IsMultipleSelect="true"
+    ShowSkeleton="true"
+    ShowLoading="true"
+    ShowSearch="true"
+    IsStriped="true"
+    IsBordered="true"
+    ShowExtendButtons="true"
+    ShowDefaultButtons="true"
+    IsPagination="true"
+    PageItemsSource="PageItemsSource" ShowToolbar="true"
+    OnSaveAsync="OnSaveAsync"
+    OnQueryAsync="OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.ClientId" Text="@L["ClientId"]"/>
+        <TableColumn @bind-Field="@context.ClientName" Text="@L["ClientName"]"/>
+        <TableColumn @bind-Field="@context.Enabled" Text="@L["Enabled"]"/>
+        <TableColumn @bind-Field="@context.AccessTokenLifetime" Text="@L["AccessTokenLifetime"]"/>
+        <TableColumn @bind-Field="@context.AbsoluteRefreshTokenLifetime" Text="@L["AbsoluteRefreshTokenLifetime"]"/>
+        <TableColumn @bind-Field="@context.Description" Text="@L["Description"]"/>
+    </TableColumns>
+    <EditTemplate>
+        <Tab>
+            <TabItem Text="@L["Basic"]">
+                <div class="row g-3 form-inline">
+                    <div class="col-12">
+                        <Switch @bind-Value="context.Enabled"></Switch>
+                    </div>
+                    <div class="col-12">
+                        <BootstrapInput @bind-Value="@context.Description" DisplayText=@L["Description"]> </BootstrapInput>
+                    </div>
+                    <div class="col-12">
+                        <MultiSelect DisplayText=@L["AllowedGrantTypes"]
+                                     Items="@AllowedGrantTypes"
+                                     @bind-Value="@context.AllowedGrantTypes">
+                        </MultiSelect>
+                    </div>
+                </div>
+            </TabItem>
+            <TabItem Text="@L["Token"]">
+
+            </TabItem>
+            <TabItem Text="@L["Secret"]">
+
+            </TabItem>
+        </Tab>
+    </EditTemplate>
+</Table>
 
 @code {
-    
+
+    [Inject]
+    public IIdentityServerClientAppService AppService { get; set; }
+
+    protected virtual IEnumerable<int> PageItemsSource => new int[] {4, 10, 20};
+
+    private async Task<QueryData<PagingClientListOutput>> OnQueryAsync(QueryPageOptions options)
+    {
+        var input = new PagingClientListInput()
+        {
+            MaxResultCount = options.PageItems,
+            SkipCount = options.PageIndex == 1 ? 0 : options.PageIndex * options.PageItems
+        };
+        var result = await AppService.GetListAsync(input);
+        return new QueryData<PagingClientListOutput>()
+        {
+            Items = result.Items, TotalCount = result.TotalCount
+        };
+    }
+
+    private async Task<bool> OnSaveAsync(PagingClientListOutput model, ItemChangedType type)
+    {
+        if (type == ItemChangedType.Add)
+        {
+            throw new NotImplementedException();
+        }
+        else
+        {
+        }
+        return true;
+    }
+
+    public IEnumerable<SelectedItem> AllowedGrantTypes
+    {
+        get => new SelectedItem[]
+        {
+            new() {Text = "AuthorizationCode", Value = "authorization_code"},
+            new() {Text = "ClientCredentials", Value = "client_credentials"},
+            new() {Text = "Hybrid", Value = "hybrid"},
+            new() {Text = "Implicit", Value = "implicit"},
+            new() {Text = "Password", Value = "password"},
+        };
+    }
+
 }

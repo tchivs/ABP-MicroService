@@ -12,7 +12,6 @@ using Volo.Abp.Application.Dtos;
 namespace SystemManagement.IdentityServer
 {
     [Route("api/system/IdentityServer/IdentityResource")]
-    [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Default)]
     public class IdentityResourceController : SystemManagementController
     {
         private readonly IIdentityResourceAppService _identityResourceAppService;
@@ -38,7 +37,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("create")]
         [SwaggerOperation(summary: "创建IdentityResource", Tags = new[] {"IdentityResource"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Create)]
         public Task CreateAsync(CreateIdentityResourceInput input)
         {
             return _identityResourceAppService.CreateAsync(input);
@@ -46,7 +44,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("update")]
         [SwaggerOperation(summary: "更新IdentityResource", Tags = new[] {"IdentityResource"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Update)]
         public Task UpdateAsync(UpdateIdentityResourceInput input)
         {
             return _identityResourceAppService.UpdateAsync(input);
@@ -54,7 +51,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("delete")]
         [SwaggerOperation(summary: "删除IdentityResource", Tags = new[] {"IdentityResource"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Delete)]
         public Task DeleteAsync(Guid input)
         {
             return _identityResourceAppService.DeleteAsync(input);

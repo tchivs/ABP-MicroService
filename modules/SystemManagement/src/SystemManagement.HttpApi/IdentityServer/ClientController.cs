@@ -9,9 +9,8 @@ using Volo.Abp.Application.Dtos;
 
 namespace SystemManagement.IdentityServer
 {
-    [Route("api/system/IdentityServer/Client")]
-    [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Default)]
-    public class ClientController : SystemManagementController
+    [Route("api/system/identityServer/client")]
+    public class ClientController : SystemManagementController,IIdentityServerClientAppService
     {
         private readonly IIdentityServerClientAppService _identityServerClientAppService;
 
@@ -36,9 +35,8 @@ namespace SystemManagement.IdentityServer
             return _identityServerClientAppService.CreateAsync(input);
         }
 
-        [HttpPost("delete")]
+         [HttpDelete()]
         [SwaggerOperation(summary: "删除client", Tags = new[] {"Client"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Delete)]
         public Task DeleteAsync(Guid input)
         {
             return _identityServerClientAppService.DeleteAsync(input);
@@ -46,7 +44,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("updateBasic")]
         [SwaggerOperation(summary: "更新基本信息", Tags = new[] {"Client"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
         public Task UpdateBasicDataAsync(UpdataBasicDataInput input)
         {
             return _identityServerClientAppService.UpdateBasicDataAsync(input);
@@ -54,7 +51,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("updateScopes")]
         [SwaggerOperation(summary: "更新client scopes", Tags = new[] {"Client"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
         public Task UpdateScopesAsync(UpdateScopeInput input)
         {
             return _identityServerClientAppService.UpdateScopesAsync(input);
@@ -62,7 +58,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("addRedirectUri")]
         [SwaggerOperation(summary: "新增回调地址", Tags = new[] {"Client"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
         public Task AddRedirectUriAsync(AddRedirectUriInput input)
         {
             return _identityServerClientAppService.AddRedirectUriAsync(input);
@@ -70,7 +65,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("removeRedirectUri")]
         [SwaggerOperation(summary: "删除回调地址", Tags = new[] {"Client"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
         public Task RemoveRedirectUriAsync(RemoveRedirectUriInput input)
         {
             return _identityServerClientAppService.RemoveRedirectUriAsync(input);
@@ -78,7 +72,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("addLogoutRedirectUri")]
         [SwaggerOperation(summary: "新增Logout回调地址", Tags = new[] {"Client"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
         public Task AddLogoutRedirectUriAsync(AddRedirectUriInput input)
         {
             return _identityServerClientAppService.AddLogoutRedirectUriAsync(input);
@@ -86,7 +79,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("removeLogoutRedirectUri")]
         [SwaggerOperation(summary: "删除Logout回调地址", Tags = new[] {"Client"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
         public Task RemoveLogoutRedirectUriAsync(RemoveRedirectUriInput input)
         {
             return _identityServerClientAppService.RemoveLogoutRedirectUriAsync(input);
@@ -94,7 +86,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("addCors")]
         [SwaggerOperation(summary: "添加cors", Tags = new[] {"Client"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
         public Task AddCorsAsync(AddCorsInput input)
         {
             return _identityServerClientAppService.AddCorsAsync(input);
@@ -102,7 +93,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("removeCors")]
         [SwaggerOperation(summary: "删除cors", Tags = new[] {"Client"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
         public Task RemoveCorsAsync(RemoveCorsInput input)
         {
             return _identityServerClientAppService.RemoveCorsAsync(input);
@@ -110,7 +100,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("enabled")]
         [SwaggerOperation(summary: "禁用client", Tags = new[] {"Client"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Enable)]
         public Task EnabledAsync(EnabledInput input)
         {
             return _identityServerClientAppService.EnabledAsync(input);

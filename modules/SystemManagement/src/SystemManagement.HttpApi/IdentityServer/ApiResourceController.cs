@@ -11,8 +11,7 @@ using Volo.Abp.Application.Dtos;
 namespace SystemManagement.IdentityServer
 {
     [Route("api/system/IdentityServer/ApiResource")]
-    [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiResource.Default)]
-    public class ApiResourceController : SystemManagementController
+    public class ApiResourceController : SystemManagementController,IApiResourceAppService
     {
         private readonly IApiResourceAppService _apiResourceAppService;
 
@@ -21,7 +20,7 @@ namespace SystemManagement.IdentityServer
             _apiResourceAppService = apiResourceAppService;
         }
 
-        [HttpPost("page")]
+        [HttpGet()]
         [SwaggerOperation(summary: "分页获取ApiResource信息", Tags = new[] {"ApiResource"})]
         public Task<PagedResultDto<ApiResourceOutput>> GetListAsync(PagingApiRseourceListInput input)
         {
@@ -29,7 +28,7 @@ namespace SystemManagement.IdentityServer
         }
 
 
-        [HttpPost("all")]
+        [HttpGet("all")]
         [SwaggerOperation(summary: "获取ApiResource信息", Tags = new[] {"ApiResource"})]
         public Task<List<ApiResourceOutput>> GetApiResources()
         {
@@ -38,25 +37,22 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("create")]
         [SwaggerOperation(summary: "新增ApiResource", Tags = new[] {"ApiResource"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiResource.Create)]
         public Task CreateAsync(CreateApiResourceInput input)
         {
             return _apiResourceAppService.CreateAsync(input);
         }
 
 
-        [HttpPost("delete")]
+        [HttpDelete]
         [SwaggerOperation(summary: "删除ApiResource", Tags = new[] {"ApiResource"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiResource.Delete)]
-        public async Task DeleteAsync(Guid input)
+         public async Task DeleteAsync(Guid input)
         {
             await _apiResourceAppService.DeleteAsync(input);
         }
 
         [HttpPost("update")]
-        [SwaggerOperation(summary: "删除ApiResource", Tags = new[] {"ApiResource"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiResource.Update)]
-        public Task UpdateAsync(UpdateApiResourceInput input)
+        [SwaggerOperation(summary: "修改ApiResource", Tags = new[] {"ApiResource"})]
+          public Task UpdateAsync(UpdateApiResourceInput input)
         {
             return _apiResourceAppService.UpdateAsync(input);
         }

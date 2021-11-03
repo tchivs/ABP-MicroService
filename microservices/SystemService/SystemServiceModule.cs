@@ -114,7 +114,7 @@ namespace SystemService
                 app.UseMultiTenancy();
             }
             app.UseAbpRequestLocalization(); //TODO: localization?
-            app.UseAuthorization();
+            // app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {

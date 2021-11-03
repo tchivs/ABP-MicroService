@@ -107,6 +107,7 @@
             new(nameof(PermissionModal.ProviderKey), context.Name.ToString()),
             new(nameof(PermissionModal.OnClose), new Action(async () => await op.Dialog.Close()))
         }).Render();
+        
         await DialogService.Show(op);
     }
 

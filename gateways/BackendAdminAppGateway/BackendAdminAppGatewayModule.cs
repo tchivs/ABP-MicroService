@@ -43,9 +43,7 @@ namespace BackendAdminAppGateway
        typeof(AbpIdentityHttpApiModule),
        typeof(AbpIdentityHttpApiClientModule),
        typeof(Basic.BasicHttpApiModule),
-       typeof(SystemManagement.SystemManagementApplicationModule),
        typeof(SystemManagement.SystemManagementHttpApiModule),
-        typeof(SystemManagement.SystemManagementHttpApiClientModule),
        typeof(AbpEntityFrameworkCoreSqlServerModule),
        typeof(AbpPermissionManagementEntityFrameworkCoreModule),
        typeof(AbpPermissionManagementApplicationModule),
@@ -106,17 +104,6 @@ namespace BackendAdminAppGateway
         }
         private static void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)
         {
-
-            //await CreateApiScopeAsync("IdentityService");
-            //await CreateApiScopeAsync("TenantManagementService");
-            //await CreateApiScopeAsync("BloggingService");
-            //await CreateApiScopeAsync("ProductService");
-            //await CreateApiScopeAsync("BasicService");
-            //await CreateApiScopeAsync("LaborService");
-            //await CreateApiScopeAsync("InternalGateway");
-            //await CreateApiScopeAsync("BackendAdminAppGateway");
-            //await CreateApiScopeAsync("PublicWebSiteGateway");
-
             context.Services.AddAbpSwaggerGenWithOAuth(
                 configuration["AuthServer:Authority"],
                 new Dictionary<string, string>
@@ -197,8 +184,6 @@ namespace BackendAdminAppGateway
             );
             app.UseOcelot()
                 .Wait();
-            // app.UseConfiguredEndpoints();
-
         }
 
     }

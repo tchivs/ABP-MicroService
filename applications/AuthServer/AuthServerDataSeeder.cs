@@ -152,7 +152,12 @@ namespace AuthServer
                 "BasicService",
                 "SystemService"
             }).ToArray();
-
+            var permissions = new[]
+                {IdentityPermissions.Users.Default, 
+                    "SystemManagement.AuditLog",
+                    "IdentityServerManagement.Client",
+                    "IdentityServerManagement.ApiResource"
+                };
             //await CreateClientAsync(
             //    "console-client-demo",
             //    new[] { "BloggingService", "IdentityService", "InternalGateway", "ProductService", "TenantManagementService", "LaborService", "BasicService" },
@@ -195,6 +200,7 @@ namespace AuthServer
                 grantTypes: new[] {"authorization_code"},
                 secret: commonSecret,
                 requireClientSecret: false,
+                permissions:permissions,
                 redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
                 corsOrigins: new[] {swaggerRootUrl.RemovePostFix("/")}
             );
@@ -218,6 +224,7 @@ namespace AuthServer
                 scopes: adminScope,
                 new[] {"hybrid"},
                 commonSecret,
+                permissions:permissions,
                 redirectUri: $"{blazorServerRootUrl}/signin-oidc",
                 postLogoutRedirectUri: $"{blazorServerRootUrl}/signout-callback-oidc",
                 frontChannelLogoutUri: $"{blazorServerRootUrl}/Account/FrontChannelLogout",

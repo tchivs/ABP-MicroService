@@ -13,8 +13,7 @@ using Volo.Abp.Application.Dtos;
 namespace SystemManagement.IdentityServer
 {
     [Route("api/system/IdentityServer/ApiScope")]
-    [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Default)]
-    public class ApiScopeController:SystemManagementController
+    public class ApiScopeController:SystemManagementController,IApiScopeAppService
     {
         private readonly IApiScopeAppService _apiScopeAppService;
 
@@ -32,7 +31,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("create")]
         [SwaggerOperation(summary: "创建ApiScope", Tags = new[] {"ApiScope"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Create)]
         public Task CreateAsync(CreateApiScopeInput input)
         {
             return _apiScopeAppService.CreateAsync(input);
@@ -40,7 +38,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("update")]
         [SwaggerOperation(summary: "更新ApiScope", Tags = new[] {"ApiScope"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Update)]
         public Task UpdateAsync(UpdateCreateApiScopeInput input)
         {
             return _apiScopeAppService.UpdateAsync(input);
@@ -48,7 +45,6 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost("delete")]
         [SwaggerOperation(summary: "删除ApiScope", Tags = new[] {"ApiScope"})]
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Delete)]
         public Task DeleteAsync(Guid id)
         {
             return _apiScopeAppService.DeleteAsync(id);

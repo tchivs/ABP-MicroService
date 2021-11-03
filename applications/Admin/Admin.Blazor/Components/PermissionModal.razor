@@ -1,8 +1,9 @@
 ﻿@using System.Xml.Linq
 @inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent
+<div style=" overflow-y: scroll;">
 <Tree ShowCheckbox="true" Items="Items">
-
 </Tree>
+</div>
 <div class="modal-footer table-modal-footer">
     <button type="button" class="btn btn-secondary" @onclick="@(e => OnClose?.Invoke())">
         <i class="fa fa-times"></i>
