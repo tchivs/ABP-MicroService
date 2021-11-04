@@ -36,7 +36,6 @@
         <PackageReference Include="Volo.Abp.TenantManagement.HttpApi.Client" Version="4.4.3" />
         <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi.Client" Version="4.4.3" />
         <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="4.4.3" />
-        <ProjectReference Include="..\..\..\modules\basic\src\Basic.HttpApi.Client\Basic.HttpApi.Client.csproj" />
         <ProjectReference Include="..\..\..\modules\SystemManagement\src\SystemManagement.Blazor.Server\SystemManagement.Blazor.Server.csproj" />
         <ProjectReference Include="..\..\..\modules\SystemManagement\src\SystemManagement.HttpApi.Client\SystemManagement.HttpApi.Client.csproj" />
         <ProjectReference Include="..\..\..\shared\Micro.Shared\Micro.Shared.csproj" />

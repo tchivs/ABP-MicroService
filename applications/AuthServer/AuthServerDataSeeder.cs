@@ -57,12 +57,10 @@ namespace AuthServer
         {
             await CreateApiScopeAsync("IdentityService");
             await CreateApiScopeAsync("TenantService");
-            await CreateApiScopeAsync("BasicService");
             await CreateApiScopeAsync("SystemService");
-            await CreateApiScopeAsync("LaborService");
+            await CreateApiScopeAsync("ProductService");
             await CreateApiScopeAsync("InternalGateway");
             await CreateApiScopeAsync("BackendAdminAppGateway");
-            await CreateApiScopeAsync("PublicWebSiteGateway");
         }
 
         private async Task<ApiScope> CreateApiScopeAsync(string name)
@@ -96,12 +94,10 @@ namespace AuthServer
             };
             await CreateApiResourceAsync("IdentityService", commonApiUserClaims);
             await CreateApiResourceAsync("TenantService", commonApiUserClaims);
-            await CreateApiResourceAsync("LaborService", commonApiUserClaims);
+            await CreateApiResourceAsync("ProductService", commonApiUserClaims);
             await CreateApiResourceAsync("SystemService", commonApiUserClaims);
-            await CreateApiResourceAsync("BasicService", commonApiUserClaims);
             await CreateApiResourceAsync("InternalGateway", commonApiUserClaims);
             await CreateApiResourceAsync("BackendAdminAppGateway", commonApiUserClaims);
-            await CreateApiResourceAsync("PublicWebSiteGateway", commonApiUserClaims);
         }
 
         private async Task<ApiResource> CreateApiResourceAsync(string name, IEnumerable<string> claims)
@@ -145,19 +141,20 @@ namespace AuthServer
             };
             var adminScope = commonScopes.Union(new[]
             {
-                "BackendAdminAppGateway",
                 "IdentityService",
                 "TenantService",
-                "LaborService",
-                "BasicService",
-                "SystemService"
+                "ProductService",
+                "SystemService",
+                "InternalGateway",
+                "BackendAdminAppGateway",
             }).ToArray();
             var permissions = new[]
-                {IdentityPermissions.Users.Default, 
-                    "SystemManagement.AuditLog",
-                    "IdentityServerManagement.Client",
-                    "IdentityServerManagement.ApiResource"
-                };
+            {
+                IdentityPermissions.Users.Default,
+                "SystemManagement.AuditLog",
+                "IdentityServerManagement.Client",
+                "IdentityServerManagement.ApiResource"
+            };
             //await CreateClientAsync(
             //    "console-client-demo",
             //    new[] { "BloggingService", "IdentityService", "InternalGateway", "ProductService", "TenantManagementService", "LaborService", "BasicService" },
@@ -176,6 +173,23 @@ namespace AuthServer
             //    postLogoutRedirectUri: "https://localhost:44354/signout-callback-oidc"
             //);
 
+            //Console Test / Angular Client
+            // var consoleAndAngularClientId = configurationSection["Admin_App:ClientId"];
+            // if (!consoleAndAngularClientId.IsNullOrWhiteSpace())
+            // {
+            //     var webClientRootUrl = configurationSection["Admin_App:RootUrl"]?.TrimEnd('/');
+            //
+            //     await CreateClientAsync(
+            //         name: consoleAndAngularClientId,
+            //         scopes: commonScopes,
+            //         grantTypes: new[] { "password", "client_credentials", "authorization_code" },
+            //         secret: (configurationSection["Admin_App:ClientSecret"] ?? "1q2w3e*").Sha256(),
+            //         requireClientSecret: false,
+            //         redirectUri: webClientRootUrl,
+            //         postLogoutRedirectUri: webClientRootUrl,
+            //         corsOrigins: new[] { webClientRootUrl.RemovePostFix("/") }
+            //     );
+            // }
             //await CreateClientAsync(
             //    "public-website-client",
             //    commonScopes.Union(new[] { "PublicWebSiteGateway", "BloggingService", "ProductService", "LaborService", "BasicService" }),
@@ -200,7 +214,7 @@ namespace AuthServer
                 grantTypes: new[] {"authorization_code"},
                 secret: commonSecret,
                 requireClientSecret: false,
-                permissions:permissions,
+                permissions: permissions,
                 redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
                 corsOrigins: new[] {swaggerRootUrl.RemovePostFix("/")}
             );
@@ -224,7 +238,7 @@ namespace AuthServer
                 scopes: adminScope,
                 new[] {"hybrid"},
                 commonSecret,
-                permissions:permissions,
+                permissions: permissions,
                 redirectUri: $"{blazorServerRootUrl}/signin-oidc",
                 postLogoutRedirectUri: $"{blazorServerRootUrl}/signout-callback-oidc",
                 frontChannelLogoutUri: $"{blazorServerRootUrl}/Account/FrontChannelLogout",

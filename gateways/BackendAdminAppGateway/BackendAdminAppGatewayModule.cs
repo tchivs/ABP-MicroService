@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using Basic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,8 +40,9 @@ namespace BackendAdminAppGateway
        typeof(AbpAutofacModule),
        typeof(AbpIdentityHttpApiModule),
        typeof(AbpIdentityHttpApiClientModule),
-       typeof(Basic.BasicHttpApiModule),
        typeof(SystemManagement.SystemManagementHttpApiModule),
+       // typeof(SystemManagement.SystemManagementHttpApiClientModule),
+       // typeof(SystemManagement.EntityFrameworkCore.SystemManagementEntityFrameworkCoreModule),
        typeof(AbpEntityFrameworkCoreSqlServerModule),
        typeof(AbpPermissionManagementEntityFrameworkCoreModule),
        typeof(AbpPermissionManagementApplicationModule),
@@ -110,13 +109,14 @@ namespace BackendAdminAppGateway
                 {
                     {"IdentityService", "IdentityService API"},
                     {"TenantService", "TenantService API"},
-                    {"BasicService", "BasicService API"},
+                    {"ProductService", "ProductService API"},
                     {"SystemService","SystemService API" },
                     {"BackendAdminAppGateway", "BackendAdminAppGateway API"},
 
                 },
                 options =>
                 {
+                    options.EnableAnnotations(); // 启用注解
                     options.SwaggerDoc("v1", new OpenApiInfo { Title = "BackendAdminApp Gateway API", Version = "v1" });
                     options.DocInclusionPredicate((docName, description) => true);
                     options.CustomSchemaIds(type => type.FullName);
@@ -168,7 +168,7 @@ namespace BackendAdminAppGateway
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "BackendAdminApp Gateway API");
                 options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
                 options.OAuthClientSecret(configuration["AuthServer:SwaggerClientSecret"]);
-                options.OAuthScopes("Basic");
+                options.OAuthScopes("BackendAdminAppGateway");
             });
 
             app.MapWhen(

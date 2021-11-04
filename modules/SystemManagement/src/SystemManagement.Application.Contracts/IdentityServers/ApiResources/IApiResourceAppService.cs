@@ -33,6 +33,6 @@ namespace SystemManagement.IdentityServer
         /// 更新 ApiResource
         /// </summary>
         /// <returns></returns>
-        Task UpdateAsync(UpdateApiResourceInput input);
+        Task UpdateAsync(Guid id,UpdateApiResourceInput input);
     }
 }

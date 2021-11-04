@@ -25,7 +25,7 @@ namespace Admin.Blazor
         typeof(AbpSettingManagementApplicationContractsModule),
         typeof(AbpTenantManagementApplicationContractsModule),
         typeof(Volo.Abp.IdentityServer.AbpIdentityServerDomainSharedModule),
-        typeof(AbpObjectExtendingModule), 
+        typeof(AbpObjectExtendingModule),
         typeof(AbpAutoMapperModule)
         )]
     public class AdminBlazorModule : AbpModule

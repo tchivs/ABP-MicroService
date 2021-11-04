@@ -29,33 +29,36 @@ using Volo.Abp.Threading;
 using Micro.Shared;
 using SystemManagement;
 using SystemManagement.EntityFrameworkCore;
+using Volo.Abp.FeatureManagement.EntityFrameworkCore;
+using Volo.Abp.Identity.EntityFrameworkCore;
+using Volo.Abp.IdentityServer.EntityFrameworkCore;
 
 namespace SystemService
 {
     [DependsOn(
-      typeof(AbpAutofacModule),
-      typeof(AbpAspNetCoreMvcModule),
-      typeof(AbpEventBusRabbitMqModule),
-      typeof(AbpEntityFrameworkCoreSqlServerModule),
-      typeof(AbpAuditLoggingEntityFrameworkCoreModule),
-      typeof(AbpPermissionManagementEntityFrameworkCoreModule),
-      typeof(AbpSettingManagementEntityFrameworkCoreModule),
-      typeof(SystemManagementApplicationModule),
-      typeof(SystemManagementHttpApiModule),
-      typeof(SystemManagementEntityFrameworkCoreModule),
-      typeof(AbpAspNetCoreMultiTenancyModule),
-      typeof(AbpTenantManagementEntityFrameworkCoreModule)
-      )]
-    internal class SystemServiceModule:AbpModule
+        typeof(AbpAutofacModule),
+        typeof(AbpAspNetCoreMvcModule),
+        typeof(AbpEventBusRabbitMqModule),
+        typeof(AbpEntityFrameworkCoreSqlServerModule),
+        typeof(SystemManagementApplicationModule),
+        typeof(SystemManagementHttpApiModule),
+        typeof(SystemManagementEntityFrameworkCoreModule),
+        typeof(AbpAspNetCoreMultiTenancyModule),
+        typeof(AbpAuditLoggingEntityFrameworkCoreModule),
+        typeof(AbpIdentityEntityFrameworkCoreModule),
+        typeof(AbpIdentityServerEntityFrameworkCoreModule),
+        typeof(AbpPermissionManagementEntityFrameworkCoreModule),
+        typeof(AbpSettingManagementEntityFrameworkCoreModule),
+        typeof(AbpTenantManagementEntityFrameworkCoreModule),
+        typeof(AbpFeatureManagementEntityFrameworkCoreModule)
+    )]
+    internal class SystemServiceModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
 
-            Configure<AbpMultiTenancyOptions>(options =>
-            {
-                options.IsEnabled = MicroConsts.IsMultiTenancyEnabled;
-            });
+            Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = MicroConsts.IsMultiTenancyEnabled; });
 
             context.Services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
@@ -67,21 +70,19 @@ namespace SystemService
 
             context.Services.AddSwaggerGen(options =>
             {
-                
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "System Service API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "System Service API", Version = "v1"});
                 options.DocInclusionPredicate((docName, description) => true);
+                options.EnableAnnotations(); // 启用注解
                 options.CustomSchemaIds(type => type.FullName);
             });
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Languages.Add(new LanguageInfo("en", "en", "English"));
                 options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
-            }); ;
-
-            Configure<AbpDbContextOptions>(options =>
-            {
-                options.UseSqlServer();
             });
+            ;
+
+            Configure<AbpDbContextOptions>(options => { options.UseSqlServer(); });
 
             context.Services.AddStackExchangeRedisCache(options =>
             {
@@ -113,13 +114,11 @@ namespace SystemService
             {
                 app.UseMultiTenancy();
             }
+
             app.UseAbpRequestLocalization(); //TODO: localization?
             // app.UseAuthorization();
             app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Basic Service API");
-            });
+            app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "System Service API"); });
             app.UseAuditing();
             app.UseConfiguredEndpoints();
             //TODO: Problem on a clustered environment

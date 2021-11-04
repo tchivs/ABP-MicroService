@@ -88,7 +88,7 @@ namespace SystemManagement.IdentityServer.Clients
 
         public List<ClientSecretOutput> ClientSecrets { get; set; }
 
-        public List<ClientGrantTypeOutput> AllowedGrantTypes { get; set; }
+        public string[] AllowedGrantTypes { get; set; }
 
         public List<ClientCorsOriginOutput> AllowedCorsOrigins { get; set; }
 

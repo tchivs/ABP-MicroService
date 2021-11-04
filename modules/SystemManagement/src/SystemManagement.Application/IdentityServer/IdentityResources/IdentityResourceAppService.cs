@@ -65,9 +65,9 @@ namespace SystemManagement.IdentityServer.Mappers.IdentityResources
         /// <param name="input"></param>
         /// <returns></returns>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Update)]
-        public Task UpdateAsync(UpdateIdentityResourceInput input)
+        public Task UpdateAsync(Guid id,UpdateIdentityResourceInput input)
         {
-            return _identityResourceManager.UpdateAsync(input.Name, input.DisplayName, input.Description,
+            return _identityResourceManager.UpdateAsync(id,input.Name, input.DisplayName, input.Description,
                 input.Enabled, input.Required, input.Emphasize, input.ShowInDiscoveryDocument);
         }
 

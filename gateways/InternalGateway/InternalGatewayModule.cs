@@ -23,29 +23,26 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
+
 namespace InternalGateway
 {
     [DependsOn(
-       typeof(AbpAutofacModule),
-       typeof(AbpIdentityHttpApiModule),
-       typeof(Basic.BasicHttpApiModule),
-         typeof(AbpEntityFrameworkCoreSqlServerModule),
-       typeof(AbpPermissionManagementEntityFrameworkCoreModule),
-       typeof(AbpSettingManagementEntityFrameworkCoreModule),
-       typeof(AbpTenantManagementHttpApiModule),
+        typeof(AbpAutofacModule),
+        typeof(AbpIdentityHttpApiModule),
+        typeof(AbpEntityFrameworkCoreSqlServerModule),
+        typeof(AbpPermissionManagementEntityFrameworkCoreModule),
+        typeof(AbpSettingManagementEntityFrameworkCoreModule),
+        typeof(AbpTenantManagementHttpApiModule),
         typeof(SystemManagement.SystemManagementHttpApiModule),
-       typeof(AbpAspNetCoreMultiTenancyModule)
-       )]
-    internal class InternalGatewayModule:AbpModule
+        typeof(AbpAspNetCoreMultiTenancyModule)
+    )]
+    internal class InternalGatewayModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
 
-            Configure<AbpMultiTenancyOptions>(options =>
-            {
-                options.IsEnabled = MicroConsts.IsMultiTenancyEnabled;
-            });
+            Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = MicroConsts.IsMultiTenancyEnabled; });
 
             context.Services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
@@ -57,17 +54,14 @@ namespace InternalGateway
 
             context.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Internal Gateway API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Internal Gateway API", Version = "v1"});
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });
 
             context.Services.AddOcelot(context.Services.GetConfiguration());
 
-            Configure<AbpDbContextOptions>(options =>
-            {
-                options.UseSqlServer();
-            });
+            Configure<AbpDbContextOptions>(options => { options.UseSqlServer(); });
 
             context.Services.AddStackExchangeRedisCache(options =>
             {
@@ -92,6 +86,7 @@ namespace InternalGateway
             {
                 app.UseMultiTenancy();
             }
+
             app.UseAbpRequestLocalization();
             app.UseSwagger();
             app.UseSwaggerUI(options =>

@@ -13,7 +13,7 @@ namespace SystemManagement.IdentityServer.ApiScopes
 
         Task CreateAsync(CreateApiScopeInput input);
 
-        Task UpdateAsync(UpdateCreateApiScopeInput input);
+        Task UpdateAsync(Guid id,UpdateCreateApiScopeInput input);
 
         Task DeleteAsync(Guid id);
 

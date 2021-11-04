@@ -28,7 +28,8 @@ namespace SystemManagement.IdentityServer
             bool includeDetails = false,
             CancellationToken cancellationToken = default)
         {
-            return _clientRepository.GetListAsync("CreationTime desc", skipCount, maxResultCount, filter, includeDetails,
+            return _clientRepository.GetListAsync("CreationTime desc", skipCount, maxResultCount, filter,
+                includeDetails,
                 cancellationToken);
         }
 
@@ -43,7 +44,8 @@ namespace SystemManagement.IdentityServer
             return _clientRepository.DeleteAsync(id, autoSave, default);
         }
 
-        public async Task<Client> CreateAsync(string clientId, string clientName, string description, string allowedGrantTypes)
+        public async Task<Client> CreateAsync(string clientId, string clientName, string description,
+            string allowedGrantTypes)
         {
             var entity = await _clientRepository.FindByClientIdAsync(clientId);
             if (null != entity) throw new UserFriendlyException(message: "当前ClientId已存在");
@@ -51,12 +53,13 @@ namespace SystemManagement.IdentityServer
             {
                 ClientName = clientName, Description = description
             };
-            entity.ClientClaimsPrefix="client_";
+            entity.ClientClaimsPrefix = "client_";
             entity.AddGrantType(allowedGrantTypes);
             return await _clientRepository.InsertAsync(entity);
         }
 
         public async Task<Client> UpdateBasicDataAsync(
+            Guid id,
             string clientId,
             string clientName,
             string description,
@@ -101,12 +104,12 @@ namespace SystemManagement.IdentityServer
             string allowGrantType
         )
         {
-            var client = await _clientRepository.FindByClientIdAsync(clientId);
+            var client = await _clientRepository.GetAsync(id);
             if (client == null)
             {
                 throw new UserFriendlyException(message: $"{clientId}不存在");
             }
-
+            client.ClientId = clientId;
             client.ClientName = clientName;
             client.Description = description;
             client.ClientUri = clientUri;
@@ -160,7 +163,6 @@ namespace SystemManagement.IdentityServer
                         client.ClientSecrets.Clear();
                         client.AddSecret(secret.ToSha256(), null, secretType, String.Empty);
                     }
-
                 }
             }
 
@@ -174,10 +176,10 @@ namespace SystemManagement.IdentityServer
         /// 更新client scopes
         /// </summary>
         /// <returns></returns>
-        public async Task<Client> UpdateScopesAsync(string clientId, List<string> scopes)
+        public async Task<Client> UpdateScopesAsync(Guid id, List<string> scopes)
         {
-            var client = await _clientRepository.FindByClientIdAsync(clientId);
-            if (client == null) throw new UserFriendlyException(message: $"{clientId}不存在");
+            var client = await _clientRepository.GetAsync(id);
+            if (client == null) throw new UserFriendlyException(message: $"{id}不存在");
             client.RemoveAllScopes();
             scopes.ForEach(item => { client.AddScope(item.Trim()); });
 
@@ -187,11 +189,11 @@ namespace SystemManagement.IdentityServer
         /// <summary>
         /// 新增回调地址
         /// </summary>
-        public async Task<Client> AddRedirectUriAsync(string clientId, string uri)
+        public async Task<Client> AddRedirectUriAsync(Guid id, string uri)
         {
             uri = uri.Trim();
-            var client = await _clientRepository.FindByClientIdAsync(clientId);
-            if (client == null) throw new UserFriendlyException(message: $"{clientId}不存在");
+            var client = await _clientRepository.GetAsync(id);
+            if (client == null) throw new UserFriendlyException(message: $"{id}不存在");
             if (client.RedirectUris.Any(e => e.RedirectUri == uri.Trim()))
             {
                 return client;
@@ -206,11 +208,11 @@ namespace SystemManagement.IdentityServer
         /// <summary>
         /// 删除回调地址
         /// </summary>
-        public async Task<Client> RemoveRedirectUriAsync(string clientId, string uri)
+        public async Task<Client> RemoveRedirectUriAsync(Guid id, string uri)
         {
             uri = uri.Trim();
-            var client = await _clientRepository.FindByClientIdAsync(clientId);
-            if (client == null) throw new UserFriendlyException(message: $"{clientId}不存在");
+            var client = await _clientRepository.GetAsync(id);
+            if (client == null) throw new UserFriendlyException(message: $"{id}不存在");
             if (client.RedirectUris.Any(e => e.RedirectUri == uri.Trim()))
             {
                 client.RemoveRedirectUri(uri);
@@ -225,11 +227,11 @@ namespace SystemManagement.IdentityServer
         /// <summary>
         /// 新增Logout回调地址
         /// </summary>
-        public async Task<Client> AddLogoutRedirectUriAsync(string clientId, string uri)
+        public async Task<Client> AddLogoutRedirectUriAsync(Guid id, string uri)
         {
             uri = uri.Trim();
-            var client = await _clientRepository.FindByClientIdAsync(clientId);
-            if (client == null) throw new UserFriendlyException(message: $"{clientId}不存在");
+            var client = await _clientRepository.GetAsync(id);
+            if (client == null) throw new UserFriendlyException(message: $"{id}不存在");
             if (client.PostLogoutRedirectUris.Any(e => e.PostLogoutRedirectUri == uri))
             {
                 return client;
@@ -242,11 +244,11 @@ namespace SystemManagement.IdentityServer
         /// <summary>
         /// 删除Logout回调地址
         /// </summary>
-        public async Task<Client> RemoveLogoutRedirectUriAsync(string clientId, string uri)
+        public async Task<Client> RemoveLogoutRedirectUriAsync(Guid id, string uri)
         {
             uri = uri.Trim();
-            var client = await _clientRepository.FindByClientIdAsync(clientId);
-            if (client == null) throw new UserFriendlyException(message: $"{clientId}不存在");
+            var client = await _clientRepository.GetAsync(id);
+            if (client == null) throw new UserFriendlyException(message: $"{id}不存在");
             if (client.PostLogoutRedirectUris.Any(e => e.PostLogoutRedirectUri == uri))
             {
                 client.RemovePostLogoutRedirectUri(uri);
@@ -259,11 +261,11 @@ namespace SystemManagement.IdentityServer
         /// <summary>
         /// 添加cors
         /// </summary>
-        public async Task<Client> AddCorsAsync(string clientId, string origin)
+        public async Task<Client> AddCorsAsync(Guid id, string origin)
         {
             origin = origin.Trim();
-            var client = await _clientRepository.FindByClientIdAsync(clientId);
-            if (client == null) throw new UserFriendlyException(message: $"{clientId}不存在");
+            var client = await _clientRepository.GetAsync(id);
+            if (client == null) throw new UserFriendlyException(message: $"{id}不存在");
             if (client.AllowedCorsOrigins.Any(e => e.Origin == origin))
             {
                 return client;
@@ -278,11 +280,11 @@ namespace SystemManagement.IdentityServer
         /// <summary>
         /// 删除cors
         /// </summary>
-        public async Task<Client> RemoveCorsAsync(string clientId, string origin)
+        public async Task<Client> RemoveCorsAsync(Guid id, string origin)
         {
             origin = origin.Trim();
-            var client = await _clientRepository.FindByClientIdAsync(clientId);
-            if (client == null) throw new UserFriendlyException(message: $"{clientId}不存在");
+            var client = await _clientRepository.GetAsync(id);
+            if (client == null) throw new UserFriendlyException(message: $"{id}不存在");
             if (client.AllowedCorsOrigins.Any(e => e.Origin == origin))
             {
                 client.RemoveCorsOrigin(origin);
@@ -292,12 +294,17 @@ namespace SystemManagement.IdentityServer
             return client;
         }
 
-        public async Task<Client> EnabledAsync(string clientId, bool enabled)
+        public async Task<Client> EnabledAsync(Guid id, bool enabled)
         {
-            var client = await _clientRepository.FindByClientIdAsync(clientId);
-            if (client == null) throw new UserFriendlyException(message: $"{clientId}不存在");
-            client.Enabled = enabled;
-            return await _clientRepository.UpdateAsync(client);
+            var client = await _clientRepository.GetAsync(id);
+            if (client == null) throw new UserFriendlyException(message: $"{id}不存在");
+            if (client.Enabled != enabled)
+            {
+                client.Enabled = enabled;
+                return await _clientRepository.UpdateAsync(client);
+            }
+
+            return client;
         }
     }
 }

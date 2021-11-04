@@ -6,12 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using SystemManagement.IdentityServer.Dtos;
 using SystemManagement.Permissions;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 
 namespace SystemManagement.IdentityServer
 {
-    [Route("api/system/IdentityServer/ApiResource")]
-    public class ApiResourceController : SystemManagementController,IApiResourceAppService
+    [Route("api/system/identity-server/api-resource")]
+    [Area("system")]
+    [ControllerName("ApiResource")]
+    [RemoteService(Name=SystemManagementRemoteServiceConsts.RemoteServiceName)]
+    public class ApiResourceController : SystemManagementController, IApiResourceAppService
     {
         private readonly IApiResourceAppService _apiResourceAppService;
 
@@ -35,7 +39,7 @@ namespace SystemManagement.IdentityServer
             return _apiResourceAppService.GetApiResources();
         }
 
-        [HttpPost("create")]
+        [HttpPost()]
         [SwaggerOperation(summary: "新增ApiResource", Tags = new[] {"ApiResource"})]
         public Task CreateAsync(CreateApiResourceInput input)
         {
@@ -43,18 +47,18 @@ namespace SystemManagement.IdentityServer
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [SwaggerOperation(summary: "删除ApiResource", Tags = new[] {"ApiResource"})]
-         public async Task DeleteAsync(Guid input)
+        public async Task DeleteAsync(Guid id)
         {
-            await _apiResourceAppService.DeleteAsync(input);
+            await _apiResourceAppService.DeleteAsync(id);
         }
 
-        [HttpPost("update")]
+        [HttpPut("{id}")]
         [SwaggerOperation(summary: "修改ApiResource", Tags = new[] {"ApiResource"})]
-          public Task UpdateAsync(UpdateApiResourceInput input)
+        public Task UpdateAsync(Guid id,UpdateApiResourceInput input)
         {
-            return _apiResourceAppService.UpdateAsync(input);
+            return _apiResourceAppService.UpdateAsync(id,input);
         }
     }
 }

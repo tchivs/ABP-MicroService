@@ -34,7 +34,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\modules\SystemManagement\src\SystemManagement.HttpApi\SystemManagement.HttpApi.csproj" />
 		<ProjectReference Include="..\..\shared\Micro.Shared\Micro.Shared.csproj" />
-		<ProjectReference Include="..\..\modules\basic\src\Basic.HttpApi\Basic.HttpApi.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Remove="Logs\**" />

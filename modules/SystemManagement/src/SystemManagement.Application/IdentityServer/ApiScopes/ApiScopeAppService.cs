@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SystemManagement.IdentityServer;
 using SystemManagement.IdentityServer.ApiScopes.Dtos;
 using SystemManagement.Permissions;
@@ -16,7 +17,9 @@ namespace SystemManagement.IdentityServer.ApiScopes
     {
         private readonly IdenityServerApiScopeManager _idenityServerApiScopeManager;
         private readonly IdentityResourceManager _identityResourceManager;
-        public ApiScopeAppService(IdenityServerApiScopeManager idenityServerApiScopeManager, IdentityResourceManager identityResourceManager)
+
+        public ApiScopeAppService(IdenityServerApiScopeManager idenityServerApiScopeManager,
+            IdentityResourceManager identityResourceManager)
         {
             _idenityServerApiScopeManager = idenityServerApiScopeManager;
             _identityResourceManager = identityResourceManager;
@@ -33,22 +36,22 @@ namespace SystemManagement.IdentityServer.ApiScopes
             return new PagedResultDto<PagingApiScopeListOutput>(totalCount,
                 ObjectMapper.Map<List<ApiScope>, List<PagingApiScopeListOutput>>(list));
         }
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Create)]
 
+        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Create)]
         public Task CreateAsync(CreateApiScopeInput input)
         {
             return _idenityServerApiScopeManager.CreateAsync(input.Name, input.DisplayName, input.Description,
                 input.Enabled, input.Required, input.Emphasize, input.ShowInDiscoveryDocument);
         }
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Update)]
 
-        public Task UpdateAsync(UpdateCreateApiScopeInput input)
+        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Update)]
+        public Task UpdateAsync(Guid id,UpdateCreateApiScopeInput input)
         {
-            return _idenityServerApiScopeManager.UpdateAsync(input.Name, input.DisplayName, input.Description,
+            return _idenityServerApiScopeManager.UpdateAsync(id, input.DisplayName, input.Description,
                 input.Enabled, input.Required, input.Emphasize, input.ShowInDiscoveryDocument);
         }
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Delete)]
 
+        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Delete)]
         public Task DeleteAsync(Guid id)
         {
             return _idenityServerApiScopeManager.DeleteAsync(id);
@@ -56,11 +59,12 @@ namespace SystemManagement.IdentityServer.ApiScopes
 
         public async Task<List<KeyValuePair<string, string>>> FindAllAsync()
         {
-            var result=new  List<KeyValuePair<string, string>>();
+            var result = new List<KeyValuePair<string, string>>();
             var apiScopes = await _idenityServerApiScopeManager.FindAllAsync();
             result.AddRange(apiScopes.Select(e => new KeyValuePair<string, string>(e.Name, e.DisplayName)).ToList());
             var identityResoure = await _identityResourceManager.GetAllAsync();
-            result.AddRange(identityResoure.Select(e => new KeyValuePair<string, string>(e.Name, e.DisplayName)).ToList());
+            result.AddRange(identityResoure.Select(e => new KeyValuePair<string, string>(e.Name, e.DisplayName))
+                .ToList());
             return result;
         }
     }

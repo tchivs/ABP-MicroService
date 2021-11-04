@@ -3,7 +3,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 using Microsoft.Extensions.Configuration;
-using SystemManagement.Samples;
+using SystemManagement.IdentityServer;
+using SystemManagement.IdentityServer.Dtos;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.IdentityModel;
 
@@ -11,12 +12,12 @@ namespace SystemManagement
 {
     public class ClientDemoService : ITransientDependency
     {
-        private readonly ISampleAppService _sampleAppService;
+        private readonly IApiResourceAppService _sampleAppService;
         private readonly IIdentityModelAuthenticationService _authenticationService;
         private readonly IConfiguration _configuration;
 
         public ClientDemoService(
-            ISampleAppService sampleAppService, 
+            IApiResourceAppService sampleAppService, 
             IIdentityModelAuthenticationService authenticationService, 
             IConfiguration configuration)
         {
@@ -41,11 +42,11 @@ namespace SystemManagement
             Console.WriteLine();
             Console.WriteLine($"***** {nameof(TestWithDynamicProxiesAsync)} *****");
 
-            var result = await _sampleAppService.GetAsync();
-            Console.WriteLine("Result: " + result.Value);
+            var result = await _sampleAppService.GetListAsync(new PagingApiRseourceListInput() {SkipCount = 0});
+            Console.WriteLine("Result: " + result.TotalCount);
 
-            result = await _sampleAppService.GetAuthorizedAsync();
-            Console.WriteLine("Result (authorized): " + result.Value);
+            // result = await _sampleAppService.GetApiResources();
+            // Console.WriteLine("Result (authorized): " + result.Value);
         }
 
         /* Shows how to use HttpClient to perform a request to the HTTP API.

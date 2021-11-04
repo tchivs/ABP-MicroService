@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using SystemManagement.IdentityServer.ApiScopes.Dtos;
 using SystemManagement.IdentityServer.Clients;
 using SystemManagement.IdentityServer.Dtos;
@@ -21,10 +22,13 @@ namespace SystemManagement.IdentityServer.Mappers
             CreateMap<ApiResourceSecret, ApiResourceSecretOutput>();
             CreateMap<ApiResourceScope, ApiResourceScopeOutput>();
 
-            CreateMap<Client, PagingClientListOutput>();
+            CreateMap<Client, PagingClientListOutput>()
+                .ForMember(x => x.AllowedGrantTypes,
+                    map => map.MapFrom(x =>
+                        x.AllowedGrantTypes.Select(t => t.GrantType).ToArray()));
             CreateMap<ClientClaim, ClientClaimOutput>();
             CreateMap<ClientCorsOrigin, ClientCorsOriginOutput>();
-            CreateMap<ClientGrantType, ClientGrantTypeOutput>();
+            //   CreateMap<ClientGrantType, ClientGrantTypeOutput>();
             CreateMap<ClientIdPRestriction, ClientIdPRestrictionOutput>();
             CreateMap<ClientPostLogoutRedirectUri, ClientPostLogoutRedirectUriOutput>();
             CreateMap<ClientProperty, ClientPropertyOutput>();

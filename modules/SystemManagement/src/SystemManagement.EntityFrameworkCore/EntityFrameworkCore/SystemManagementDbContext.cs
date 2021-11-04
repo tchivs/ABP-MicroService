@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.Identity.EntityFrameworkCore;
+using Volo.Abp.IdentityServer.EntityFrameworkCore;
+using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 
 namespace SystemManagement.EntityFrameworkCore
 {
@@ -22,6 +25,14 @@ namespace SystemManagement.EntityFrameworkCore
             base.OnModelCreating(builder);
 
             builder.ConfigureSystemManagement();
+            
+            builder.ConfigureIdentity();
+            builder.ConfigureIdentityServer();
+            builder.ConfigurePermissionManagement();
+            // builder.ConfigureAuditLogging();
+            // builder.ConfigureSettingManagement();
+            // builder.ConfigureTenantManagement();
+            // builder.ConfigureFeatureManagement();
         }
     }
 }

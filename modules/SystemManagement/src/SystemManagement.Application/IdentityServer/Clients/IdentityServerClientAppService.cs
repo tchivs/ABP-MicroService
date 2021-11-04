@@ -17,6 +17,7 @@ namespace SystemManagement.IdentityServer.Clients
        
         public IdentityServerClientAppService(IdenityServerClientManager idenityServerClientManager)
         {
+         
             _idenityServerClientManager = idenityServerClientManager;
           
         }
@@ -60,9 +61,10 @@ namespace SystemManagement.IdentityServer.Clients
         /// </summary>
         /// <returns></returns>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
-        public Task UpdateBasicDataAsync(UpdataBasicDataInput input)
+        public Task UpdateBasicDataAsync(Guid id,UpdataBasicDataInput input)
         {
             return _idenityServerClientManager.UpdateBasicDataAsync(
+                id,
                 input.ClientId,
                 input.ClientName,
                 input.Description,
@@ -113,63 +115,63 @@ namespace SystemManagement.IdentityServer.Clients
         /// </summary>
         /// <returns></returns>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
-        public Task UpdateScopesAsync(UpdateScopeInput input)
+        public Task UpdateScopesAsync(Guid id,UpdateScopeInput scopes)
         {
-            return _idenityServerClientManager.UpdateScopesAsync(input.ClientId, input.Scopes);
+            return _idenityServerClientManager.UpdateScopesAsync(id,scopes);
         }
 
         /// <summary>
         /// 新增回调地址
         /// </summary>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
-        public Task AddRedirectUriAsync(AddRedirectUriInput input)
+        public Task AddRedirectUriAsync(Guid id,string uri)
         {
-            return _idenityServerClientManager.AddRedirectUriAsync(input.ClientId, input.Uri);
+            return _idenityServerClientManager.AddRedirectUriAsync(id,uri);
         }
 
         /// <summary>
         /// 删除回调地址
         /// </summary>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
-        public Task RemoveRedirectUriAsync(RemoveRedirectUriInput input)
+        public Task RemoveRedirectUriAsync(Guid id,string uri)
         {
-            return _idenityServerClientManager.RemoveRedirectUriAsync(input.ClientId, input.Uri);
+            return _idenityServerClientManager.RemoveRedirectUriAsync(id, uri);
         }
 
         /// <summary>
         /// 新增Logout回调地址
         /// </summary>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
-        public Task AddLogoutRedirectUriAsync(AddRedirectUriInput input)
+        public Task AddLogoutRedirectUriAsync(Guid id,string uri)
         {
-            return _idenityServerClientManager.AddLogoutRedirectUriAsync(input.ClientId, input.Uri);
+            return _idenityServerClientManager.AddLogoutRedirectUriAsync(id,uri);
         }
 
         /// <summary>
         /// 删除Logout回调地址
         /// </summary>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
-        public Task RemoveLogoutRedirectUriAsync(RemoveRedirectUriInput input)
+        public Task RemoveLogoutRedirectUriAsync(Guid id,string uri)
         {
-            return _idenityServerClientManager.RemoveLogoutRedirectUriAsync(input.ClientId, input.Uri);
+            return _idenityServerClientManager.RemoveLogoutRedirectUriAsync(id,uri);
         }
 
         /// <summary>
         /// 添加cors
         /// </summary>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
-        public Task AddCorsAsync(AddCorsInput input)
+        public Task AddCorsAsync(Guid id,string origin)
         {
-            return _idenityServerClientManager.AddCorsAsync(input.ClientId, input.Origin);
+            return _idenityServerClientManager.AddCorsAsync(id, origin);
         }
 
         /// <summary>
         /// 删除cors
         /// </summary>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Update)]
-        public Task RemoveCorsAsync(RemoveCorsInput input)
+        public Task RemoveCorsAsync(Guid id,string origin)
         {
-            return _idenityServerClientManager.RemoveCorsAsync(input.ClientId, input.Origin);
+            return _idenityServerClientManager.RemoveCorsAsync(id, origin);
         }
 
         /// <summary>
@@ -178,9 +180,9 @@ namespace SystemManagement.IdentityServer.Clients
         /// <param name="input"></param>
         /// <returns></returns>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.Client.Enable)]
-        public Task EnabledAsync(EnabledInput input)
+        public Task EnabledAsync(Guid id,bool enabled)
         {
-            return _idenityServerClientManager.EnabledAsync(input.ClientId, input.Enabled);
+            return _idenityServerClientManager.EnabledAsync(id, enabled);
         }
 
    

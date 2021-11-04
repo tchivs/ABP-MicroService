@@ -8,12 +8,15 @@ using Swashbuckle.AspNetCore.Annotations;
 using SystemManagement.IdentityServer.ApiScopes;
 using SystemManagement.IdentityServer.ApiScopes.Dtos;
 using SystemManagement.Permissions;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 
 namespace SystemManagement.IdentityServer
 {
-    [Route("api/system/IdentityServer/ApiScope")]
-    public class ApiScopeController:SystemManagementController,IApiScopeAppService
+    [Route("api/system/identity-server/api-scope")]
+    [Area("system")]
+    [ControllerName("ApiScope")] 
+    [RemoteService(Name=SystemManagementRemoteServiceConsts.RemoteServiceName)] public class ApiScopeController:SystemManagementController,IApiScopeAppService
     {
         private readonly IApiScopeAppService _apiScopeAppService;
 
@@ -22,34 +25,35 @@ namespace SystemManagement.IdentityServer
             _apiScopeAppService = apiScopeAppService;
         }
 
-        [HttpPost("page")]
+        [HttpGet]
         [SwaggerOperation(summary: "分页获取ApiScope信息", Tags = new[] {"ApiScope"})]
         public Task<PagedResultDto<PagingApiScopeListOutput>> GetListAsync(PagingApiScopeListInput input)
         {
             return _apiScopeAppService.GetListAsync(input);
         }
 
-        [HttpPost("create")]
+        [HttpPost()]
         [SwaggerOperation(summary: "创建ApiScope", Tags = new[] {"ApiScope"})]
         public Task CreateAsync(CreateApiScopeInput input)
         {
             return _apiScopeAppService.CreateAsync(input);
         }
 
-        [HttpPost("update")]
+        [HttpPut("{id}")]
         [SwaggerOperation(summary: "更新ApiScope", Tags = new[] {"ApiScope"})]
-        public Task UpdateAsync(UpdateCreateApiScopeInput input)
+        public Task UpdateAsync(Guid id,UpdateCreateApiScopeInput input)
         {
-            return _apiScopeAppService.UpdateAsync(input);
+            return _apiScopeAppService.UpdateAsync(id,input);
         }
 
-        [HttpPost("delete")]
+        [HttpDelete("{id}")]
+
         [SwaggerOperation(summary: "删除ApiScope", Tags = new[] {"ApiScope"})]
         public Task DeleteAsync(Guid id)
         {
             return _apiScopeAppService.DeleteAsync(id);
         }
-        [HttpPost("all")]
+        [HttpGet("all")]
         [SwaggerOperation(summary: "获取所有ApiScope", Tags = new[] {"ApiScope"})]
         public  Task<List<KeyValuePair<string, string>>> FindAllAsync()
         {

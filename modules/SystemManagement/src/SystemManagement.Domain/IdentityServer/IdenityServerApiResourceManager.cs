@@ -93,7 +93,7 @@ namespace SystemManagement.IdentityServer
         }
 
         public async Task<ApiResource> UpdateAsync(
-            string name,
+            Guid id,
             string displayName,
             string description,
             bool enabled,
@@ -104,13 +104,13 @@ namespace SystemManagement.IdentityServer
             CancellationToken cancellationToken = default
         )
         {
-            var apiResource =
-                await _apiResourceRepository.FindByNameAsync(name.Trim(), true, cancellationToken);
+            var apiResource = await _apiResourceRepository.GetAsync(id, true, cancellationToken);
+
+            //   await _apiResourceRepository.FindByNameAsync(name.Trim(), true, cancellationToken);
             if (null == apiResource)
             {
                 throw new UserFriendlyException(message: "ApiResource不存在");
             }
-
             apiResource.DisplayName = displayName;
             apiResource.Description = description;
             apiResource.Enabled = enabled;

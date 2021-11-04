@@ -27,4 +27,9 @@ namespace SystemManagement
     {
 
     }
+
+    public static class SystemManagementRemoteServiceConsts
+    {
+        public const string RemoteServiceName = "System";
+    }
 }

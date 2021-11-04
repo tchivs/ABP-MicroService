@@ -74,10 +74,9 @@ namespace SystemManagement.IdentityServer.ApiResources
         /// </summary>
         /// <returns></returns>
         [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiResource.Update)]
-        public Task UpdateAsync(UpdateApiResourceInput input)
+        public Task UpdateAsync(Guid id,UpdateApiResourceInput input)
         {
-            return _idenityServerApiResourceManager.UpdateAsync(
-                input.Name,
+            return _idenityServerApiResourceManager.UpdateAsync(id,
                 input.DisplayName,
                 input.Description,
                 input.Enabled,

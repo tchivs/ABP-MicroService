@@ -70,6 +70,7 @@ namespace SystemManagement.IdentityServer
         }
 
         public async Task<IdentityResource> UpdateAsync(
+            Guid id,
             string name,
             string displayName,
             string description,
@@ -78,11 +79,13 @@ namespace SystemManagement.IdentityServer
             bool emphasize,
             bool showInDiscoveryDocument)
         {
-            var identityResource = await _identityResourceRepository.FindByNameAsync(name, false);
+            //  var identityResource = await _identityResourceRepository.FindByNameAsync(name, false);
+            var identityResource = await _identityResourceRepository.GetAsync(id, false);
             if (null == identityResource) throw new UserFriendlyException(message: $"{name}不存在");
             identityResource.DisplayName = displayName;
             identityResource.Description = description;
             identityResource.Enabled = enabled;
+            identityResource.Name = name;
             identityResource.Required = required;
             identityResource.Emphasize = emphasize;
             identityResource.ShowInDiscoveryDocument = showInDiscoveryDocument;

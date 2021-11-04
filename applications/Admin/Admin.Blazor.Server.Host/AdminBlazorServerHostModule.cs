@@ -40,8 +40,6 @@ using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
-using Basic;
-using Basic.Localization;
 using Tchivs.Abp.Blazor.Routing;
 using Volo.Abp.Http.Client.IdentityModel.Web;
 using SystemManagement.Blazor.Server;
@@ -59,11 +57,10 @@ namespace Admin.Blazor.Server.Host
         typeof(AbpAspNetCoreSerilogModule),
         typeof(AbpIdentityHttpApiClientModule),
         typeof(AbpFeatureManagementHttpApiClientModule), 
-        typeof(BasicHttpApiClientModule),
         typeof(AbpTenantManagementHttpApiClientModule),
         typeof(AbpPermissionManagementHttpApiClientModule),
         typeof(AdminBlazorModule), 
-        typeof(SystemManagement.SystemManagementHttpApiClientModule),typeof(SystemManagementBlazorServerModule)
+          typeof(SystemManagement.SystemManagementHttpApiClientModule),typeof(SystemManagementBlazorServerModule)
     )]
     public class AdminBlazorServerHostModule : AbpModule
     {
@@ -72,7 +69,7 @@ namespace Admin.Blazor.Server.Host
             context.Services.PreConfigure<AbpMvcDataAnnotationsLocalizationOptions>(options =>
             {
                 options.AddAssemblyResource(
-                    typeof(BasicResource),
+                    typeof(SystemManagement.Localization.SystemManagementResource),
                     typeof(AdminBlazorServerHostModule).Assembly
                 );
             });
@@ -163,9 +160,9 @@ namespace Admin.Blazor.Server.Host
                     options.Scope.Add("email");
                     options.Scope.Add("phone");
                     options.Scope.Add("BackendAdminAppGateway");
+                    options.Scope.Add("ProductService");
                     options.Scope.Add("IdentityService");
-                    options.Scope.Add("BasicService");
-                    options.Scope.Add("LaborService");
+                    options.Scope.Add("SystemService");
                     options.Scope.Add("TenantService");
                 });
         }

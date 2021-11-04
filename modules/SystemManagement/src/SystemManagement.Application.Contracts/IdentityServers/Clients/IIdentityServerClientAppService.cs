@@ -30,49 +30,49 @@ namespace SystemManagement.IdentityServer.Clients
         /// 更新基本信息
         /// </summary>
         /// <returns></returns>
-        Task UpdateBasicDataAsync(UpdataBasicDataInput input);
+        Task UpdateBasicDataAsync(Guid id,UpdataBasicDataInput input);
 
         /// <summary>
         /// 更新client scopes
         /// </summary>
         /// <returns></returns>
-        Task UpdateScopesAsync(UpdateScopeInput input);
+        Task UpdateScopesAsync(Guid id,UpdateScopeInput input);
 
         /// <summary>
         /// 新增回调地址
         /// </summary>
-        Task AddRedirectUriAsync(AddRedirectUriInput input);
+        Task AddRedirectUriAsync(Guid id,string uri);
 
         /// <summary>
         /// 删除回调地址
         /// </summary>
-        Task RemoveRedirectUriAsync(RemoveRedirectUriInput input);
+        Task RemoveRedirectUriAsync(Guid id,string uri);
 
         /// <summary>
         /// 新增Logout回调地址
         /// </summary>
-        Task AddLogoutRedirectUriAsync(AddRedirectUriInput input);
+        Task AddLogoutRedirectUriAsync(Guid id,string uri);
 
         /// <summary>
         /// 删除Logout回调地址
         /// </summary>
-        Task RemoveLogoutRedirectUriAsync(RemoveRedirectUriInput input);
+        Task RemoveLogoutRedirectUriAsync(Guid id,string uri);
 
         /// <summary>
         /// 添加cors
         /// </summary>
-        Task AddCorsAsync(AddCorsInput input);
+        Task AddCorsAsync(Guid id,string origin);
 
         /// <summary>
         /// 删除cors
         /// </summary>
-        Task RemoveCorsAsync(RemoveCorsInput input);
+        Task RemoveCorsAsync(Guid id,string origin);
 
         /// <summary>
         /// 禁用client
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task EnabledAsync(EnabledInput input);
+        Task EnabledAsync(Guid id ,bool enabled);
     }
 }

@@ -56,7 +56,7 @@ namespace SystemManagement.IdentityServer
         }
 
         public async Task<ApiScope> UpdateAsync(
-            string name,
+            Guid id,
             string displayName,
             string description,
             bool enabled,
@@ -64,8 +64,9 @@ namespace SystemManagement.IdentityServer
             bool emphasize,
             bool showInDiscoveryDocument)
         {
-            var apiScope = await _apiScopeRepository.GetByNameAsync(name, false);
-            if (null == apiScope) throw new UserFriendlyException(message: $"{name}不存在");
+            var apiScope =  await _apiScopeRepository.FindAsync(id, false);
+            //var apiScope = await _apiScopeRepository.GetByNameAsync(name, false);
+            if (null == apiScope) throw new UserFriendlyException(message: $"{id}不存在");
             apiScope.DisplayName = displayName;
             apiScope.Description = description;
             apiScope.Enabled = enabled;

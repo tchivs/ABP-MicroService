@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using SystemManagement.IdentityServer.IdentityResources.Dtos;
 using Volo.Abp.Application.Dtos;
@@ -31,7 +32,7 @@ namespace SystemManagement.IdentityServer.IdentityResources
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task UpdateAsync(UpdateIdentityResourceInput input);
+        Task UpdateAsync(Guid id,UpdateIdentityResourceInput input);
 
         /// <summary>
         /// 删除IdentityResource

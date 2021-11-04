@@ -25,6 +25,7 @@ namespace SystemManagement.EntityFrameworkCore
                 {
                     abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection);
                 });
+                
             });
         }
         
