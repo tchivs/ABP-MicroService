@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\..\..\common.props" />
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+    
+     
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\shared\Tchivs.Abp.Blazor.Theme.Bootstrap.WebAssembly\Tchivs.Abp.Blazor.Theme.Bootstrap.WebAssembly.csproj" />
+        <ProjectReference Include="..\Basic.Blazor\Basic.Blazor.csproj" />
+        <ProjectReference Include="..\Basic.HttpApi.Client\Basic.HttpApi.Client.csproj" />
+    </ItemGroup>
+
+</Project>
