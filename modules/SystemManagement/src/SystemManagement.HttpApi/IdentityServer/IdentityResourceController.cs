@@ -13,11 +13,19 @@ using Volo.Abp.Application.Dtos;
 
 namespace SystemManagement.IdentityServer
 {
+    [Route("api/system/identity-server/")]
+    [Area("system")]
+    [ControllerName("IdentityServer")]
+    [RemoteService(Name=SystemManagementRemoteServiceConsts.RemoteServiceName)]
+    public class IdentityServerController : SystemManagementController
+    {
+        
+    }
     [Route("api/system/identity-server/identity-resource")]
     [Area("system")]
     [ControllerName("IdentityResource")]
     [RemoteService(Name=SystemManagementRemoteServiceConsts.RemoteServiceName)]
-    public class IdentityResourceController : SystemManagementController
+    public class IdentityResourceController : SystemManagementController,IIdentityResourceAppService
     {
         private readonly IIdentityResourceAppService _identityResourceAppService;
 

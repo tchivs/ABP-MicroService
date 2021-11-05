@@ -45,6 +45,7 @@
 		<PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="4.4.3" />
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\..\modules\Basic\src\Basic.HttpApi\Basic.HttpApi.csproj" />
 		<ProjectReference Include="..\..\modules\SystemManagement\src\SystemManagement.HttpApi\SystemManagement.HttpApi.csproj" />
 		<ProjectReference Include="..\..\shared\Micro.Shared\Micro.Shared.csproj" />
 	</ItemGroup>

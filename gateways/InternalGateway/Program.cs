@@ -31,7 +31,7 @@ namespace InternalGateway
 #endif
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
-                .Enrich.WithProperty("Application", "BasicService")
+                .Enrich.WithProperty("Application", "InternalGateway")
                 .Enrich.FromLogContext()
                 .WriteTo.Async(c => c.File("Logs/logs.txt"))
 #if DEBUG
@@ -48,13 +48,13 @@ namespace InternalGateway
 
             try
             {
-                Log.Information("Starting BackendAdminAppGateway.");
+                Log.Information("Starting InternalGateway.");
                 CreateHostBuilder(args).Build().Run();
                 return 0;
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "BackendAdminAppGateway terminated unexpectedly!");
+                Log.Fatal(ex, "InternalGateway terminated unexpectedly!");
                 return 1;
             }
             finally

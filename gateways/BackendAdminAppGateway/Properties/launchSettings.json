@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "https://localhost:3005",
+      "applicationUrl": "https://localhost:3017",
       "sslPort": 0
     }
   },
@@ -18,7 +18,7 @@
     "BackendAdminAppGateway": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:3005",
+      "applicationUrl": "https://localhost:3017",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

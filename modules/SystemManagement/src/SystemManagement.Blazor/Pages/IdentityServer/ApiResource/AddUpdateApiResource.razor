@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Components
+@using SystemManagement.IdentityServer.ApiScopes
+@using SystemManagement.IdentityServer.ApiScopes.Dtos
+@using SystemManagement.IdentityServer.Dtos
+@inherits SystemManagementComponent
+<Tab>
+    <TabItem Text="@L["Basic"]">
+        <div class="row g-3">
+            <div class="col-12">
+                <BootstrapInput readonly="@(Context.Id != Guid.Empty)" @bind-Value="@Context.Name" DisplayText=@L["Name"]> </BootstrapInput>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Context.DisplayName" DisplayText=@L["DisplayName"]> </BootstrapInput>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Context.AllowedAccessTokenSigningAlgorithms" DisplayText=@L["AllowedAccessTokenSigningAlgorithms"]> </BootstrapInput>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Context.Description" DisplayText=@L["Description"]> </BootstrapInput>
+            </div>
+            <div class="col-12 col-sm-6">
+                <MultiSelect DisplayText=@L["Scopes"]
+                             Items="@Scopes"
+                             @bind-Value="@Context.Scopes">
+                </MultiSelect>
+            </div>
+            <div class="col-12 col-sm-6 form-inline">
+                <Switch @bind-Value="Context.ShowInDiscoveryDocument" ShowLabel="true" DisplayText=@L["ShowInDiscoveryDocument"]></Switch>
+            </div>
+            <div class="col-12 col-sm-6 form-inline">
+                <Switch @bind-Value="Context.Enabled" DisplayText=@L["Enabled"]></Switch>
+            </div>
+        </div>
+    </TabItem>
+    <TabItem Text="@L["Claims"]">
+        <Transfer Items="UserClaims" @bind-Value="@Context.UserClaims"></Transfer>
+    </TabItem>
+    <TabItem Text="@L["Secrets"]"></TabItem>
+    <TabItem Text="@L["Properties"]"></TabItem>
+</Tab>
+
+@code {
+
+    [Parameter]
+    public ApiResourceOutput Context { get; set; }
+
+    [Inject]
+    public IApiScopeAppService ScopeAppService { get; set; }
+
+    List<SelectedItem> Scopes { get; set; } = new List<SelectedItem>();
+    public List<SelectedItem> UserClaims { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var list = await ScopeAppService.GetListAsync(new PagingApiScopeListInput());
+        this.Scopes = list.Items?.Select(x => new SelectedItem()
+        {
+            Value = x.Name, Text = x.DisplayName
+        }).ToList();
+    }
+
+  
+
+}

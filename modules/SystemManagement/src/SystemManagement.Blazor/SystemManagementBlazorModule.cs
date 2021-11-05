@@ -7,6 +7,12 @@ using Volo.Abp.UI.Navigation;
 
 namespace SystemManagement.Blazor
 {
+    public abstract class SystemManagementComponent:Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent{
+        protected SystemManagementComponent()
+        {
+            this.LocalizationResource = typeof(SystemManagement.Localization.SystemManagementResource);
+        }
+    }
     [DependsOn(
         typeof(SystemManagementApplicationContractsModule),
         typeof(Tchivs.Abp.Blazor.Theme.Bootstrap.TchivsAbpBlazorThemeBootstrapModule),

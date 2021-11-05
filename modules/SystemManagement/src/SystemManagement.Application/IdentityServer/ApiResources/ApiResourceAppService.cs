@@ -55,7 +55,8 @@ namespace SystemManagement.IdentityServer.ApiResources
                 input.Enabled,
                 input.AllowedAccessTokenSigningAlgorithms,
                 input.ShowInDiscoveryDocument,
-                input.Secret
+                input.Secret,
+                input.Scopes
             );
         }
 
@@ -83,7 +84,7 @@ namespace SystemManagement.IdentityServer.ApiResources
                 input.AllowedAccessTokenSigningAlgorithms,
                 input.ShowInDiscoveryDocument,
                 input.Secret,
-                input.ApiScopes
+                input.Scopes
             );
         }
     }

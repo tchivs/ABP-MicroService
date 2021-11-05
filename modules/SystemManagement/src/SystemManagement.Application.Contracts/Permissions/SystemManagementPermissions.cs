@@ -12,9 +12,9 @@ namespace SystemManagement.Permissions
         }
         public static class IdentityServer
         {
-            public const string IdentityServerManagement = "IdentityServerManagement";
+            public const string IdentityServerManagement = GroupName+".IdentityServerManagement";
 
-
+             
             public static class Client
             {
                 public const string Default = IdentityServerManagement + ".Client";

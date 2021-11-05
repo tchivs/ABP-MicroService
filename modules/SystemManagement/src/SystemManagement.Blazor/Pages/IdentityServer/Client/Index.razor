@@ -1,6 +1,6 @@
-﻿@page "/identityServer/client"
+﻿@page "/identityServer/clients"
 @using global::SystemManagement.Permissions
-@inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent
+@inherits SystemManagementComponent
 @attribute [Authorize(SystemManagementPermissions.IdentityServer.Client.Default)]
 @using SystemManagement.IdentityServer.Clients
 <Table
@@ -15,6 +15,7 @@
     ShowExtendButtons="true"
     ShowDefaultButtons="true"
     IsPagination="true"
+    ShowLineNo="true"
     PageItemsSource="PageItemsSource" ShowToolbar="true"
     OnSaveAsync="OnSaveAsync"
     OnQueryAsync="OnQueryAsync">
@@ -31,8 +32,9 @@
             <TabItem Text="@L["Basic"]">
                 <div class="row g-3 form-inline">
                     <div class="col-12">
-                        <Switch @bind-Value="context.Enabled"></Switch>
+                        <Switch @bind-Value="context.Enabled" DisplayText=@L["Enabled"]></Switch>
                     </div>
+                 
                     <div class="col-12">
                         <BootstrapInput @bind-Value="@context.Description" DisplayText=@L["Description"]> </BootstrapInput>
                     </div>
@@ -45,10 +47,8 @@
                 </div>
             </TabItem>
             <TabItem Text="@L["Token"]">
-
             </TabItem>
             <TabItem Text="@L["Secret"]">
-
             </TabItem>
         </Tab>
     </EditTemplate>
@@ -58,6 +58,7 @@
 
     [Inject]
     public IIdentityServerClientAppService AppService { get; set; }
+ 
 
     protected virtual IEnumerable<int> PageItemsSource => new int[] {4, 10, 20};
 

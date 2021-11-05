@@ -1,0 +1,103 @@
+﻿@page "/identityServer/identityResources"
+@using global::SystemManagement.Permissions
+@using Microsoft.AspNetCore.Components
+@using SystemManagement.IdentityServer
+@inherits SystemManagementComponent
+@attribute [Authorize(SystemManagementPermissions.IdentityServer.IdentityResources.Default)]
+@using SystemManagement.IdentityServer.IdentityResources
+@using SystemManagement.IdentityServer.IdentityResources.Dtos
+@using SystemManagement.IdentityServer.Dtos
+@using Console = System.Console
+<Table
+    TItem=PagingIdentityResourceListOutput
+    AutoGenerateColumns="false"
+    IsMultipleSelect="true"
+    ShowSkeleton="true"
+    ShowLoading="true"
+    ShowSearch="true"
+    IsStriped="true"
+    IsBordered="true"
+    ShowExtendButtons="true"
+    ShowLineNo="true"
+    ShowDefaultButtons="true"
+    IsPagination="true"
+    PageItemsSource="PageItemsSource" ShowToolbar="true"
+    EditDialogRowType="RowType.Inline"
+    OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync"
+    OnQueryAsync="OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Name" IsReadonlyWhenEdit="true" Text="@L["Name"]"/>
+        <TableColumn @bind-Field="@context.DisplayName" Text="@L["DisplayName"]"/>
+        <TableColumn @bind-Field="@context.Enabled" Text="@L["Enabled"]"/>
+        <TableColumn @bind-Field="@context.Emphasize" Text="@L["Emphasize"]"/>
+        <TableColumn @bind-Field="@context.ShowInDiscoveryDocument" Text="@L["ShowInDiscoveryDocument"]"/>
+        <TableColumn @bind-Field="@context.Description" Text="@L["Description"]"/>
+    </TableColumns>
+</Table>
+
+@code {
+
+    [Inject]
+    public IIdentityResourceAppService AppService { get; set; }
+
+    protected virtual IEnumerable<int> PageItemsSource => new int[] {4, 10, 20};
+
+    private async Task<QueryData<PagingIdentityResourceListOutput>> OnQueryAsync(QueryPageOptions options)
+    {
+        var input = new PagingIdentityResourceListInput()
+        {
+            MaxResultCount = options.PageItems,
+            SkipCount = options.PageIndex == 1 ? 0 : options.PageIndex * options.PageItems
+        };
+        var result = await AppService.GetListAsync(input);
+        return new QueryData<PagingIdentityResourceListOutput>()
+        {
+            Items = result.Items, TotalCount = result.TotalCount
+        };
+    }
+
+    private async Task<bool> OnSaveAsync(PagingIdentityResourceListOutput model, ItemChangedType type)
+    {
+        bool result = false;
+        try
+        {
+            if (type == ItemChangedType.Add)
+            {
+                await AppService.CreateAsync(ObjectMapper.Map<PagingIdentityResourceListOutput, CreateIdentityResourceInput>(model));
+            }
+            else
+            {
+                await AppService.UpdateAsync(model.Id, ObjectMapper.Map<PagingIdentityResourceListOutput, UpdateIdentityResourceInput>(model));
+            }
+            result = true;
+        }
+        catch (Exception e)
+        {
+            await this.HandleErrorAsync(e);
+            result = false;
+        }
+
+        return result;
+    }
+ 
+    private async Task<bool> OnDeleteAsync(IEnumerable<PagingIdentityResourceListOutput> arg)
+    {
+        bool success = false;
+        try
+        {
+            foreach (var item in arg)
+            {
+                await this.AppService.DeleteAsync(item.Id);
+            }
+            success = true;
+        }
+        catch (Exception e)
+        {
+            success = false;
+            await HandleErrorAsync(e);
+        }
+
+        return success;
+    }
+
+}

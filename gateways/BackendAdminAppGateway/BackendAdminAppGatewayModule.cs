@@ -40,6 +40,7 @@ namespace BackendAdminAppGateway
        typeof(AbpAutofacModule),
        typeof(AbpIdentityHttpApiModule),
        typeof(AbpIdentityHttpApiClientModule),
+       typeof(Basic.BasicHttpApiModule),
        typeof(SystemManagement.SystemManagementHttpApiModule),
        // typeof(SystemManagement.SystemManagementHttpApiClientModule),
        // typeof(SystemManagement.EntityFrameworkCore.SystemManagementEntityFrameworkCoreModule),

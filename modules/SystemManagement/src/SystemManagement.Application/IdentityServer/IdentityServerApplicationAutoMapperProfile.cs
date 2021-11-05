@@ -16,11 +16,15 @@ namespace SystemManagement.IdentityServer.Mappers
     {
         public IdentityServerApplicationAutoMapperProfile()
         {
-            CreateMap<ApiResource, ApiResourceOutput>();
-            CreateMap<ApiResourceClaim, ApiResourceClaimOutput>();
+            CreateMap<ApiResource, ApiResourceOutput>()
+                .ForMember(x => x.Scopes,
+                map =>
+                    map.MapFrom(r => r.Scopes.Select(s => s.Scope)
+                        .ToList()))
+                .ForMember(x=>x.UserClaims,
+                    map=>map.MapFrom(r=>r.UserClaims.Select(x=>x.Type)));
             CreateMap<ApiResourceProperty, ApiResourcePropertyOutput>();
             CreateMap<ApiResourceSecret, ApiResourceSecretOutput>();
-            CreateMap<ApiResourceScope, ApiResourceScopeOutput>();
 
             CreateMap<Client, PagingClientListOutput>()
                 .ForMember(x => x.AllowedGrantTypes,

@@ -58,7 +58,7 @@ namespace AuthServer
             await CreateApiScopeAsync("IdentityService");
             await CreateApiScopeAsync("TenantService");
             await CreateApiScopeAsync("SystemService");
-            await CreateApiScopeAsync("ProductService");
+            await CreateApiScopeAsync("BasicService");
             await CreateApiScopeAsync("InternalGateway");
             await CreateApiScopeAsync("BackendAdminAppGateway");
         }
@@ -94,7 +94,7 @@ namespace AuthServer
             };
             await CreateApiResourceAsync("IdentityService", commonApiUserClaims);
             await CreateApiResourceAsync("TenantService", commonApiUserClaims);
-            await CreateApiResourceAsync("ProductService", commonApiUserClaims);
+            await CreateApiResourceAsync("BasicService", commonApiUserClaims);
             await CreateApiResourceAsync("SystemService", commonApiUserClaims);
             await CreateApiResourceAsync("InternalGateway", commonApiUserClaims);
             await CreateApiResourceAsync("BackendAdminAppGateway", commonApiUserClaims);
@@ -143,7 +143,7 @@ namespace AuthServer
             {
                 "IdentityService",
                 "TenantService",
-                "ProductService",
+                "BasicService",
                 "SystemService",
                 "InternalGateway",
                 "BackendAdminAppGateway",
@@ -207,7 +207,7 @@ namespace AuthServer
             //    permissions: new[] { IdentityPermissions.UserLookup.Default }
             //);
             // Swagger Client
-            var swaggerRootUrl = "https://localhost:3005";
+            var swaggerRootUrl = "https://localhost:3017";
             await CreateClientAsync(
                 name: "Gateway_Swagger",
                 scopes: adminScope,

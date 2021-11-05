@@ -11,6 +11,9 @@
     {
         public const string Default = "IdentityServer";
         public const string Clients = Default + ".Clients";
+        public const string ApiResources = Default + ".ApiResources";
+        public const string ApiScopes = Default + ".ApiScopes";
+        public const string IdentityResources = Default + ".IdentityResources";
 
     }
     public class IdentityMenuNames

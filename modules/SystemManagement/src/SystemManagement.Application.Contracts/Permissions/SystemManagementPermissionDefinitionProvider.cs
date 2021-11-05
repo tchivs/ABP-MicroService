@@ -15,13 +15,14 @@ namespace SystemManagement.Permissions
             
             
             #region IdentityServer
-            
+
+            var identityServerManagementGroup =  systemGroup.AddPermission(SystemManagementPermissions.IdentityServer.IdentityServerManagement,
+                L("Permission:IdentityServerManagement"),
+                multiTenancySide: MultiTenancySides.Host);
             // multiTenancySide: MultiTenancySides.Host 只有host租户才有权限
-            var identityServerManagementGroup =
-                context.AddGroup(SystemManagementPermissions.IdentityServer.IdentityServerManagement, L("Permission:IdentityServerManagement"),
-                    multiTenancySide: MultiTenancySides.Host);
-            
-            var clientManagment = identityServerManagementGroup.AddPermission(SystemManagementPermissions.IdentityServer.Client.Default,
+           
+                
+            var clientManagment = identityServerManagementGroup.AddChild(SystemManagementPermissions.IdentityServer.Client.Default,
                 L("Permission:IdentityServerManagement:Client"),multiTenancySide: MultiTenancySides.Host);
             clientManagment.AddChild(SystemManagementPermissions.IdentityServer.Client.Create,
                 L("Permission:Create"),multiTenancySide: MultiTenancySides.Host);
@@ -33,7 +34,7 @@ namespace SystemManagement.Permissions
                 L("Permission:Enable"),multiTenancySide: MultiTenancySides.Host);
             
             
-            var apiResourceManagment = identityServerManagementGroup.AddPermission(
+            var apiResourceManagment = identityServerManagementGroup.AddChild(
                 SystemManagementPermissions.IdentityServer.ApiResource.Default,
                 L("Permission:IdentityServerManagement:ApiResource"),multiTenancySide: MultiTenancySides.Host);
             apiResourceManagment.AddChild(SystemManagementPermissions.IdentityServer.ApiResource.Create,
@@ -43,7 +44,7 @@ namespace SystemManagement.Permissions
             apiResourceManagment.AddChild(SystemManagementPermissions.IdentityServer.ApiResource.Delete,
                 L("Permission:Delete"),multiTenancySide: MultiTenancySides.Host);
             
-            var apiScopeManagment = identityServerManagementGroup.AddPermission(SystemManagementPermissions.IdentityServer.ApiScope.Default,
+            var apiScopeManagment = identityServerManagementGroup.AddChild(SystemManagementPermissions.IdentityServer.ApiScope.Default,
                 L("Permission:IdentityServerManagement:ApiScope"),multiTenancySide: MultiTenancySides.Host);
             apiScopeManagment.AddChild(SystemManagementPermissions.IdentityServer.ApiScope.Create,
                 L("Permission:Create"),multiTenancySide: MultiTenancySides.Host);
@@ -53,7 +54,7 @@ namespace SystemManagement.Permissions
                 L("Permission:Delete"),multiTenancySide: MultiTenancySides.Host);
             
             
-            var identityResourcesManagment = identityServerManagementGroup.AddPermission(
+            var identityResourcesManagment = identityServerManagementGroup.AddChild(
                 SystemManagementPermissions.IdentityServer.IdentityResources.Default,
                 L("Permission:IdentityServerManagement:IdentityResources"),multiTenancySide: MultiTenancySides.Host);
             identityResourcesManagment.AddChild(SystemManagementPermissions.IdentityServer.IdentityResources.Create,

@@ -20,9 +20,9 @@ namespace SystemManagement.IdentityServer.Dtos
 
         public List<ApiResourceSecretOutput> Secrets { get; set; }
 
-        public List<ApiResourceScopeOutput> Scopes { get; set; }
+        public List<string> Scopes { get; set; }
 
-        public List<ApiResourceClaimOutput> UserClaims { get; set; }
+        public List<string> UserClaims { get; set; }
 
         public List<ApiResourcePropertyOutput> Properties { get; set; }
     }

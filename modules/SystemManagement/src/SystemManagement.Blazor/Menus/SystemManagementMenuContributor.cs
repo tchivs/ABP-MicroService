@@ -62,7 +62,14 @@ namespace SystemManagement.Blazor.Menus
                 new ApplicationMenuItem(SystemManagementMenus.IdentityServer.Default, "IdentityServer",icon:"fa fa-users");
             administrationMenu.AddItem(identityServer);
             identityServer.AddItem(new ApplicationMenuItem(SystemManagementMenus.IdentityServer.Clients, 
-                l["client"],url:"/identityServer/client"));
+                l["Client"],url:"/identityServer/clients")).RequirePermissions(SystemManagementPermissions.IdentityServer.Client.Default);
+            identityServer.AddItem(new ApplicationMenuItem(SystemManagementMenus.IdentityServer.ApiScopes, 
+                l["ApiScope"],url:"/identityServer/apiScopes")).RequirePermissions(SystemManagementPermissions.IdentityServer.ApiScope.Default);  
+            identityServer.AddItem(new ApplicationMenuItem(SystemManagementMenus.IdentityServer.ApiResources, 
+                l["ApiResource"],url:"/identityServer/apiResources")).RequirePermissions(SystemManagementPermissions.IdentityServer.ApiResource.Default);
+                identityServer.AddItem(new ApplicationMenuItem(SystemManagementMenus.IdentityServer.IdentityResources, 
+                l["IdentityResources"],url:"/identityServer/identityResources")).RequirePermissions(SystemManagementPermissions.IdentityServer.IdentityResources.Default);
+            
             // context.Menu.AddItem(auditLogMenuItem);
             
             //审计日志

@@ -18,13 +18,13 @@ namespace SystemManagement.IdentityServer.Dtos
 
         public string Secret { get; set; }
 
-        public List<string> ApiScopes { get; set; }
+        public List<string> Scopes { get; set; }
 
 
 
         public UpdateApiResourceInput()
         {
-            ApiScopes = new List<string>();
+            Scopes = new List<string>();
         }
     }
 }

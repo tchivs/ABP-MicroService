@@ -57,6 +57,7 @@ namespace SystemManagement.IdentityServer
             string allowedAccessTokenSigningAlgorithms,
             bool showInDiscoveryDocument,
             string secret,
+            List<string> scopes,
             CancellationToken cancellationToken = default)
         {
             var apiResource =
@@ -80,6 +81,14 @@ namespace SystemManagement.IdentityServer
             // claims?.Distinct().ToList().ForEach(item => { apiResource.AddUserClaim(item.Type); });
             //
             // properties?.Distinct().ToList().ForEach(item => { apiResource.AddProperty(item.Key, item.Value); });
+            if (scopes != null)
+            {
+                foreach (var item in scopes)
+                {
+                    apiResource.AddScope(item.Trim());
+                }
+            }
+
 
             return await _apiResourceRepository.InsertAsync(apiResource, cancellationToken: cancellationToken);
         }
@@ -111,6 +120,7 @@ namespace SystemManagement.IdentityServer
             {
                 throw new UserFriendlyException(message: "ApiResource不存在");
             }
+
             apiResource.DisplayName = displayName;
             apiResource.Description = description;
             apiResource.Enabled = enabled;

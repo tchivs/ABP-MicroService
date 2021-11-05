@@ -17,6 +17,7 @@ namespace SystemManagement.IdentityServer.Dtos
         public bool ShowInDiscoveryDocument { get; set; } = true;
 
         public string Secret { get; set; }
+        public List<string> Scopes { get; set; } = new List<string>();
 
     }
 }
