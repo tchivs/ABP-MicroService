@@ -136,6 +136,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.HttpApi.Client.Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.TestBase", "modules\Basic\test\Basic.TestBase\Basic.TestBase.csproj", "{D0FFF361-379B-4928-94CB-A34E378AB2E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Application.Shared", "shared\Micro.Application.Shared\Micro.Application.Shared.csproj", "{DFB438A8-C0E0-426F-9A68-592489FA77AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AntDesign", "AntDesign", "{D9D81F64-393F-4B66-83AE-D3883AD78D48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -338,6 +342,10 @@ Global
 		{D0FFF361-379B-4928-94CB-A34E378AB2E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0FFF361-379B-4928-94CB-A34E378AB2E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0FFF361-379B-4928-94CB-A34E378AB2E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFB438A8-C0E0-426F-9A68-592489FA77AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB438A8-C0E0-426F-9A68-592489FA77AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB438A8-C0E0-426F-9A68-592489FA77AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB438A8-C0E0-426F-9A68-592489FA77AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -401,6 +409,8 @@ Global
 		{7DB0FECD-89A3-4EDE-8731-01C202691E59} = {95DD0D98-72DE-4224-8946-540A859F3B10}
 		{E80E6BDB-4F42-4874-A02E-87231C51DD75} = {95DD0D98-72DE-4224-8946-540A859F3B10}
 		{D0FFF361-379B-4928-94CB-A34E378AB2E2} = {95DD0D98-72DE-4224-8946-540A859F3B10}
+		{DFB438A8-C0E0-426F-9A68-592489FA77AD} = {681036A1-1744-4F86-BBC8-82EDC9C0216C}
+		{D9D81F64-393F-4B66-83AE-D3883AD78D48} = {8E5408C1-C48E-4596-8835-F04A128394E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92A79A16-FA94-4FBA-88C4-C937C22B1BBE}

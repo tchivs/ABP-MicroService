@@ -2,6 +2,10 @@
   "culture": "zh-Hans",
   "texts": {
     "MyAccount": "我的账户",
-    "SamplePageMessage": "Basic模块的示例页面"
+    "SamplePageMessage": "Basic模块的示例页面",
+    "App:NotExists": "数据{Name}不存在",
+    "App:IsExists": "数据{Name}已存在",
+    "App:DetailIsExists": "存在明细数据{Footer}",
+    "App:ParentNotFound": "上级元素不存在"
   }
 }

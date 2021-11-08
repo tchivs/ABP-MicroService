@@ -15,13 +15,10 @@ namespace SystemManagement.Permissions
             
             
             #region IdentityServer
-
             var identityServerManagementGroup =  systemGroup.AddPermission(SystemManagementPermissions.IdentityServer.IdentityServerManagement,
                 L("Permission:IdentityServerManagement"),
                 multiTenancySide: MultiTenancySides.Host);
             // multiTenancySide: MultiTenancySides.Host 只有host租户才有权限
-           
-                
             var clientManagment = identityServerManagementGroup.AddChild(SystemManagementPermissions.IdentityServer.Client.Default,
                 L("Permission:IdentityServerManagement:Client"),multiTenancySide: MultiTenancySides.Host);
             clientManagment.AddChild(SystemManagementPermissions.IdentityServer.Client.Create,
