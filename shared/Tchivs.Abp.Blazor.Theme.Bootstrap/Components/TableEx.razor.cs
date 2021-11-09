@@ -102,7 +102,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
             var result = await this.AppService.GetListAsync(this._getListInput);
             return new QueryData<TItem>()
             {
-                TotalCount = result.TotalCount,
+                TotalCount = (int)result.TotalCount,
                 Items = result.Items
             };
         }

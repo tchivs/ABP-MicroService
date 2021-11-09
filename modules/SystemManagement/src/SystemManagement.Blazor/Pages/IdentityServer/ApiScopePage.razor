@@ -50,7 +50,7 @@
         var result = await AppService.GetListAsync(input);
         return new QueryData<PagingApiScopeListOutput>()
         {
-            Items = result.Items, TotalCount = result.TotalCount
+            Items = result.Items, TotalCount = (int)result.TotalCount
         };
     }
 

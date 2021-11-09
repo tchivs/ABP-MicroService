@@ -10,7 +10,7 @@ using Micro.Application.Shared;
 namespace Basic.DataDictionaries
 {
     public interface IDataDictionaryAppService : ICrudAppService<DataDictionaryDto, Guid,
-        PageAndKeyAndIncludeResultRequestDto, CreateDataDictionaryDto, UpdateDataDictionaryDto>
+        GetDataDictionaryInput, CreateDataDictionaryDto, UpdateDataDictionaryDto>
     {
         /// <summary>
         /// 添加明细

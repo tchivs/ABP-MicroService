@@ -13,9 +13,9 @@ namespace Basic.Permissions
             dataDictionaryPermission.AddChild(BasicPermissions.DataDictionary.Create, L("Permission:Create"));
             dataDictionaryPermission.AddChild(BasicPermissions.DataDictionary.Update, L("Permission:Update"));
             dataDictionaryPermission.AddChild(BasicPermissions.DataDictionary.Delete, L("Permission:Delete"));
-            dataDictionaryPermission.AddChild(BasicPermissions.DataDictionary.DetailCreate, L("Permission:DetailCreate"));
-            dataDictionaryPermission.AddChild(BasicPermissions.DataDictionary.DetailUpdate, L("Permission:DetailUpdate"));
-            dataDictionaryPermission.AddChild(BasicPermissions.DataDictionary.DetailDelete, L("Permission:DetailDelete"));
+            //dataDictionaryPermission.AddChild(BasicPermissions.DataDictionary.DetailCreate, L("Permission:DetailCreate"));
+            //dataDictionaryPermission.AddChild(BasicPermissions.DataDictionary.DetailUpdate, L("Permission:DetailUpdate"));
+            //dataDictionaryPermission.AddChild(BasicPermissions.DataDictionary.DetailDelete, L("Permission:DetailDelete"));
         }
 
         private static LocalizableString L(string name)

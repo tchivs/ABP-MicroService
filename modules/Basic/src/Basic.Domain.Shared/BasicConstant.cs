@@ -10,6 +10,7 @@ namespace Basic
         public static class BasicDictionaryConstant
         {
             public const int MaxNameLength = 32;
+            public const int MaxValueLength = 16;
             public const int MaxAppNameLength = 16;
             public const int MaxKeyLength = 16;
         }

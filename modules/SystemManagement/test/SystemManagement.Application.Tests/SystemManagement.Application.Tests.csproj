@@ -1,16 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\common.props" />
+  <Import Project="..\..\..\..\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>SystemManagement</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\SystemManagement.Application\SystemManagement.Application.csproj" />
     <ProjectReference Include="..\SystemManagement.Domain.Tests\SystemManagement.Domain.Tests.csproj" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 	<Import Project="..\..\common.props" />
 
 	<PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 	  <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	  <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
 	  <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -15,11 +15,14 @@
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
 		<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
 		<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.*" />
-		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="5.0.*" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.*" />
+		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)" />

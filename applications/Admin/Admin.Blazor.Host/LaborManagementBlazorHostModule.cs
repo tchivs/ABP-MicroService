@@ -87,7 +87,7 @@ namespace Admin.Blazor.Host
                 options.ProviderOptions.DefaultScopes.Add("role");
                 options.ProviderOptions.DefaultScopes.Add("email");
                 options.ProviderOptions.DefaultScopes.Add("phone");
-                options.ProviderOptions.DefaultScopes.Add("LaborService");
+                options.ProviderOptions.DefaultScopes.Add("SystemService");
                 options.ProviderOptions.DefaultScopes.Add("BasicService");
                 options.ProviderOptions.DefaultScopes.Add("BackendAdminAppGateway");
                 options.ProviderOptions.DefaultScopes.Add("IdentityService");

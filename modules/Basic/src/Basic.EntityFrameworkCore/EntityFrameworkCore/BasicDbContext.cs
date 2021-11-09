@@ -10,7 +10,8 @@ namespace Basic.EntityFrameworkCore
         /* Add DbSet for each Aggregate Root here. Example:
          * public DbSet<Question> Questions { get; set; }
          */
-
+        public DbSet<DataDictionaries.DataDictionary> DataDictionaries { get; set; }
+        public DbSet<DataDictionaries.DataDictionaryDetail> DataDictionaryDetails { get; set; }
         public BasicDbContext(DbContextOptions<BasicDbContext> options) 
             : base(options)
         {

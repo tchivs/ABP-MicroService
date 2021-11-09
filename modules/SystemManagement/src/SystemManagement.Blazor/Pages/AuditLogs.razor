@@ -44,7 +44,7 @@
         });
         return new QueryData<GetAuditLogPageListOutput>()
         {
-            Items = result.Items, TotalCount = result.TotalCount
+            Items = result.Items, TotalCount = (int)result.TotalCount
         };
     }
 

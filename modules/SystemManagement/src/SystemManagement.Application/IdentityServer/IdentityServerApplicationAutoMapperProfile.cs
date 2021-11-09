@@ -21,6 +21,7 @@ namespace SystemManagement.IdentityServer.Mappers
                 map =>
                     map.MapFrom(r => r.Scopes.Select(s => s.Scope)
                         .ToList()))
+              
                 .ForMember(x=>x.UserClaims,
                     map=>map.MapFrom(r=>r.UserClaims.Select(x=>x.Type)));
             CreateMap<ApiResourceProperty, ApiResourcePropertyOutput>();

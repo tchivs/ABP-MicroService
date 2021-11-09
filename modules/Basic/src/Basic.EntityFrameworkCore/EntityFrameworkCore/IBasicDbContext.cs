@@ -1,4 +1,5 @@
-﻿using Volo.Abp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace Basic.EntityFrameworkCore
@@ -9,5 +10,7 @@ namespace Basic.EntityFrameworkCore
         /* Add DbSet for each Aggregate Root here. Example:
          * DbSet<Question> Questions { get; }
          */
+          DbSet<DataDictionaries.DataDictionary> DataDictionaries { get; set; }
+          DbSet<DataDictionaries.DataDictionaryDetail> DataDictionaryDetails { get; set; }
     }
 }

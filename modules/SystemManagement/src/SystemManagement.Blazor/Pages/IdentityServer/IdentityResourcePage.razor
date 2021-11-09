@@ -52,7 +52,7 @@
         var result = await AppService.GetListAsync(input);
         return new QueryData<PagingIdentityResourceListOutput>()
         {
-            Items = result.Items, TotalCount = result.TotalCount
+            Items = result.Items, TotalCount = (int)result.TotalCount
         };
     }
 

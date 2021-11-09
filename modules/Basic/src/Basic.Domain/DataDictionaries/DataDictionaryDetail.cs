@@ -12,17 +12,21 @@ namespace Basic.DataDictionaries
         [DisplayName("组名")] public string Group { get; set; }
         [DisplayName("备注")] public string Remark { get; set; }
         [DisplayName("排序")] public int Sort { get; set; }
-        public Guid  BasicId { get; set; }
-        public Guid? ParentId { get; set; }
-     
-        public virtual DataDictionary Basic { get; set; }
-        /// <summary>
-        /// 父级
-        /// </summary>
-        public virtual DataDictionaryDetail Parent { get; set; }
-        /// <summary>
-        /// 子级
-        /// </summary>
-        public virtual ICollection<DataDictionaryDetail> Children { get; set; }
+
+        public Guid ParentId { get; set; }
+
+        //public virtual DataDictionary Parent { get; set; }
+        private DataDictionaryDetail()
+        {
+        }
+        public DataDictionaryDetail(Guid parentId, string name, string value, string group, string remark, int sort)
+        {
+            this.ParentId = parentId;
+            this.Name = name;
+            this.Value = value;
+            this.Group = group;
+            this.Remark = remark;
+            this.Sort = sort;
+        }
     }
 }

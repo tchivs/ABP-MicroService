@@ -4,8 +4,7 @@ namespace SystemManagement.IdentityServer.Dtos
 {
     public class ApiResourceSecretOutput
     {
-        public Guid ApiResourceId { get; set; }
-
+     
         public string Type { get;  set; }
 
         public string Value { get; set; }

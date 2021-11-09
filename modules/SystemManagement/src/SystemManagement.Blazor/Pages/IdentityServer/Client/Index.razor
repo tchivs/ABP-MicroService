@@ -72,7 +72,7 @@
         var result = await AppService.GetListAsync(input);
         return new QueryData<PagingClientListOutput>()
         {
-            Items = result.Items, TotalCount = result.TotalCount
+            Items = result.Items, TotalCount =(int) result.TotalCount
         };
     }
 

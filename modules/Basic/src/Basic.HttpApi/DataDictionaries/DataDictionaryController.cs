@@ -36,7 +36,7 @@ namespace  Basic.DataDictionaries
         /// <param name="input">参数</param>
         /// <returns></returns>
         [HttpGet]
-        public Task<PagedResultDto<DataDictionaryDto>> GetListAsync(PageAndKeyAndIncludeResultRequestDto input)
+        public Task<PagedResultDto<DataDictionaryDto>> GetListAsync(GetDataDictionaryInput input)
         {
             return _service.GetListAsync(input);
         }

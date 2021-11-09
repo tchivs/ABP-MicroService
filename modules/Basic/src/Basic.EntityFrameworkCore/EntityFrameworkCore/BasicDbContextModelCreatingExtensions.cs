@@ -1,6 +1,8 @@
 ﻿using System;
+using Basic.DataDictionaries;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace Basic.EntityFrameworkCore
 {
@@ -38,6 +40,30 @@ namespace Basic.EntityFrameworkCore
                 b.HasIndex(q => q.CreationTime);
             });
             */
+            builder.Entity<DataDictionary>(b =>
+            {
+                b.ToTable(options.TablePrefix + "DataDictionaries", options.Schema);
+                b.ConfigureByConvention();
+                b.ConfigureFullAuditedAggregateRoot();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(BasicConstant.BasicDictionaryConstant.MaxNameLength);
+                b.Property(x => x.AppName).IsRequired().HasMaxLength(BasicConstant.BasicDictionaryConstant.MaxAppNameLength);
+                b.Property(x => x.Key).IsRequired().HasMaxLength(BasicConstant.BasicDictionaryConstant.MaxKeyLength);
+                b.Property(x => x.Remark).HasMaxLength(BasicConstant.MaxRemarkLength);
+                b.HasIndex(x => x.Key);
+                b.HasMany(x => x.Details)
+                    .WithOne().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.Cascade);
+                /* Configure more properties here */
+            });
+            builder.Entity<DataDictionaryDetail>(b =>
+            {
+                b.ToTable(options.TablePrefix + "DataDictionaryDetails", options.Schema);
+                b.ConfigureByConvention();
+                b.ConfigureFullAudited();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(BasicConstant.BasicDictionaryConstant.MaxNameLength);
+                b.Property(x => x.Value).IsRequired().HasMaxLength(BasicConstant.BasicDictionaryConstant.MaxValueLength);
+                b.Property(x => x.Remark).HasMaxLength(BasicConstant.MaxRemarkLength);
+                b.Property(x => x.Group).HasMaxLength(32);
+            });
         }
     }
 }
