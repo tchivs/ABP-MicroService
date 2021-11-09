@@ -8,38 +8,25 @@ using SystemManagement.IdentityServer.IdentityResources;
 using SystemManagement.IdentityServer.IdentityResources.Dtos;
 using SystemManagement.Permissions;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.IdentityServer.IdentityResources;
 
 namespace SystemManagement.IdentityServer.Mappers.IdentityResources
 {
     [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Default)]
-
-    public class IdentityResourceAppService : SystemManagementAppService, IIdentityResourceAppService
+    public class IdentityResourceAppService :
+        CrudAppService<IdentityResource, PagingIdentityResourceListOutput, Guid, PagingIdentityResourceListInput,
+            CreateIdentityResourceInput, UpdateIdentityResourceInput>, IIdentityResourceAppService
     {
         private readonly IdentityResourceManager _identityResourceManager;
 
-        public IdentityResourceAppService(IdentityResourceManager identityResourceManager)
+        public IdentityResourceAppService(IdentityResourceManager identityResourceManager,
+            IRepository<IdentityResource, Guid> repository) : base(repository)
         {
             _identityResourceManager = identityResourceManager;
         }
 
-        /// <summary>
-        /// 分页获取IdentityResource
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public async Task<PagedResultDto<PagingIdentityResourceListOutput>> GetListAsync(
-            PagingIdentityResourceListInput input)
-        {
-            var list = await _identityResourceManager.GetListAsync(
-                input.SkipCount,
-                input.MaxResultCount,
-                input.Filter,
-                true);
-            var totalCount = await _identityResourceManager.GetCountAsync(input.Filter);
-            return new PagedResultDto<PagingIdentityResourceListOutput>(totalCount,
-                ObjectMapper.Map<List<IdentityResource>, List<PagingIdentityResourceListOutput>>(list));
-        }
 
         public async Task<List<PagingIdentityResourceListOutput>> GetAllAsync()
         {
@@ -47,39 +34,17 @@ namespace SystemManagement.IdentityServer.Mappers.IdentityResources
             return ObjectMapper.Map<List<IdentityResource>, List<PagingIdentityResourceListOutput>>(list);
         }
 
-        /// <summary>
-        /// 创建IdentityResource
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Create)]
-        public Task CreateAsync(CreateIdentityResourceInput input)
-        {
-            return _identityResourceManager.CreateAsync(input.Name, input.DisplayName, input.Description,
-                input.Enabled, input.Required, input.Emphasize, input.ShowInDiscoveryDocument);
-        }
 
-        /// <summary>
-        /// 更新IdentityResource
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Update)]
-        public Task UpdateAsync(Guid id,UpdateIdentityResourceInput input)
-        {
-            return _identityResourceManager.UpdateAsync(id,input.Name, input.DisplayName, input.Description,
-                input.Enabled, input.Required, input.Emphasize, input.ShowInDiscoveryDocument);
-        }
+        protected override string GetPolicyName { get; set; } =
+            SystemManagementPermissions.IdentityServer.IdentityResources.Default;
 
-        /// <summary>
-        /// 删除IdentityResource
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.IdentityResources.Delete)]
-        public Task DeleteAsync(Guid id)
-        {
-            return _identityResourceManager.DeleteAsync(id);
-        }
+        protected override string UpdatePolicyName { get; set; } =
+            SystemManagementPermissions.IdentityServer.IdentityResources.Update;
+
+        protected override string DeletePolicyName { get; set; } =
+            SystemManagementPermissions.IdentityServer.IdentityResources.Delete;
+
+        protected override string CreatePolicyName { get; set; } =
+            SystemManagementPermissions.IdentityServer.IdentityResources.Create;
     }
 }

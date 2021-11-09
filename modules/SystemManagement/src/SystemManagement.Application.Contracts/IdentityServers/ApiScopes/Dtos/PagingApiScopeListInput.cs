@@ -2,7 +2,7 @@
 
 namespace SystemManagement.IdentityServer.ApiScopes.Dtos
 {
-    public class PagingApiScopeListInput : PagedResultRequestDto
+    public class PagingApiScopeListInput : PagedAndSortedResultRequestDto
     {
         public string Filter { get; set; }
     }

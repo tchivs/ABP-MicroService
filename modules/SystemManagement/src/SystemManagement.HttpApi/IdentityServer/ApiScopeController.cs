@@ -24,6 +24,11 @@ namespace SystemManagement.IdentityServer
         {
             _apiScopeAppService = apiScopeAppService;
         }
+        [HttpGet("{id}")]
+        public Task<PagingApiScopeListOutput> GetAsync(Guid id)
+        {
+            return _apiScopeAppService.GetAsync(id);
+        }
 
         [HttpGet]
         [SwaggerOperation(summary: "分页获取ApiScope信息", Tags = new[] {"ApiScope"})]
@@ -34,14 +39,14 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost()]
         [SwaggerOperation(summary: "创建ApiScope", Tags = new[] {"ApiScope"})]
-        public Task CreateAsync(CreateApiScopeInput input)
+        public Task<PagingApiScopeListOutput> CreateAsync(CreateApiScopeInput input)
         {
             return _apiScopeAppService.CreateAsync(input);
         }
 
         [HttpPut("{id}")]
         [SwaggerOperation(summary: "更新ApiScope", Tags = new[] {"ApiScope"})]
-        public Task UpdateAsync(Guid id,UpdateCreateApiScopeInput input)
+        public Task<PagingApiScopeListOutput> UpdateAsync(Guid id,UpdateCreateApiScopeInput input)
         {
             return _apiScopeAppService.UpdateAsync(id,input);
         }

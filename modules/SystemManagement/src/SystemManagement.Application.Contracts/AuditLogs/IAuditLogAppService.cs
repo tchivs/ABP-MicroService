@@ -1,16 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace SystemManagement.AuditLogs
 {
-    public interface IAuditLogAppService : IApplicationService
+    public interface IAuditLogAppService : IReadOnlyAppService<GetAuditLogPageListOutput,GetAuditLogPageListOutput,Guid,PagingAuditLogListInput>
     {
-        /// <summary>
-        /// 分页查询审计日志
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        Task<PagedResultDto<GetAuditLogPageListOutput>> GetListAsync(PagingAuditLogListInput input);
+      
     }
 }

@@ -18,7 +18,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
         [Inject][NotNull]
         protected DialogService? DialogService { get; set; }
 
-        [Inject] 
+        [Inject] [NotNull]
         public   IStringLocalizer<AbpUiResource>? Localizer { get; set; }
         [Inject]
         protected ToastService? Toast { get; set; }

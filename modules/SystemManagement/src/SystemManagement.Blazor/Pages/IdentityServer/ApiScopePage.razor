@@ -1,6 +1,6 @@
 ﻿@page "/identityServer/apiScopes"
 @using global::SystemManagement.Permissions
-@inherits SystemManagementComponent
+@inherits EasyTable<IApiScopeAppService,PagingApiScopeListOutput,Guid,PagingApiScopeListInput,CreateApiScopeInput,UpdateCreateApiScopeInput>
 @attribute [Authorize(SystemManagementPermissions.IdentityServer.ApiScope.Default)]
 @using SystemManagement.IdentityServer.ApiScopes
 @using SystemManagement.IdentityServer.ApiScopes.Dtos
@@ -20,7 +20,8 @@
     IsPagination="true"
     PageItemsSource="PageItemsSource" ShowToolbar="true"
     EditDialogRowType="RowType.Inline"
-    OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync"
+    OnSaveAsync="OnSaveAsync" 
+    OnDeleteAsync="OnDeleteAsync"
     OnQueryAsync="OnQueryAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.Name" IsReadonlyWhenEdit="true" Text="@L["Name"]"/>
@@ -35,67 +36,6 @@
 
 @code {
 
-    [Inject]
-    public IApiScopeAppService AppService { get; set; }
-
-    protected virtual IEnumerable<int> PageItemsSource => new int[] {4, 10, 20};
-
-    private async Task<QueryData<PagingApiScopeListOutput>> OnQueryAsync(QueryPageOptions options)
-    {
-        var input = new PagingApiScopeListInput()
-        {
-            MaxResultCount = options.PageItems,
-            SkipCount = options.PageIndex == 1 ? 0 : options.PageIndex * options.PageItems
-        };
-        var result = await AppService.GetListAsync(input);
-        return new QueryData<PagingApiScopeListOutput>()
-        {
-            Items = result.Items, TotalCount = (int)result.TotalCount
-        };
-    }
-
-    private async Task<bool> OnSaveAsync(PagingApiScopeListOutput model, ItemChangedType type)
-    {
-        bool result = false;
-        try
-        {
-            if (type == ItemChangedType.Add)
-            {
-                await AppService.CreateAsync(ObjectMapper.Map<PagingApiScopeListOutput, CreateApiScopeInput>(model));
-            }
-            else
-            {
-                await AppService.UpdateAsync(model.Id, ObjectMapper.Map<PagingApiScopeListOutput, UpdateCreateApiScopeInput>(model));
-            }
-            result = true;
-        }
-        catch (Exception e)
-        {
-            await this.HandleErrorAsync(e);
-            result = false;
-        }
-
-        return result;
-    }
- 
-    private async Task<bool> OnDeleteAsync(IEnumerable<PagingApiScopeListOutput> arg)
-    {
-        bool success = false;
-        try
-        {
-            foreach (var item in arg)
-            {
-                await this.AppService.DeleteAsync(item.Id);
-            }
-            success = true;
-        }
-        catch (Exception e)
-        {
-            success = false;
-            await HandleErrorAsync(e);
-        }
-
-        return success;
-    }
+    
 
 }

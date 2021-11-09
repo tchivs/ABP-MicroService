@@ -2,7 +2,7 @@
 @using global::SystemManagement.Permissions
 @using Microsoft.AspNetCore.Components
 @using SystemManagement.IdentityServer
-@inherits SystemManagementComponent
+@inherits EasyTable<IApiResourceAppService,ApiResourceOutput,Guid,PagingApiRseourceListInput,CreateApiResourceInput,UpdateApiResourceInput>
 @attribute [Authorize(SystemManagementPermissions.IdentityServer.ApiResource.Default)]
 @using SystemManagement.IdentityServer.ApiScopes
 @using SystemManagement.IdentityServer.ApiScopes.Dtos
@@ -40,69 +40,6 @@
 
 @code {
 
-
-    [Inject]
-    public IApiResourceAppService AppService { get; set; }
-
-    protected virtual IEnumerable<int> PageItemsSource => new int[] {4, 10, 20};
-
-    private async Task<QueryData<ApiResourceOutput>> OnQueryAsync(QueryPageOptions options)
-    {
-        var input = new PagingApiRseourceListInput()
-        {
-            MaxResultCount = options.PageItems,
-            SkipCount = options.PageIndex == 1 ? 0 : options.PageIndex * options.PageItems
-        };
-        var result = await AppService.GetListAsync(input);
-        return new QueryData<ApiResourceOutput>()
-        {
-            Items = result.Items, TotalCount =(int) result.TotalCount
-        };
-    }
-
-    private async Task<bool> OnSaveAsync(ApiResourceOutput model, ItemChangedType type)
-    {
-        bool result = false;
-        try
-        {
-            if (type == ItemChangedType.Add)
-            {
-                await AppService.CreateAsync(ObjectMapper.Map<ApiResourceOutput, CreateApiResourceInput>(model));
-            }
-            else
-            {
-                await AppService.UpdateAsync(model.Id, ObjectMapper.Map<ApiResourceOutput, UpdateApiResourceInput>(model));
-            }
-            result = true;
-        }
-        catch (Exception e)
-        {
-            await this.HandleErrorAsync(e);
-            result = false;
-        }
-
-        return result;
-    }
-
-
-    private async Task<bool> OnDeleteAsync(IEnumerable<ApiResourceOutput> arg)
-    {
-        bool success = false;
-        try
-        {
-            foreach (var item in arg)
-            {
-                await this.AppService.DeleteAsync(item.Id);
-            }
-            success = true;
-        }
-        catch (Exception e)
-        {
-            success = false;
-            await HandleErrorAsync(e);
-        }
-
-        return success;
-    }
+  
 
 }

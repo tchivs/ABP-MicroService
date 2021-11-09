@@ -27,9 +27,13 @@
         </Header>
         <Side>
             <div class="layout-banner">
+                @if (!string.IsNullOrEmpty(_brandingProvider.LogoUrl))
+                {
                 <img class="layout-logo" src="@_brandingProvider.LogoUrl"/>
+                    
+                }
                 <div class="layout-title">
-                    <span>@_brandingProvider.AppName</span>
+                    <span>@_brandingProvider.AppName?.Split("|").FirstOrDefault()</span>
                 </div>
             </div>
             <div class="layout-user">

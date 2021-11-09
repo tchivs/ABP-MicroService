@@ -8,54 +8,40 @@ using SystemManagement.IdentityServer;
 using SystemManagement.IdentityServer.ApiScopes.Dtos;
 using SystemManagement.Permissions;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.IdentityServer.ApiScopes;
 
 namespace SystemManagement.IdentityServer.ApiScopes
 {
     [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Default)]
-    public class ApiScopeAppService : SystemManagementAppService, IApiScopeAppService
+    public class ApiScopeAppService :
+        CrudAppService<ApiScope, PagingApiScopeListOutput, Guid, PagingApiScopeListInput, CreateApiScopeInput,
+            UpdateCreateApiScopeInput>, IApiScopeAppService
     {
         private readonly IdenityServerApiScopeManager _idenityServerApiScopeManager;
         private readonly IdentityResourceManager _identityResourceManager;
 
         public ApiScopeAppService(IdenityServerApiScopeManager idenityServerApiScopeManager,
-            IdentityResourceManager identityResourceManager)
+            IdentityResourceManager identityResourceManager, IRepository<ApiScope, Guid> repository) : base(repository)
         {
             _idenityServerApiScopeManager = idenityServerApiScopeManager;
             _identityResourceManager = identityResourceManager;
         }
 
-        public async Task<PagedResultDto<PagingApiScopeListOutput>> GetListAsync(PagingApiScopeListInput input)
-        {
-            var list = await _idenityServerApiScopeManager.GetListAsync(
-                input.SkipCount,
-                input.MaxResultCount,
-                input.Filter,
-                false);
-            var totalCount = await _idenityServerApiScopeManager.GetCountAsync(input.Filter);
-            return new PagedResultDto<PagingApiScopeListOutput>(totalCount,
-                ObjectMapper.Map<List<ApiScope>, List<PagingApiScopeListOutput>>(list));
-        }
 
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Create)]
-        public Task CreateAsync(CreateApiScopeInput input)
-        {
-            return _idenityServerApiScopeManager.CreateAsync(input.Name, input.DisplayName, input.Description,
-                input.Enabled, input.Required, input.Emphasize, input.ShowInDiscoveryDocument);
-        }
+        protected override string GetPolicyName { get; set; } =
+            SystemManagementPermissions.IdentityServer.ApiScope.Default;
 
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Update)]
-        public Task UpdateAsync(Guid id,UpdateCreateApiScopeInput input)
-        {
-            return _idenityServerApiScopeManager.UpdateAsync(id, input.DisplayName, input.Description,
-                input.Enabled, input.Required, input.Emphasize, input.ShowInDiscoveryDocument);
-        }
+        protected override string UpdatePolicyName { get; set; } =
+            SystemManagementPermissions.IdentityServer.ApiScope.Update;
 
-        [Authorize(Policy = SystemManagementPermissions.IdentityServer.ApiScope.Delete)]
-        public Task DeleteAsync(Guid id)
-        {
-            return _idenityServerApiScopeManager.DeleteAsync(id);
-        }
+        protected override string DeletePolicyName { get; set; } =
+            SystemManagementPermissions.IdentityServer.ApiScope.Delete;
+
+        protected override string CreatePolicyName { get; set; } =
+            SystemManagementPermissions.IdentityServer.ApiScope.Create;
+
 
         public async Task<List<KeyValuePair<string, string>>> FindAllAsync()
         {

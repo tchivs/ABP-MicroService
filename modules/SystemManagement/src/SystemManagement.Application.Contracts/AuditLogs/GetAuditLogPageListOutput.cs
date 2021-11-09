@@ -1,8 +1,9 @@
 ﻿using System;
+using Volo.Abp.Application.Dtos;
 
 namespace SystemManagement.AuditLogs
 {
-    public class GetAuditLogPageListOutput
+    public class GetAuditLogPageListOutput: EntityDto<Guid>
     {
         public string ApplicationName { get; set; }
 

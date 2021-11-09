@@ -23,6 +23,11 @@ namespace SystemManagement.IdentityServer
         {
             _apiResourceAppService = apiResourceAppService;
         }
+        [HttpGet("{id}")]
+        public Task<ApiResourceOutput> GetAsync(Guid id)
+        {
+            return _apiResourceAppService.GetAsync(id);
+        }
 
         [HttpGet()]
         [SwaggerOperation(summary: "分页获取ApiResource信息", Tags = new[] {"ApiResource"})]
@@ -41,7 +46,7 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost()]
         [SwaggerOperation(summary: "新增ApiResource", Tags = new[] {"ApiResource"})]
-        public Task CreateAsync(CreateApiResourceInput input)
+        public Task<ApiResourceOutput> CreateAsync(CreateApiResourceInput input)
         {
             return _apiResourceAppService.CreateAsync(input);
         }
@@ -56,7 +61,7 @@ namespace SystemManagement.IdentityServer
 
         [HttpPut("{id}")]
         [SwaggerOperation(summary: "修改ApiResource", Tags = new[] {"ApiResource"})]
-        public Task UpdateAsync(Guid id,UpdateApiResourceInput input)
+        public Task<ApiResourceOutput> UpdateAsync(Guid id,UpdateApiResourceInput input)
         {
             return _apiResourceAppService.UpdateAsync(id,input);
         }

@@ -5,9 +5,9 @@ using Volo.Abp.Application.Dtos;
 
 namespace SystemManagement.AuditLogs
 {
-    public class PagingAuditLogListInput : PagedResultRequestDto
+    public class PagingAuditLogListInput : PagedAndSortedResultRequestDto
     {
-        public string Sorting { get; set; } 
+       
         public DateTime? StartTime { get; set; } 
         public DateTime? EndTime { get; set; } 
         public string HttpMethod { get; set; } 

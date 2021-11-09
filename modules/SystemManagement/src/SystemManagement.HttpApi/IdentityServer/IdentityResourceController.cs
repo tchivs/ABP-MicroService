@@ -33,6 +33,11 @@ namespace SystemManagement.IdentityServer
         {
             _identityResourceAppService = identityResourceAppService;
         }
+        [HttpGet("{id}")]
+        public Task<PagingIdentityResourceListOutput> GetAsync(Guid id)
+        {
+            return _identityResourceAppService.GetAsync(id);
+        }
 
         [HttpGet]
         [SwaggerOperation(summary: "分页获取IdentityResource信息", Tags = new[] {"IdentityResource"})]
@@ -50,14 +55,14 @@ namespace SystemManagement.IdentityServer
 
         [HttpPost()]
         [SwaggerOperation(summary: "创建IdentityResource", Tags = new[] {"IdentityResource"})]
-        public Task CreateAsync(CreateIdentityResourceInput input)
+        public Task<PagingIdentityResourceListOutput> CreateAsync(CreateIdentityResourceInput input)
         {
             return _identityResourceAppService.CreateAsync(input);
         }
 
         [HttpPut("{id}")]
         [SwaggerOperation(summary: "更新IdentityResource", Tags = new[] {"IdentityResource"})]
-        public Task UpdateAsync([Required]Guid id,UpdateIdentityResourceInput input)
+        public Task<PagingIdentityResourceListOutput> UpdateAsync([Required]Guid id,UpdateIdentityResourceInput input)
         {
             return _identityResourceAppService.UpdateAsync(id,input);
         }

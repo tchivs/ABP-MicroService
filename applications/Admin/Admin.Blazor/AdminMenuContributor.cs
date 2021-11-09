@@ -74,16 +74,7 @@ namespace Admin.Blazor
                     order: 0
                 )
             );
-            context.Menu.Items.Insert(
-                0,
-                new ApplicationMenuItem(
-                    "Product",
-                    l["Menu:Product"],
-                    "/product",
-              
-                    order:1
-                )
-            );
+             
             // var administrationMenu = context.Menu.GetAdministration();
             // context.Menu.GetMenuItem(AdminMenus.IdentityMenuNames.GroupName);
             // var identityResource = context.GetLocalizer<IdentityResource>();
