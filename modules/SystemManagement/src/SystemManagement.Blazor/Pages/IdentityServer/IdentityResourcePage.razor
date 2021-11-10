@@ -2,7 +2,7 @@
 @using global::SystemManagement.Permissions
 @using Microsoft.AspNetCore.Components
 @using SystemManagement.IdentityServer
-@inherits SystemManagementComponent
+@inherits EasyTable<IIdentityResourceAppService,PagingIdentityResourceListOutput,Guid,PagingIdentityResourceListInput,CreateIdentityResourceInput,UpdateIdentityResourceInput>
 @attribute [Authorize(SystemManagementPermissions.IdentityServer.IdentityResources.Default)]
 @using SystemManagement.IdentityServer.IdentityResources
 @using SystemManagement.IdentityServer.IdentityResources.Dtos
@@ -23,6 +23,9 @@
     IsPagination="true"
     PageItemsSource="PageItemsSource" ShowToolbar="true"
     EditDialogRowType="RowType.Inline"
+       ShowAddButton="@HasCreatePermission"
+           ShowEditButton="@HasUpdatePermission"
+           ShowDeleteButton="@HasDeletePermission"
     OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync"
     OnQueryAsync="OnQueryAsync">
     <TableColumns>
@@ -36,68 +39,13 @@
 </Table>
 
 @code {
-
-    [Inject]
-    public IIdentityResourceAppService AppService { get; set; }
-
-    protected virtual IEnumerable<int> PageItemsSource => new int[] {4, 10, 20};
-
-    private async Task<QueryData<PagingIdentityResourceListOutput>> OnQueryAsync(QueryPageOptions options)
+    protected override Task OnInitializedAsync()
     {
-        var input = new PagingIdentityResourceListInput()
-        {
-            MaxResultCount = options.PageItems,
-            SkipCount = options.PageIndex == 1 ? 0 : options.PageIndex * options.PageItems
-        };
-        var result = await AppService.GetListAsync(input);
-        return new QueryData<PagingIdentityResourceListOutput>()
-        {
-            Items = result.Items, TotalCount = (int)result.TotalCount
-        };
-    }
-
-    private async Task<bool> OnSaveAsync(PagingIdentityResourceListOutput model, ItemChangedType type)
-    {
-        bool result = false;
-        try
-        {
-            if (type == ItemChangedType.Add)
-            {
-                await AppService.CreateAsync(ObjectMapper.Map<PagingIdentityResourceListOutput, CreateIdentityResourceInput>(model));
-            }
-            else
-            {
-                await AppService.UpdateAsync(model.Id, ObjectMapper.Map<PagingIdentityResourceListOutput, UpdateIdentityResourceInput>(model));
-            }
-            result = true;
-        }
-        catch (Exception e)
-        {
-            await this.HandleErrorAsync(e);
-            result = false;
-        }
-
-        return result;
+        this.CreatePolicyName = Permissions.SystemManagementPermissions.IdentityServer.IdentityResources.Create;
+        this.UpdatePolicyName = Permissions.SystemManagementPermissions.IdentityServer.IdentityResources.Update;
+        this.DeletePolicyName = Permissions.SystemManagementPermissions.IdentityServer.IdentityResources.Delete;
+        return base.OnInitializedAsync();
     }
  
-    private async Task<bool> OnDeleteAsync(IEnumerable<PagingIdentityResourceListOutput> arg)
-    {
-        bool success = false;
-        try
-        {
-            foreach (var item in arg)
-            {
-                await this.AppService.DeleteAsync(item.Id);
-            }
-            success = true;
-        }
-        catch (Exception e)
-        {
-            success = false;
-            await HandleErrorAsync(e);
-        }
-
-        return success;
-    }
-
+   
 }

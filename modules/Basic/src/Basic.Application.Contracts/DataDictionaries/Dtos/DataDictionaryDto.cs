@@ -23,6 +23,7 @@ namespace Basic.DataDictionaries.Dtos
         public string AppName { get; set; }
 
         [StringLength(BasicConstant.BasicDictionaryConstant.MaxKeyLength)]
+        [Required]
         [DisplayName("键")]
         public string Key { get; set; }
 

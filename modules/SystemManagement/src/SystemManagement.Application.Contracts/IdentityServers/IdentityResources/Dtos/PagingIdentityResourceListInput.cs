@@ -2,7 +2,7 @@
 
 namespace SystemManagement.IdentityServer.IdentityResources.Dtos
 {
-    public class PagingIdentityResourceListInput : PagedResultRequestDto
+    public class PagingIdentityResourceListInput : PagedAndSortedResultRequestDto
     {
         public string Filter { get; set; }
     }

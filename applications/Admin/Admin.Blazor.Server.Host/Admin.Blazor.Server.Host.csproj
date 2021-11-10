@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+    <Import Project="..\..\..\common.props" />
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -22,20 +22,22 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Volo.Abp.Autofac" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.AutoMapper" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.AspNetCore.Authentication.OpenIdConnect" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.Swashbuckle" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.AspNetCore.Mvc.Client" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.AspNetCore.Authentication.OAuth" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.Http.Client.IdentityModel.Web" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi.Client" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.Identity.HttpApi.Client" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.TenantManagement.HttpApi.Client" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi.Client" Version="4.4.3" />
-        <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="4.4.3" />
+        <PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.AspNetCore.Authentication.OpenIdConnect" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.Swashbuckle" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.AspNetCore.Mvc.Client" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.AspNetCore.Authentication.OAuth" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.Http.Client.IdentityModel.Web" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi.Client" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.Identity.HttpApi.Client" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.TenantManagement.HttpApi.Client" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi.Client" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="$(AbpVersion)" />
+        <ProjectReference Include="..\..\..\modules\Basic\src\Basic.Blazor.Server\Basic.Blazor.Server.csproj" />
+        <ProjectReference Include="..\..\..\modules\Basic\src\Basic.HttpApi.Client\Basic.HttpApi.Client.csproj" />
         <ProjectReference Include="..\..\..\modules\SystemManagement\src\SystemManagement.Blazor.Server\SystemManagement.Blazor.Server.csproj" />
         <ProjectReference Include="..\..\..\modules\SystemManagement\src\SystemManagement.HttpApi.Client\SystemManagement.HttpApi.Client.csproj" />
         <ProjectReference Include="..\..\..\shared\Micro.Shared\Micro.Shared.csproj" />

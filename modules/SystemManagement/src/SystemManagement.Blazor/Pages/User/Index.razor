@@ -2,7 +2,6 @@
 @using SystemManagement.Localization
 @using Volo.Abp.Identity.Localization
 @using Volo.Abp.Identity
-@using Admin.Blazor.Components
 @using Microsoft.Extensions.Localization
 @inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent
 @attribute [Authorize(IdentityPermissions.Users.Default)]
@@ -67,19 +66,19 @@
 
     private async Task ShowPermission(IdentityUserDto context)
     {
-        var op = new DialogOption()
-        {
-            Size = Size.Small,
-            ShowFooter = false,
-            Title = $"{L["Users"]}{L["Permissions"]} - {context.UserName}",
-        };
-        op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<PermissionModal>(new KeyValuePair<string, object>[]
-        {
-            new(nameof(PermissionModal.ProviderName), "U"),
-            new(nameof(PermissionModal.ProviderKey), context.Id.ToString()),
-            new(nameof(PermissionModal.OnClose), new Action(async () => await op.Dialog.Close()))
-        }).Render();
-        await DialogService.Show(op);
+        // var op = new DialogOption()
+        // {
+        //     Size = Size.Small,
+        //     ShowFooter = false,
+        //     Title = $"{L["Users"]}{L["Permissions"]} - {context.UserName}",
+        // };
+        // op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<PermissionModal>(new KeyValuePair<string, object>[]
+        // {
+        //     new(nameof(PermissionModal.ProviderName), "U"),
+        //     new(nameof(PermissionModal.ProviderKey), context.Id.ToString()),
+        //     new(nameof(PermissionModal.OnClose), new Action(async () => await op.Dialog.Close()))
+        // }).Render();
+        // await DialogService.Show(op);
     }
 
 }

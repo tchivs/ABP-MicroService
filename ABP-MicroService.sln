@@ -60,8 +60,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tchivs.Abp.Blazor", "shared
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tchivs.Abp.Blazor.Server", "shared\Tchivs.Abp.Blazor.Server\Tchivs.Abp.Blazor.Server.csproj", "{A7FF3958-8B3E-4E2D-8157-9A833E90D7C8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tchivs.Abp.Blazor.Shared", "shared\Tchivs.Abp.Blazor.Shared\Tchivs.Abp.Blazor.Shared.csproj", "{67DB2BA0-26C9-4E1E-A0AF-56B210A1B5DD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tchivs.Abp.Blazor.Theme.Bootstrap", "shared\Tchivs.Abp.Blazor.Theme.Bootstrap\Tchivs.Abp.Blazor.Theme.Bootstrap.csproj", "{0D6C9048-C181-4AE2-8888-AFE53897031D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tchivs.Abp.Blazor.Theme.Bootstrap.WebAssembly", "shared\Tchivs.Abp.Blazor.Theme.Bootstrap.WebAssembly\Tchivs.Abp.Blazor.Theme.Bootstrap.WebAssembly.csproj", "{1EC11C4D-3980-4431-A74A-30AFD2D2C1CE}"
@@ -86,57 +84,57 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D5D535F8-4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemService", "microservices\SystemService\SystemService.csproj", "{136F6D75-42FC-432D-BCE0-D9C33E6CD16D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemManagement.Domain.Tests", "modules\SystemManagement\test\SystemManagement.Domain.Tests\SystemManagement.Domain.Tests.csproj", "{72ACA745-C6D9-46FD-ADDB-A0EC503F58CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemManagement.Domain.Tests", "modules\SystemManagement\test\SystemManagement.Domain.Tests\SystemManagement.Domain.Tests.csproj", "{72ACA745-C6D9-46FD-ADDB-A0EC503F58CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemManagement.EntityFrameworkCore.Tests", "modules\SystemManagement\test\SystemManagement.EntityFrameworkCore.Tests\SystemManagement.EntityFrameworkCore.Tests.csproj", "{90F81ACB-15EC-42DE-ABD9-E297FDBCE692}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemManagement.EntityFrameworkCore.Tests", "modules\SystemManagement\test\SystemManagement.EntityFrameworkCore.Tests\SystemManagement.EntityFrameworkCore.Tests.csproj", "{90F81ACB-15EC-42DE-ABD9-E297FDBCE692}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemManagement.Application.Tests", "modules\SystemManagement\test\SystemManagement.Application.Tests\SystemManagement.Application.Tests.csproj", "{5C4BCDF4-A30E-457F-877A-FBBEDB102B7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemManagement.Application.Tests", "modules\SystemManagement\test\SystemManagement.Application.Tests\SystemManagement.Application.Tests.csproj", "{5C4BCDF4-A30E-457F-877A-FBBEDB102B7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemManagement.HttpApi.Client.ConsoleTestApp", "modules\SystemManagement\test\SystemManagement.HttpApi.Client.ConsoleTestApp\SystemManagement.HttpApi.Client.ConsoleTestApp.csproj", "{9F270548-BABB-49D3-B373-D1B6FCEFAA80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemManagement.HttpApi.Client.ConsoleTestApp", "modules\SystemManagement\test\SystemManagement.HttpApi.Client.ConsoleTestApp\SystemManagement.HttpApi.Client.ConsoleTestApp.csproj", "{9F270548-BABB-49D3-B373-D1B6FCEFAA80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemManagement.TestBase", "modules\SystemManagement\test\SystemManagement.TestBase\SystemManagement.TestBase.csproj", "{16DD0B30-6321-4DF7-96AF-7798A7279CC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemManagement.TestBase", "modules\SystemManagement\test\SystemManagement.TestBase\SystemManagement.TestBase.csproj", "{16DD0B30-6321-4DF7-96AF-7798A7279CC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessGateway", "gateways\BusinessGateway\BusinessGateway.csproj", "{DAE1D094-F2D6-4939-AC5F-86A966EF84E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessGateway", "gateways\BusinessGateway\BusinessGateway.csproj", "{DAE1D094-F2D6-4939-AC5F-86A966EF84E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "basic", "basic", "{9AB1E69D-EFF6-4A51-BAC6-7E0700858DAA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5D1421AC-27EB-4936-ACDD-7292FDC30701}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Application", "modules\Basic\src\Basic.Application\Basic.Application.csproj", "{32E072F1-9D8D-4337-8C0E-266CBD3C48E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Application", "modules\Basic\src\Basic.Application\Basic.Application.csproj", "{32E072F1-9D8D-4337-8C0E-266CBD3C48E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Application.Contracts", "modules\Basic\src\Basic.Application.Contracts\Basic.Application.Contracts.csproj", "{A1536CA0-9CE4-4A12-8413-6032C356FC60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Application.Contracts", "modules\Basic\src\Basic.Application.Contracts\Basic.Application.Contracts.csproj", "{A1536CA0-9CE4-4A12-8413-6032C356FC60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Blazor", "modules\Basic\src\Basic.Blazor\Basic.Blazor.csproj", "{858292EB-8C14-408C-95EC-3C4C1FACCBE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Blazor", "modules\Basic\src\Basic.Blazor\Basic.Blazor.csproj", "{858292EB-8C14-408C-95EC-3C4C1FACCBE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Blazor.Server", "modules\Basic\src\Basic.Blazor.Server\Basic.Blazor.Server.csproj", "{74355B12-9138-45F2-A2A6-708F37E52AD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Blazor.Server", "modules\Basic\src\Basic.Blazor.Server\Basic.Blazor.Server.csproj", "{74355B12-9138-45F2-A2A6-708F37E52AD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Blazor.WebAssembly", "modules\Basic\src\Basic.Blazor.WebAssembly\Basic.Blazor.WebAssembly.csproj", "{BEB3D4EE-B35D-481D-B219-8FDFCDEA0EDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Blazor.WebAssembly", "modules\Basic\src\Basic.Blazor.WebAssembly\Basic.Blazor.WebAssembly.csproj", "{BEB3D4EE-B35D-481D-B219-8FDFCDEA0EDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Domain", "modules\Basic\src\Basic.Domain\Basic.Domain.csproj", "{245F617F-3DA9-4061-9A26-DE1CA127FE86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Domain", "modules\Basic\src\Basic.Domain\Basic.Domain.csproj", "{245F617F-3DA9-4061-9A26-DE1CA127FE86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Domain.Shared", "modules\Basic\src\Basic.Domain.Shared\Basic.Domain.Shared.csproj", "{7992125C-D158-4AE4-B832-2FD0A6FD9D77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Domain.Shared", "modules\Basic\src\Basic.Domain.Shared\Basic.Domain.Shared.csproj", "{7992125C-D158-4AE4-B832-2FD0A6FD9D77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.EntityFrameworkCore", "modules\Basic\src\Basic.EntityFrameworkCore\Basic.EntityFrameworkCore.csproj", "{BF392B4A-76D4-4AE3-A5D4-335CCEDC2370}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.EntityFrameworkCore", "modules\Basic\src\Basic.EntityFrameworkCore\Basic.EntityFrameworkCore.csproj", "{BF392B4A-76D4-4AE3-A5D4-335CCEDC2370}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.HttpApi", "modules\Basic\src\Basic.HttpApi\Basic.HttpApi.csproj", "{ECE863AB-134E-4925-AAAE-44F529A39950}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.HttpApi", "modules\Basic\src\Basic.HttpApi\Basic.HttpApi.csproj", "{ECE863AB-134E-4925-AAAE-44F529A39950}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.HttpApi.Client", "modules\Basic\src\Basic.HttpApi.Client\Basic.HttpApi.Client.csproj", "{90C0D9A5-F5A5-40F4-BF00-15E7B2B6D563}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.HttpApi.Client", "modules\Basic\src\Basic.HttpApi.Client\Basic.HttpApi.Client.csproj", "{90C0D9A5-F5A5-40F4-BF00-15E7B2B6D563}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicService", "microservices\BasicService\BasicService.csproj", "{BF9D970C-F323-4E20-B81B-94D862E7CEB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicService", "microservices\BasicService\BasicService.csproj", "{BF9D970C-F323-4E20-B81B-94D862E7CEB7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{95DD0D98-72DE-4224-8946-540A859F3B10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Application.Tests", "modules\Basic\test\Basic.Application.Tests\Basic.Application.Tests.csproj", "{9D1E8C30-EAEE-4377-AD57-52667FB281AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Application.Tests", "modules\Basic\test\Basic.Application.Tests\Basic.Application.Tests.csproj", "{9D1E8C30-EAEE-4377-AD57-52667FB281AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Domain.Tests", "modules\Basic\test\Basic.Domain.Tests\Basic.Domain.Tests.csproj", "{1032951D-6501-439C-82F6-FD734F2D265D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Domain.Tests", "modules\Basic\test\Basic.Domain.Tests\Basic.Domain.Tests.csproj", "{1032951D-6501-439C-82F6-FD734F2D265D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.EntityFrameworkCore.Tests", "modules\Basic\test\Basic.EntityFrameworkCore.Tests\Basic.EntityFrameworkCore.Tests.csproj", "{7DB0FECD-89A3-4EDE-8731-01C202691E59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.EntityFrameworkCore.Tests", "modules\Basic\test\Basic.EntityFrameworkCore.Tests\Basic.EntityFrameworkCore.Tests.csproj", "{7DB0FECD-89A3-4EDE-8731-01C202691E59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.HttpApi.Client.ConsoleTestApp", "modules\Basic\test\Basic.HttpApi.Client.ConsoleTestApp\Basic.HttpApi.Client.ConsoleTestApp.csproj", "{E80E6BDB-4F42-4874-A02E-87231C51DD75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.HttpApi.Client.ConsoleTestApp", "modules\Basic\test\Basic.HttpApi.Client.ConsoleTestApp\Basic.HttpApi.Client.ConsoleTestApp.csproj", "{E80E6BDB-4F42-4874-A02E-87231C51DD75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.TestBase", "modules\Basic\test\Basic.TestBase\Basic.TestBase.csproj", "{D0FFF361-379B-4928-94CB-A34E378AB2E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.TestBase", "modules\Basic\test\Basic.TestBase\Basic.TestBase.csproj", "{D0FFF361-379B-4928-94CB-A34E378AB2E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Application.Shared", "shared\Micro.Application.Shared\Micro.Application.Shared.csproj", "{DFB438A8-C0E0-426F-9A68-592489FA77AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Application.Shared", "shared\Micro.Application.Shared\Micro.Application.Shared.csproj", "{DFB438A8-C0E0-426F-9A68-592489FA77AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AntDesign", "AntDesign", "{D9D81F64-393F-4B66-83AE-D3883AD78D48}"
 EndProject
@@ -218,10 +216,6 @@ Global
 		{A7FF3958-8B3E-4E2D-8157-9A833E90D7C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7FF3958-8B3E-4E2D-8157-9A833E90D7C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7FF3958-8B3E-4E2D-8157-9A833E90D7C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67DB2BA0-26C9-4E1E-A0AF-56B210A1B5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67DB2BA0-26C9-4E1E-A0AF-56B210A1B5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67DB2BA0-26C9-4E1E-A0AF-56B210A1B5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67DB2BA0-26C9-4E1E-A0AF-56B210A1B5DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D6C9048-C181-4AE2-8888-AFE53897031D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D6C9048-C181-4AE2-8888-AFE53897031D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D6C9048-C181-4AE2-8888-AFE53897031D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -371,7 +365,6 @@ Global
 		{42CDF84F-3B72-441E-A6DE-0B3BB5293E5B} = {713F782F-A8FD-418E-B0A2-02C50742F361}
 		{78C244E0-2586-4BA9-98F5-68B2042D35F3} = {8E5408C1-C48E-4596-8835-F04A128394E8}
 		{A7FF3958-8B3E-4E2D-8157-9A833E90D7C8} = {8E5408C1-C48E-4596-8835-F04A128394E8}
-		{67DB2BA0-26C9-4E1E-A0AF-56B210A1B5DD} = {8E5408C1-C48E-4596-8835-F04A128394E8}
 		{0D6C9048-C181-4AE2-8888-AFE53897031D} = {00E6B2FF-BAFF-49B3-841B-FD17946D94DB}
 		{1EC11C4D-3980-4431-A74A-30AFD2D2C1CE} = {00E6B2FF-BAFF-49B3-841B-FD17946D94DB}
 		{BE6D1EC0-248D-4984-8BC3-558C0D424826} = {00E6B2FF-BAFF-49B3-841B-FD17946D94DB}

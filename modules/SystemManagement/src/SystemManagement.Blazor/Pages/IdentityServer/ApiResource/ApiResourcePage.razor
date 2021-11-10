@@ -23,6 +23,9 @@
     IsPagination="true"
     PageItemsSource="PageItemsSource" ShowToolbar="true"
     EditDialogRowType="RowType.Inline"
+       ShowAddButton="@HasCreatePermission"
+           ShowEditButton="@HasUpdatePermission"
+           ShowDeleteButton="@HasDeletePermission"
     OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync"
     OnQueryAsync="OnQueryAsync">
     <TableColumns>
@@ -39,7 +42,13 @@
 </Table>
 
 @code {
-
+    protected override Task OnInitializedAsync()
+    {
+        this.CreatePolicyName = Permissions.SystemManagementPermissions.IdentityServer.ApiResource.Create;
+        this.UpdatePolicyName = Permissions.SystemManagementPermissions.IdentityServer.ApiResource.Update;
+        this.DeletePolicyName = Permissions.SystemManagementPermissions.IdentityServer.ApiResource.Delete;
+        return base.OnInitializedAsync();
+    }
   
 
 }

@@ -286,7 +286,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
                 await InvokeAsync(table.QueryAsync);
             }
 
-            if (table.ShowErrorToast || ret)
+            if (table.ShowToastAfterSaveOrDeleteModel || ret)
             {
                 await Toast.Show(option);
             }
@@ -321,7 +321,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
                 await InvokeAsync(table.QueryAsync);
             }
 
-            if (table.ShowErrorToast || ret)
+            if (table.ShowToastAfterSaveOrDeleteModel || ret)
             {
                 await Toast.Show(option);
             }

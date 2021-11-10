@@ -11,7 +11,7 @@
     <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.IdentityServer.EntityFrameworkCore" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.Identity.EntityFrameworkCore" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="4.4.3" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="$(AbpVersion)" />
     <ProjectReference Include="..\SystemManagement.Domain\SystemManagement.Domain.csproj" />
   </ItemGroup>
 

@@ -6,6 +6,7 @@ using Localization.Resources;
 using Localization.Resources.AbpUi;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Tchivs.Abp.Blazor.Localization;
 using Volo.Abp.AspNetCore.Components;
 using Volo.Abp.AspNetCore.Components.Messages;
 using Volo.Abp.DependencyInjection;
@@ -24,7 +25,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
         protected ToastService? Toast { get; set; }
         protected BootstrapComponent()
         {
-            LocalizationResource = typeof( Tchivs.Abp.Blazor.Localization.BlazorResource);
+            LocalizationResource = typeof(  BlazorUiResource);
         }
     }
 

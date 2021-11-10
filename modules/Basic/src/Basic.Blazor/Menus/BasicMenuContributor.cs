@@ -15,9 +15,11 @@ namespace Basic.Blazor.Menus
 
         private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
         {
+            var l = context.GetLocalizer<Basic.Localization.BasicResource>();
+            var administrationMenu = context.Menu.GetAdministration();
             //Add main menu items.
             context.Menu.AddItem(new ApplicationMenuItem(BasicMenus.Prefix, displayName: "Basic", "/Basic", icon: "fa fa-globe"));
-            
+            administrationMenu.AddItem(new ApplicationMenuItem(BasicMenus.DataDictionary, l["DataDictionary"], "/dataDictionary", icon:"fa fa-book"));
             return Task.CompletedTask;
         }
     }

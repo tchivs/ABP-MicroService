@@ -6,7 +6,7 @@ using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Volo.Abp.Identity;
 
-namespace Admin.Blazor.Pages.User
+namespace SystemManagement.Blazor.Pages.User
 {
     public partial class AddModal: IResultDialog
     {

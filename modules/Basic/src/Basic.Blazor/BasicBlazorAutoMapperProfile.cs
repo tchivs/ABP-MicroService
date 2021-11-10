@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Basic.DataDictionaries.Dtos;
 
 namespace Basic.Blazor
 {
@@ -9,6 +10,7 @@ namespace Basic.Blazor
             /* You can configure your AutoMapper mapping configuration here.
              * Alternatively, you can split your mapping configurations
              * into multiple profile classes for a better organization. */
+            CreateMap<DataDictionaryDto, CreateDataDictionaryDto>();
         }
     }
 }

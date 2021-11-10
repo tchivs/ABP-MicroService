@@ -43,6 +43,7 @@ using Volo.Abp.VirtualFileSystem;
 using Tchivs.Abp.Blazor.Routing;
 using Volo.Abp.Http.Client.IdentityModel.Web;
 using SystemManagement.Blazor.Server;
+using Basic.Blazor.Server;
 
 namespace Admin.Blazor.Server.Host
 {
@@ -60,6 +61,8 @@ namespace Admin.Blazor.Server.Host
         typeof(AbpTenantManagementHttpApiClientModule),
         typeof(AbpPermissionManagementHttpApiClientModule),
         typeof(AdminBlazorModule), 
+        typeof(BasicBlazorServerModule),
+        typeof(Basic.BasicHttpApiClientModule),
           typeof(SystemManagement.SystemManagementHttpApiClientModule),typeof(SystemManagementBlazorServerModule)
     )]
     public class AdminBlazorServerHostModule : AbpModule

@@ -22,6 +22,9 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <_ContentIncludedByDefault Remove="Pages\IdentityServer\Client\Index.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\User\AddModal.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\User\EditModal.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\User\Index.razor" />
 	</ItemGroup>
 
 
