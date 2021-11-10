@@ -2,11 +2,9 @@
 @using Volo.Abp.TenantManagement
 @using Volo.Abp.MultiTenancy
 @inherits SystemManagementComponent
-<h3>Tenants</h3>
 @attribute [Authorize(TenantManagementPermissions.Tenants.Default)]
 <TableEx
     TItem=TenantDto
-
     TAppService=ITenantAppService
     TKey=Guid TGetListInput=GetTenantsInput
     TCreateInput=TenantCreateDto
@@ -16,12 +14,12 @@
     UpdatePolicyName="@TenantManagementPermissions.Tenants.Update"
     DeletePolicyName="@TenantManagementPermissions.Tenants.Delete">
     <TableColumns>
-        <TableColumn @bind-Field="@context.Name" IsReadonlyWhenEdit="true" Text="@L["Name"]"/>
+        <TableColumn @bind-Field="@context.Name" Text="@L["TenantName"]"/>
     </TableColumns>
     <AddTemplate>
         <div class="row g-3 form-inline">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@context.Name" placeholder="租户名称"
+                <BootstrapInput @bind-Value="@context.Name" 
                                 DisplayText=@L["TenantName"] maxlength="50"/>
             </div>
 
@@ -30,6 +28,7 @@
                                 type="mail"
                                 DisplayText="@L["AdminEmailAddress"]"/>
             </div>
+
             <div class="col-12">
                 <BootstrapInput @bind-Value="@context.AdminPassword"
                                 type="password"
@@ -37,6 +36,14 @@
             </div>
         </div>
     </AddTemplate>
+    <EditTemplate>
+        <div class="row g-3 form-inline">
+            <div class="col-12">
+                <BootstrapInput @bind-Value="@context.Name" placeholder="租户名称"
+                                DisplayText=@L["TenantName"] maxlength="50"/>
+            </div>
+        </div>
+    </EditTemplate>
 </TableEx>
 
 @code {
