@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
-using Tchivs.Abp.Blazor.Localization;
 using Tchivs.Abp.Blazor.Routing;
 using Volo.Abp.Application;
 using Volo.Abp.AspNetCore.Components.Messages;
@@ -21,7 +20,7 @@ namespace Tchivs.Abp.Blazor
 {
     [DependsOn(
         typeof(AbpExceptionHandlingModule),
-        typeof(AbpValidationModule),
+        typeof(Blazor.TchivsAbpBlazorSharedModule),
         typeof(AbpAspNetCoreComponentsWebModule),
         typeof(AbpDddApplicationContractsModule),
         typeof(AbpAuthorizationModule),
@@ -33,18 +32,7 @@ namespace Tchivs.Abp.Blazor
         {
             context.Services.AddSingleton(typeof(AbpBlazorMessageLocalizerHelper<>));
 
-            Configure<AbpVirtualFileSystemOptions>(options =>
-            {
-                options.FileSets.AddEmbedded<TchivsAbpBlazorModule>();
-            });
-
-            Configure<AbpLocalizationOptions>(options =>
-            {
-                options.Resources
-                    .Add<BlazorUiResource>("zh-Hans")
-                    .AddBaseTypes(typeof(AbpValidationResource))
-                    .AddVirtualJson("/Localization/BlazorUi");
-            });
+ 
             ConfigureRouter(context);
         }
 

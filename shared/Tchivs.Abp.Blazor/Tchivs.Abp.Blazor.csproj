@@ -17,7 +17,6 @@
 		<PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)" />
 	</ItemGroup>
 	<ItemGroup>
-		<EmbeddedResource Include="Localization\BlazorUi\*.json" />
-		<Content Remove="Localization\BlazorUi\*.json" />
+	  <ProjectReference Include="..\Tchivs.Abp.Blazor.Shared\Tchivs.Abp.Blazor.Shared.csproj" />
 	</ItemGroup>
 </Project>

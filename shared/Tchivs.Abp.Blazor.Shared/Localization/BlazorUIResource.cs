@@ -2,8 +2,8 @@
 
 namespace Tchivs.Abp.Blazor.Localization
 {
-    [LocalizationResourceName("BlazorUi")]
-    public class BlazorUiResource
+    [LocalizationResourceName("BlazorUI")]
+    public class BlazorUIResource
     {
         
     }

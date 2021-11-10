@@ -138,6 +138,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Application.Shared", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AntDesign", "AntDesign", "{D9D81F64-393F-4B66-83AE-D3883AD78D48}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tchivs.Abp.Blazor.Shared", "shared\Tchivs.Abp.Blazor.Shared\Tchivs.Abp.Blazor.Shared.csproj", "{D1D17994-9023-4ABD-91D5-3AA8971ACD49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -340,6 +342,10 @@ Global
 		{DFB438A8-C0E0-426F-9A68-592489FA77AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFB438A8-C0E0-426F-9A68-592489FA77AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFB438A8-C0E0-426F-9A68-592489FA77AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1D17994-9023-4ABD-91D5-3AA8971ACD49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D17994-9023-4ABD-91D5-3AA8971ACD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D17994-9023-4ABD-91D5-3AA8971ACD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D17994-9023-4ABD-91D5-3AA8971ACD49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -404,6 +410,7 @@ Global
 		{D0FFF361-379B-4928-94CB-A34E378AB2E2} = {95DD0D98-72DE-4224-8946-540A859F3B10}
 		{DFB438A8-C0E0-426F-9A68-592489FA77AD} = {681036A1-1744-4F86-BBC8-82EDC9C0216C}
 		{D9D81F64-393F-4B66-83AE-D3883AD78D48} = {8E5408C1-C48E-4596-8835-F04A128394E8}
+		{D1D17994-9023-4ABD-91D5-3AA8971ACD49} = {8E5408C1-C48E-4596-8835-F04A128394E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92A79A16-FA94-4FBA-88C4-C937C22B1BBE}

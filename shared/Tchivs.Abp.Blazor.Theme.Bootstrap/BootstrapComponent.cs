@@ -16,34 +16,36 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
     public abstract class BootstrapComponent : AbpComponentBase
 
     {
-        [Inject][NotNull]
+        [Inject]
+        [NotNull]
         protected DialogService? DialogService { get; set; }
 
-        [Inject] [NotNull]
-        public   IStringLocalizer<AbpUiResource>? Localizer { get; set; }
+        [Inject]
+        [NotNull]
+        public IStringLocalizer<AbpUiResource>? Localizer { get; set; }
         [Inject]
         protected ToastService? Toast { get; set; }
         protected BootstrapComponent()
         {
-            LocalizationResource = typeof(  BlazorUiResource);
+            LocalizationResource = typeof(BlazorUIResource);
         }
     }
 
-  
+
     [Dependency(ReplaceServices = true)]
     public class BootstrapUiMessageService : IUiMessageService, IScopedDependency
     {
         private readonly MessageService _messageService;
         private readonly IStringLocalizer<AbpUiResource> localizer;
 
-        public BootstrapUiMessageService( IStringLocalizer<AbpUiResource> localizer,BootstrapBlazor.Components.MessageService messageService)
+        public BootstrapUiMessageService(IStringLocalizer<AbpUiResource> localizer, BootstrapBlazor.Components.MessageService messageService)
         {
             _messageService = messageService;
             this.localizer = localizer;
         }
         public async Task Info(string message, string title = null, Action<UiMessageOptions> options = null)
         {
-          await  _messageService.Show(new MessageOption()
+            await _messageService.Show(new MessageOption()
             {
             });
         }
@@ -52,7 +54,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
         {
             return new MessageOption()
             {
-            
+
             };
         }
         public Task Success(string message, string title = null, Action<UiMessageOptions> options = null)
@@ -67,9 +69,10 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
 
         public async Task Error(string message, string title = null, Action<UiMessageOptions> options = null)
         {
-            await  _messageService.Show(new MessageOption()
-            { 
-                Content = message, Color = Color.Danger,
+            await _messageService.Show(new MessageOption()
+            {
+                Content = message,
+                Color = Color.Danger,
             });
         }
 

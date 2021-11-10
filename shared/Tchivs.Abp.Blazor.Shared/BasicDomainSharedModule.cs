@@ -16,7 +16,23 @@ namespace Tchivs.Abp.Blazor
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            
+            Configure<AbpVirtualFileSystemOptions>(options =>
+            {
+                options.FileSets.AddEmbedded<TchivsAbpBlazorSharedModule>();
+            });
+
+            Configure<AbpLocalizationOptions>(options =>
+            {
+                options.Resources
+                    .Add<BlazorUIResource>("en")
+                    .AddBaseTypes(typeof(AbpValidationResource))
+                    .AddVirtualJson("/Localization/BlazorUI");
+            });
+
+            Configure<AbpExceptionLocalizationOptions>(options =>
+            {
+                options.MapCodeNamespace("BlazorUI", typeof(BlazorUIResource));
+            });
         }
     }
 }
