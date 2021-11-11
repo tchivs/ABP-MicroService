@@ -30,7 +30,7 @@ namespace BusinessGateway
         typeof(AbpEntityFrameworkCoreSqlServerModule),
         typeof(AbpPermissionManagementEntityFrameworkCoreModule),
         typeof(AbpSettingManagementEntityFrameworkCoreModule),
-        typeof(Basic.BasicHttpApiModule), 
+        typeof(BasicManagement.BasicManagementHttpApiModule), 
         typeof(AbpAspNetCoreMvcUiMultiTenancyModule)
     )]
     internal class BusinessGatewayModule : AbpModule

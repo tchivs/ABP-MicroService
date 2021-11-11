@@ -19,8 +19,8 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 		<PackageReference Include="Ocelot" Version="17.0.0" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.*" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="5.0.*" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)" />
@@ -45,7 +45,7 @@
 		<PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="$(AbpVersion)" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\modules\Basic\src\Basic.HttpApi\Basic.HttpApi.csproj" />
+		<ProjectReference Include="..\..\modules\BasicManagement\src\BasicManagement.HttpApi\BasicManagement.HttpApi.csproj" />
 		<ProjectReference Include="..\..\modules\SystemManagement\src\SystemManagement.HttpApi\SystemManagement.HttpApi.csproj" />
 		<ProjectReference Include="..\..\shared\Micro.Shared\Micro.Shared.csproj" />
 	</ItemGroup>
@@ -60,5 +60,5 @@
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 		</Content>
 	</ItemGroup>
-	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+	 
 </Project>

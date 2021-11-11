@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Basic;
+using Basic.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,18 +44,18 @@ namespace IdentityService
         typeof(AbpIdentityEntityFrameworkCoreModule),
         typeof(AbpIdentityApplicationModule),
         typeof(AbpAspNetCoreMultiTenancyModule),
-        typeof(AbpTenantManagementEntityFrameworkCoreModule)
-        )]
+        typeof(AbpTenantManagementEntityFrameworkCoreModule),
+        typeof(BasicApplicationModule),
+        typeof(BasicHttpApiModule),
+        typeof(BasicEntityFrameworkCoreModule)
+    )]
     public class IdentityServiceHostModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
 
-            Configure<AbpMultiTenancyOptions>(options =>
-            {
-                options.IsEnabled = MicroConsts.IsMultiTenancyEnabled;
-            });
+            Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = MicroConsts.IsMultiTenancyEnabled; });
 
             context.Services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
@@ -70,22 +72,16 @@ namespace IdentityService
                 options.CustomSchemaIds(type => type.FullName);
             });
 
-         
+
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Languages.Add(new LanguageInfo("en", "en", "English"));
                 options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "¼òÌåÖÐÎÄ"));
             });
 
-            Configure<AbpDbContextOptions>(options =>
-            {
-                options.UseSqlServer();
-            });
+            Configure<AbpDbContextOptions>(options => { options.UseSqlServer(); });
 
-            Configure<AbpDistributedEntityEventOptions>(options =>
-            {
-                options.AutoEventSelectors.Add<IdentityUser>();
-            });
+            Configure<AbpDistributedEntityEventOptions>(options => { options.AutoEventSelectors.Add<IdentityUser>(); });
 
             context.Services.AddStackExchangeRedisCache(options =>
             {
@@ -100,8 +96,7 @@ namespace IdentityService
 
             var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
             context.Services.AddDataProtection()
-                           .PersistKeysToStackExchangeRedis(redis, MicroConsts.DataProtectionKeys);
-
+                .PersistKeysToStackExchangeRedis(redis, MicroConsts.DataProtectionKeys);
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)

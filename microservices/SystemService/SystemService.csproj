@@ -19,7 +19,9 @@
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.*" />
 		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="5.0.*" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.*">
+		
+		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)" />

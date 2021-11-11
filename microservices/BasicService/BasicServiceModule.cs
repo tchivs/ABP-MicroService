@@ -112,7 +112,7 @@ namespace BasicService
             app.UseAbpRequestLocalization(); //TODO: localization?
             // app.UseAuthorization();
             app.UseSwagger();
-            app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "System Service API"); });
+            app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "Basic Service API"); });
             app.UseAuditing();
             app.UseConfiguredEndpoints();
             //TODO: Problem on a clustered environment

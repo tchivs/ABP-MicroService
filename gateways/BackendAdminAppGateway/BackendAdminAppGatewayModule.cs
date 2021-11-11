@@ -40,10 +40,8 @@ namespace BackendAdminAppGateway
        typeof(AbpAutofacModule),
        typeof(AbpIdentityHttpApiModule),
        typeof(AbpIdentityHttpApiClientModule),
-       typeof(Basic.BasicHttpApiModule),
-       typeof(SystemManagement.SystemManagementHttpApiModule),
-       // typeof(SystemManagement.SystemManagementHttpApiClientModule),
-       // typeof(SystemManagement.EntityFrameworkCore.SystemManagementEntityFrameworkCoreModule),
+      typeof(SystemManagement.SystemManagementHttpApiModule),
+       typeof(BasicManagement.BasicManagementHttpApiModule),
        typeof(AbpEntityFrameworkCoreSqlServerModule),
        typeof(AbpPermissionManagementEntityFrameworkCoreModule),
        typeof(AbpPermissionManagementApplicationModule),
@@ -117,7 +115,7 @@ namespace BackendAdminAppGateway
                 },
                 options =>
                 {
-                    options.EnableAnnotations(); // 启用注解
+                //    options.EnableAnnotations(); // 启用注解
                     options.SwaggerDoc("v1", new OpenApiInfo { Title = "BackendAdminApp Gateway API", Version = "v1" });
                     options.DocInclusionPredicate((docName, description) => true);
                     options.CustomSchemaIds(type => type.FullName);
