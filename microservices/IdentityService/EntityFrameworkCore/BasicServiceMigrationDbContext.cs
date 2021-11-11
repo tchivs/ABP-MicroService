@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Basic.EntityFrameworkCore;
+using BasicManagement.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace IdentityService.EntityFrameworkCore
@@ -16,7 +16,7 @@ namespace IdentityService.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ConfigureBasic();
+            modelBuilder.ConfigureBasicManagement();
         }
     }
 }

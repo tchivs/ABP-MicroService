@@ -52,7 +52,10 @@ namespace BasicManagement.DataDictionaries.Dtos
         [Required]
         [StringLength(BasicConstant.BasicDictionaryConstant.MaxNameLength)]
         public string Name { get; set; }
-
+        [DisplayName("名称")]
+        [Required]
+        [StringLength(BasicConstant.BasicDictionaryConstant.MaxAppNameLength)]
+        public string AppName { get; set; }
         [StringLength(BasicConstant.BasicDictionaryConstant.MaxKeyLength)]
         [Required]
         [DisplayName("键")]

@@ -108,10 +108,8 @@ namespace BackendAdminAppGateway
                 {
                     {"IdentityService", "IdentityService API"},
                     {"TenantService", "TenantService API"},
-                    {"ProductService", "ProductService API"},
                     {"SystemService","SystemService API" },
                     {"BackendAdminAppGateway", "BackendAdminAppGateway API"},
-
                 },
                 options =>
                 {

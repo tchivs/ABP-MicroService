@@ -12,7 +12,7 @@ namespace IdentityService.EntityFrameworkCore
             var configuration = BuildConfiguration();
 
             var builder = new DbContextOptionsBuilder<BasicServiceMigrationDbContext>()
-                .UseSqlServer(configuration.GetConnectionString("Basic"));
+                .UseSqlServer(configuration.GetConnectionString("BasicManagement"));
 
             return new BasicServiceMigrationDbContext(builder.Options);
         }

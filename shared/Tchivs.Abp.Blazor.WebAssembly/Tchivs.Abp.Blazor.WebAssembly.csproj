@@ -2,14 +2,13 @@
 	<Import Project="..\..\common.props" />
 
 	<PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 	  <IsPackable>true</IsPackable>
 	  <OutputType>Library</OutputType>
   </PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Volo.Abp.Http.Client.IdentityModel.WebAssembly" Version="$(AbpVersion)" />
-
 		<PackageReference Include="Volo.Abp.AspNetCore.Components.WebAssembly" Version="$(AbpVersion)" />
 	</ItemGroup>
 	<ItemGroup>

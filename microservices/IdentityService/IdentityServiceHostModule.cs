@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Basic;
-using Basic.EntityFrameworkCore;
+using BasicManagement;
+using BasicManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,9 +45,9 @@ namespace IdentityService
         typeof(AbpIdentityApplicationModule),
         typeof(AbpAspNetCoreMultiTenancyModule),
         typeof(AbpTenantManagementEntityFrameworkCoreModule),
-        typeof(BasicApplicationModule),
-        typeof(BasicHttpApiModule),
-        typeof(BasicEntityFrameworkCoreModule)
+        typeof(BasicManagementApplicationModule),
+        typeof(BasicManagementHttpApiModule),
+        typeof(BasicManagementEntityFrameworkCoreModule)
     )]
     public class IdentityServiceHostModule : AbpModule
     {

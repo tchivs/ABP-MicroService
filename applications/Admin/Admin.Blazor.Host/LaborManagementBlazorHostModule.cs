@@ -1,45 +1,40 @@
 ﻿using System;
 using System.Net.Http;
-using Blazorise.Bootstrap;
-using Blazorise.Icons.FontAwesome;
 using IdentityModel;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Tchivs.Abp.Blazor.Routing;
+using Tchivs.Abp.Blazor.Theme.Bootstrap.Components;
+using Tchivs.Abp.Blazor.Theme.Bootstrap.WebAssembly;
 using Volo.Abp.Account;
-using Volo.Abp.AspNetCore.Components.Web.BasicTheme.Themes.Basic;
-using Volo.Abp.AspNetCore.Components.Web.Theming.Routing;
-using Volo.Abp.AspNetCore.Components.WebAssembly.BasicTheme;
 using Volo.Abp.Autofac;
 using Volo.Abp.Autofac.WebAssembly;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.FeatureManagement;
-using Volo.Abp.FeatureManagement.Blazor.WebAssembly;
 using Volo.Abp.Identity;
-using Volo.Abp.Identity.Blazor.WebAssembly;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
-using Volo.Abp.SettingManagement.Blazor.WebAssembly;
 using Volo.Abp.TenantManagement;
-using Volo.Abp.TenantManagement.Blazor.WebAssembly;
 using Volo.Abp.UI.Navigation;
 
 namespace Admin.Blazor.Host
 {
     [DependsOn(
+        typeof(TchivsAbpBlazorThemeBootstrapWebAssembly),
+        typeof(Admin.Blazor.AdminBlazorModule),
         typeof(AbpIdentityApplicationContractsModule),
         typeof(AbpAutofacWebAssemblyModule),
-        typeof(AbpAspNetCoreComponentsWebAssemblyBasicThemeModule),
         typeof(AbpAccountApplicationContractsModule),
-        typeof(AbpIdentityBlazorWebAssemblyModule),
-        typeof(AbpTenantManagementBlazorWebAssemblyModule),
-        typeof(AbpFeatureManagementBlazorWebAssemblyModule),
-        typeof(AbpSettingManagementBlazorWebAssemblyModule),
-        typeof(AbpAutofacModule),
+        // typeof(AbpIdentityBlazorWebAssemblyModule),
+        // typeof(AbpTenantManagementBlazorWebAssemblyModule),
+        // typeof(AbpFeatureManagementBlazorWebAssemblyModule),
+        // typeof(AbpSettingManagementBlazorWebAssemblyModule),
         typeof(AbpIdentityHttpApiClientModule),
         typeof(AbpFeatureManagementHttpApiClientModule),
         typeof(AbpTenantManagementHttpApiClientModule),
-        typeof(AbpPermissionManagementHttpApiClientModule)
+        typeof(AbpPermissionManagementHttpApiClientModule),
+        typeof(AbpAutofacModule)
     )]
     public class AdminBlazorHostModule : AbpModule
     {
@@ -51,7 +46,7 @@ namespace Admin.Blazor.Host
 
             ConfigureAuthentication(builder);
             ConfigureHttpClient(context, environment);
-            ConfigureBlazorise(context);
+            
             ConfigureRouter(context);
             ConfigureUI(builder);
             ConfigureMenu(context);
@@ -71,12 +66,7 @@ namespace Admin.Blazor.Host
             });
         }
 
-        private void ConfigureBlazorise(ServiceConfigurationContext context)
-        {
-            context.Services
-                .AddBootstrapProviders()
-                .AddFontAwesomeIcons();
-        }
+      
 
         private static void ConfigureAuthentication(WebAssemblyHostBuilder builder)
         {
@@ -88,7 +78,6 @@ namespace Admin.Blazor.Host
                 options.ProviderOptions.DefaultScopes.Add("email");
                 options.ProviderOptions.DefaultScopes.Add("phone");
                 options.ProviderOptions.DefaultScopes.Add("SystemService");
-                options.ProviderOptions.DefaultScopes.Add("BasicService");
                 options.ProviderOptions.DefaultScopes.Add("BackendAdminAppGateway");
                 options.ProviderOptions.DefaultScopes.Add("IdentityService");
                 options.ProviderOptions.DefaultScopes.Add("TenantService");

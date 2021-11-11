@@ -5,12 +5,10 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
+ 
 
     <ItemGroup>
-        <PackageReference Include="Volo.Abp.AspNetCore.Components.Server.Theming" Version="4.4.4" />
-    </ItemGroup>
-
-    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\shared\Tchivs.Abp.Blazor.Theme.Bootstrap.Server\Tchivs.Abp.Blazor.Theme.Bootstrap.Server.csproj" />
         <ProjectReference Include="..\BasicManagement.Blazor\BasicManagement.Blazor.csproj" />
     </ItemGroup>
 

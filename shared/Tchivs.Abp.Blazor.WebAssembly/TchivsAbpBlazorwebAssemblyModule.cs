@@ -14,7 +14,7 @@ namespace Tchivs.Abp.Blazor.WebAssembly
         typeof(AbpAspNetCoreComponentsWebAssemblyModule)
     )]
     public abstract class TchivsAbpBlazorwebAssemblyModule<TBundleContributor> : AbpModule
-        where TBundleContributor: IBundleContributor
+        where TBundleContributor : IBundleContributor
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
@@ -24,7 +24,7 @@ namespace Tchivs.Abp.Blazor.WebAssembly
             });
             Configure<AbpRouterOptions>(options =>
             {
-                options.AdditionalAssemblies.Add(this.GetType().Assembly);
+                options.AdditionalAssemblies.Add(typeof(Pages.Authentication).Assembly);
             });
         }
 

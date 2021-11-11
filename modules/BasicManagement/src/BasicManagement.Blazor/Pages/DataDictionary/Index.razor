@@ -1,0 +1,62 @@
+﻿@page "/dataDictionary"
+@namespace BasicManagement.DataDictionaries.Dtos
+@inherits EasyTable<IDataDictionaryAppService, DataDictionaryDto, Guid, GetDataDictionaryInput, CreateDataDictionaryDto, UpdateDataDictionaryDto>
+<Table TItem="DataDictionaryDto"
+       AutoGenerateColumns="false"
+       IsMultipleSelect="true"
+       ShowSkeleton="true"
+       ShowLoading="true"
+       ShowSearch="true"
+       IsStriped="true"
+       IsBordered="true"
+       ShowExtendButtons="true"
+       ShowLineNo="true"
+       ShowDefaultButtons="true"
+       IsPagination="true"
+       PageItemsSource="PageItemsSource" ShowToolbar="true"
+       EditDialogRowType="RowType.Inline"
+       ShowAddButton="@HasCreatePermission"
+       ShowEditButton="@HasUpdatePermission"
+       ShowDeleteButton="@HasDeletePermission"
+       ShowDetailRow="x => x.Details.Count > 0"
+       OnSaveAsync="OnSaveAsync"
+       OnDeleteAsync="OnDeleteAsync"
+       OnQueryAsync="OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Name" Text="@L["Name"]"/>
+        <TableColumn @bind-Field="@context.AppName" IsReadonlyWhenEdit="true" Text="@L["AppName"]"/>
+        <TableColumn @bind-Field="@context.Key" IsReadonlyWhenEdit="true" Text="@L["Key"]"/>
+        <TableColumn @bind-Field="@context.Remark" Text="@L["Remark"]"/>
+        <TableColumn @bind-Field="@context.Sort" Text="@L["Sort"]"/>
+    </TableColumns>
+    <DetailRowTemplate>
+
+        @code{
+
+
+        }
+
+        <Table TItem="DataDictionaryDetailDto"
+               Height="200"
+               IsStriped="true" IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowToolbar="true" ShowDefaultButtons="false" Items="context.Details">
+        </Table>
+    </DetailRowTemplate>
+</Table>
+
+@code {
+
+    public Index()
+    {
+        LocalizationResource = typeof(BasicManagement.Localization.BasicManagementResource);
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        this.CreatePolicyName = BasicManagement.Permissions.BasicManagementPermissions.DataDictionary.Create;
+        this.UpdatePolicyName =  BasicManagement.Permissions.BasicManagementPermissions.DataDictionary.Update;
+        this.DeletePolicyName =  BasicManagement.Permissions.BasicManagementPermissions.DataDictionary.Delete;
+        return base.OnInitializedAsync();
+    }
+}

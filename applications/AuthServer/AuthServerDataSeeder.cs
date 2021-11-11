@@ -58,7 +58,6 @@ namespace AuthServer
             await CreateApiScopeAsync("IdentityService");
             await CreateApiScopeAsync("TenantService");
             await CreateApiScopeAsync("SystemService");
-            await CreateApiScopeAsync("BasicService");
             await CreateApiScopeAsync("InternalGateway");
             await CreateApiScopeAsync("BackendAdminAppGateway");
         }
@@ -94,7 +93,6 @@ namespace AuthServer
             };
             await CreateApiResourceAsync("IdentityService", commonApiUserClaims);
             await CreateApiResourceAsync("TenantService", commonApiUserClaims);
-            await CreateApiResourceAsync("BasicService", commonApiUserClaims);
             await CreateApiResourceAsync("SystemService", commonApiUserClaims);
             await CreateApiResourceAsync("InternalGateway", commonApiUserClaims);
             await CreateApiResourceAsync("BackendAdminAppGateway", commonApiUserClaims);
@@ -143,7 +141,6 @@ namespace AuthServer
             {
                 "IdentityService",
                 "TenantService",
-                "BasicService",
                 "SystemService",
                 "InternalGateway",
                 "BackendAdminAppGateway",

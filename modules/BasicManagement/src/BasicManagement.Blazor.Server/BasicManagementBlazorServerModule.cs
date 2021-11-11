@@ -1,10 +1,9 @@
-﻿using Volo.Abp.AspNetCore.Components.Server.Theming;
-using Volo.Abp.Modularity;
+﻿using Volo.Abp.Modularity;
 
 namespace BasicManagement.Blazor.Server
 {
     [DependsOn(
-        typeof(AbpAspNetCoreComponentsServerThemingModule),
+        typeof(Tchivs.Abp.Blazor.Theme.Bootstrap.Server.TchivsAbpBlazorThemeBootstrapServerModule),
         typeof(BasicManagementBlazorModule)
         )]
     public class BasicManagementBlazorServerModule : AbpModule

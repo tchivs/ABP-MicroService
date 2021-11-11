@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
     <Import Project="..\..\..\common.props" />
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
         <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -36,8 +36,8 @@
         <PackageReference Include="Volo.Abp.TenantManagement.HttpApi.Client" Version="$(AbpVersion)" />
         <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi.Client" Version="$(AbpVersion)" />
         <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="$(AbpVersion)" />
-        <ProjectReference Include="..\..\..\modules\Basic\src\Basic.Blazor.Server\Basic.Blazor.Server.csproj" />
-        <ProjectReference Include="..\..\..\modules\Basic\src\Basic.HttpApi.Client\Basic.HttpApi.Client.csproj" />
+        <ProjectReference Include="..\..\..\modules\BasicManagement\src\BasicManagement.Blazor.Server\BasicManagement.Blazor.Server.csproj" />
+        <ProjectReference Include="..\..\..\modules\BasicManagement\src\BasicManagement.HttpApi.Client\BasicManagement.HttpApi.Client.csproj" />
         <ProjectReference Include="..\..\..\modules\SystemManagement\src\SystemManagement.Blazor.Server\SystemManagement.Blazor.Server.csproj" />
         <ProjectReference Include="..\..\..\modules\SystemManagement\src\SystemManagement.HttpApi.Client\SystemManagement.HttpApi.Client.csproj" />
         <ProjectReference Include="..\..\..\shared\Micro.Shared\Micro.Shared.csproj" />
