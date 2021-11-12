@@ -3,6 +3,7 @@
   "texts": {
     "MyAccount": "我的账户",
     "SamplePageMessage": "BasicManagement模块的示例页面",
+    "Permission:BasicManagement": "基础管理",
     "Menu:DataDictionary": "数据字典",
     "DataDictionary": "数据字典",
     "DataDictionaryKey": "键",
@@ -20,6 +21,6 @@
     "App:NotExists": "数据{Name}不存在",
     "App:IsExists": "数据{Name}已存在",
     "App:DetailIsExists": "存在明细数据{Footer}",
-    "App:ParentNotFound": "上级元素不存在",
+    "App:ParentNotFound": "上级元素不存在"
   }
 }

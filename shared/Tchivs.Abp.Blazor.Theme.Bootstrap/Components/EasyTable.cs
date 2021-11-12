@@ -10,7 +10,7 @@ using Volo.Abp.Application.Services;
 
 namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
 {
-    public class ReadOnlyTable<TAppService, TItem, TKey, TGetListInput> : BootstrapComponent, ITable<TKey>
+    public class ReadOnlyTable<TAppService, TItem, TKey, TGetListInput> : BootstrapAbpComponentBase, ITable<TKey>
         where TAppService : IReadOnlyAppService<TItem, TItem,TKey, TGetListInput>
         where TItem : class, IEntityDto<TKey>, new()
         where TGetListInput :PagedAndSortedResultRequestDto, new()
@@ -103,16 +103,15 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
             return result;
         }
 
-        protected virtual async Task<bool> OnDeleteAsync(IEnumerable<TItem> arg)
+        protected virtual async Task<bool> OnDeleteAsync(IEnumerable<TItem> items)
         {
             bool success = false;
             try
             {
-                foreach (var item in arg)
+                foreach (var item in items)
                 {
                     await this.AppService.DeleteAsync(item.Id);
                 }
-
                 success = true;
             }
             catch (Exception e)

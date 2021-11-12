@@ -1,37 +1,13 @@
-using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System;
 using System.Threading.Tasks;
 using BootstrapBlazor.Components;
-using Localization.Resources;
 using Localization.Resources.AbpUi;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Tchivs.Abp.Blazor.Localization;
-using Volo.Abp.AspNetCore.Components;
 using Volo.Abp.AspNetCore.Components.Messages;
 using Volo.Abp.DependencyInjection;
 
 namespace Tchivs.Abp.Blazor.Theme.Bootstrap
 {
-    public abstract class BootstrapComponent : AbpComponentBase
-
-    {
-        [Inject]
-        [NotNull]
-        protected DialogService? DialogService { get; set; }
-
-        [Inject]
-        [NotNull]
-        public IStringLocalizer<AbpUiResource>? Localizer { get; set; }
-        [Inject]
-        protected ToastService? Toast { get; set; }
-        protected BootstrapComponent()
-        {
-            LocalizationResource = typeof(BlazorUIResource);
-        }
-    }
-
-
     [Dependency(ReplaceServices = true)]
     public class BootstrapUiMessageService : IUiMessageService, IScopedDependency
     {
@@ -47,6 +23,8 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
         {
             await _messageService.Show(new MessageOption()
             {
+                Content = message,
+                Color = Color.Info,
             });
         }
 
@@ -57,14 +35,22 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap
 
             };
         }
-        public Task Success(string message, string title = null, Action<UiMessageOptions> options = null)
+        public async Task Success(string message, string title = null, Action<UiMessageOptions> options = null)
         {
-            throw new NotImplementedException();
+            await _messageService.Show(new MessageOption()
+            {
+                Content = message,
+                Color = Color.Success,
+            });
         }
 
-        public Task Warn(string message, string title = null, Action<UiMessageOptions> options = null)
+        public async Task Warn(string message, string title = null, Action<UiMessageOptions> options = null)
         {
-            throw new NotImplementedException();
+            await _messageService.Show(new MessageOption()
+            {
+                Content = message,
+                Color = Color.Warning,
+            });
         }
 
         public async Task Error(string message, string title = null, Action<UiMessageOptions> options = null)

@@ -20,7 +20,7 @@ namespace BasicManagement.Blazor.Menus
             var l = context.GetLocalizer<BasicManagementResource>();
             var administrationMenu = context.Menu.GetAdministration();
             //Add main menu items.
-            context.Menu.AddItem(new ApplicationMenuItem(BasicManagementMenus.Prefix, displayName: "BasicManagement", "/BasicManagement", icon: "fa fa-globe"));
+           // context.Menu.AddItem(new ApplicationMenuItem(BasicManagementMenus.Prefix, displayName: "BasicManagement", "/BasicManagement", icon: "fa fa-globe"));
             administrationMenu.AddItem(new ApplicationMenuItem(BasicManagementMenus.DataDictionary, l["DataDictionary"], "/dataDictionary", icon:"fa fa-book"));
             return Task.CompletedTask;
         }

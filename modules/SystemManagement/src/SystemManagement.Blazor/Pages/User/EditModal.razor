@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Components
 @using Volo.Abp.Identity
 @inject IStringLocalizer<IdentityResource> LH
-@inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapComponent
+@inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapAbpComponentBase
 <div class="row g-3 form-inline">
     <div class="col-12">
         <BootstrapInput @bind-Value="@Context.UserName" placeholder="请输入用户名" DisplayText=@LH["UserName"] maxlength="50"> </BootstrapInput>

@@ -22,6 +22,9 @@
             TabItemTextDictionary="@TabItemTextDictionary"
             AdditionalAssemblies="@_routerOptions.Value.AdditionalAssemblies"
             class="@Theme">
+            <NotAuthorized>
+                <RedirectToLogin/>
+            </NotAuthorized>
         <Header>
             <HeaderComponent DrawerSwitch="@(e => IsOpen = !IsOpen)"></HeaderComponent>
         </Header>

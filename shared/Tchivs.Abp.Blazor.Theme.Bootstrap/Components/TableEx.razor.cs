@@ -18,13 +18,15 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
     {
         TKey Id { get; set; }
     }
+
     public partial class TableEx<TAppService, TItem, TKey, TGetListInput, TCreateInput,
-        TUpdateInput> : BootstrapComponent, ITable<TKey> where TAppService : ICrudAppService<TItem, TKey, TGetListInput, TCreateInput,
+        TUpdateInput> : EasyTable<TAppService, TItem, TKey, TGetListInput, TCreateInput,
+        TUpdateInput>, ITable<TKey> where TAppService : ICrudAppService<TItem, TKey, TGetListInput, TCreateInput,
             TUpdateInput>
         where TItem : class, IEntityDto<TKey>, new()
         where TCreateInput : class, new()
         where TUpdateInput : class, new()
-        where TGetListInput : new()
+        where TGetListInput : PagedAndSortedResultRequestDto, new()
     {
         #region properties
 
@@ -42,7 +44,7 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
         /// 获得/设置 删除按钮异步回调方法
         /// </summary>
         [Parameter]
-        public Func<IEnumerable<TItem>, Task<bool>>? OnDeleteAsync { get; set; }
+        public Func<IEnumerable<TItem>, Task<bool>>? OnDeleteCallBackAsync { get; set; }
 
         /// <summary>
         /// 获得/设置 新建按钮回调方法
@@ -61,32 +63,10 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
         [Parameter] public RenderFragment<TUpdateInput>? EditTemplate { get; set; }
         [Parameter] public Size AddSize { get; set; } = Size.Medium;
         [Parameter] public Size EditSize { get; set; } = Size.Medium;
-
-        #region policy
-
-        [Parameter] public string? CreatePolicyName { get; set; }
-        [Parameter] public string? UpdatePolicyName { get; set; }
-        [Parameter] public string? DeletePolicyName { get; set; }
-        protected bool HasCreatePermission { get; set; }
-        protected bool HasUpdatePermission { get; set; }
-        protected bool HasDeletePermission { get; set; }
-
-        #endregion
-
-        [Inject] protected TAppService AppService { get; set; }
-
-        //  [Inject] protected IStringLocalizer<AbpUiResource> UiLocalizer { get; set; }
-        protected virtual IEnumerable<int> PageItemsSource => new int[] {4, 10, 20};
         private readonly TGetListInput _getListInput = new TGetListInput();
         private Table<TItem> table;
 
         #endregion
-
-        protected override async Task OnInitializedAsync()
-        {
-            await SetPermissionsAsync();
-            await InvokeAsync(StateHasChanged);
-        }
 
         #region methods
 
@@ -97,30 +77,33 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
         EventCallback<MouseEventArgs> ClickEditButtonCallback(TItem item) =>
             EventCallback.Factory.Create<MouseEventArgs>(this, () => EditAsync(item));
 
-        private async Task<QueryData<TItem>> OnQueryAsync(QueryPageOptions arg)
+        protected override Task<bool> OnDeleteAsync(IEnumerable<TItem> items)
         {
-            var result = await this.AppService.GetListAsync(this._getListInput);
-            return new QueryData<TItem>()
+            if (this.OnDeleteCallBackAsync != null)
             {
-                TotalCount = (int)result.TotalCount,
-                Items = result.Items
-            };
+                return OnDeleteCallBackAsync(items);
+            }
+            else
+            {
+                return base.OnDeleteAsync(items);
+            }
         }
 
         private async Task EditAsync(TItem item)
         {
             TUpdateInput editInput = ObjectMapper.Map<TItem, TUpdateInput>(item);
             this.Id = item.Id;
-           
+
             await this.DialogService.ShowEditDialog(new EditDialogOption<TUpdateInput>()
             {
                 IsScrolling = table.ScrollingDialogContent,
                 ShowLoading = true,
                 Title = table.AddModalTitle,
                 DialogBodyTemplate = this.EditTemplate,
-                Model = editInput, Size = this.EditSize,
+                Model = editInput,
+                Size = this.EditSize,
                 RowType = table.EditDialogRowType,
-                ItemsPerRow = table.EditDialogItemsPerRow, 
+                ItemsPerRow = table.EditDialogItemsPerRow,
                 LabelAlign = table.EditDialogLabelAlign,
                 OnCloseAsync = async () => { },
                 OnSaveAsync = async context =>
@@ -142,18 +125,16 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
                         await table.ToggleLoading(false);
                         //  table.SelectedRows?.Clear();
                     }
-            
+
                     if (valid)
                     {
                         await InvokeAsync(table.QueryAsync);
                     }
-            
+
                     return valid;
                 }
             });
         }
-
-        public TKey Id { get; set; }
 
         public async Task AddAsync()
         {
@@ -173,7 +154,8 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
                 ShowLoading = true,
                 Title = AddModalTitle ?? table.AddModalTitle,
                 DialogBodyTemplate = this.AddTemplate,
-                Model = createInput, Size = this.AddSize,
+                Model = createInput,
+                Size = this.AddSize,
                 RowType = table.EditDialogRowType,
                 ItemsPerRow = table.EditDialogItemsPerRow,
                 LabelAlign = table.EditDialogLabelAlign,
@@ -259,25 +241,12 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
             }
 
             await table.ToggleLoading(true);
-            if (OnDeleteAsync != null)
+            ret = await OnDeleteAsync(rows);
+            var option = new ToastOption
             {
-                ret = await OnDeleteAsync(rows);
-            }
-            else
-            {
-                foreach (var row in rows)
-                {
-                    await this.AppService.DeleteAsync(row.Id);
-                }
-
-                ret = true;
-            }
-
-            var option = new ToastOption()
-            {
-                Title = this.table.DeleteButtonToastTitle
+                Title = this.table.DeleteButtonToastTitle,
+                Category = ret ? ToastCategory.Success : ToastCategory.Error
             };
-            option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
             option.Content = string.Format(this.table.DeleteButtonToastResultContent,
                 ret ? table.SuccessText : table.FailText, Math.Ceiling(option.Delay / 1000.0));
 
@@ -298,9 +267,9 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
         {
             var ret = false;
             await table.ToggleLoading(true);
-            if (OnDeleteAsync != null)
+            if (OnDeleteCallBackAsync != null)
             {
-                ret = await OnDeleteAsync(new TItem[] {item});
+                ret = await OnDeleteCallBackAsync(new[] {item});
             }
             else
             {
@@ -328,28 +297,6 @@ namespace Tchivs.Abp.Blazor.Theme.Bootstrap.Components
 
             await table.ToggleLoading(false);
         }
-
-        #region policy
-
-        protected virtual async Task SetPermissionsAsync()
-        {
-            if (CreatePolicyName != null)
-            {
-                HasCreatePermission = await AuthorizationService.IsGrantedAsync(CreatePolicyName);
-            }
-
-            if (UpdatePolicyName != null)
-            {
-                HasUpdatePermission = await AuthorizationService.IsGrantedAsync(UpdatePolicyName);
-            }
-
-            if (DeletePolicyName != null)
-            {
-                HasDeletePermission = await AuthorizationService.IsGrantedAsync(DeletePolicyName);
-            }
-        }
-
-        #endregion
 
         #endregion
     }
