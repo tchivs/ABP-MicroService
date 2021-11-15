@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 namespace Admin.Blazor.Host
@@ -15,6 +16,7 @@ namespace Admin.Blazor.Host
             });
 
             var host = builder.Build();
+            host.Services.RegisterProvider();
 
             await application.InitializeAsync(host.Services);
 

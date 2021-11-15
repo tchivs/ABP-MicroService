@@ -73,13 +73,13 @@ namespace  BasicManagement.DataDictionaries
         /// <summary>
         /// 创建字典明细项
         /// </summary>
-        /// <param name="dictId">字典类型ID</param>
+        /// <param name="basicId">字典类型ID</param>
         /// <param name="entity">数据</param>
         /// <returns></returns>
-        [HttpPost(template:"{id}/detail",Name = "创建明细")]
-        public Task<DataDictionaryDetailDto> CreateDetailAsync(Guid id, CreateDataDictionaryDetailDto entity)
+        [HttpPost(template:"{basicId}/detail",Name = "创建明细")]
+        public Task<DataDictionaryDetailDto> CreateDetailAsync(Guid basicId, CreateDataDictionaryDetailDto entity)
         {
-            return this._service.CreateDetailAsync(id, entity);
+            return this._service.CreateDetailAsync(basicId, entity);
         }
 
         [HttpPut("detail/{id}")]

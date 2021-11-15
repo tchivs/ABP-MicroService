@@ -3,6 +3,7 @@
 @using Volo.Abp.Identity.Localization
 @using Volo.Abp.Identity
 @using Microsoft.Extensions.Localization
+@using SystemManagement.Blazor.Components
 @inherits Tchivs.Abp.Blazor.Theme.Bootstrap.BootstrapAbpComponentBase
 @attribute [Authorize(IdentityPermissions.Users.Default)]
 <Card>
@@ -41,9 +42,24 @@
         </TableEx>
     </CardBody>
 </Card>
+<DrawerComponent IsScroll="true" IsOpen="@PermissionIsOpen" Submit="@SavePermission">
+    <HeaderTemplate>
+        <h3>@L["Permission:RoleManagement"]</h3>
+    </HeaderTemplate>
+    <BodyTemplate>
+        <PermissionModal @ref=_permissionModal></PermissionModal>
+    </BodyTemplate>
+</DrawerComponent>
 
 @code {
+    private bool PermissionIsOpen { get; set; }
+    PermissionModal _permissionModal;
     protected bool HasManagePermissionsPermission { get; set; }
+
+    private async Task SavePermission()
+    {
+        await _permissionModal.Save();
+    }
 
     public Index()
     {
@@ -66,19 +82,10 @@
 
     private async Task ShowPermission(IdentityUserDto context)
     {
-        // var op = new DialogOption()
-        // {
-        //     Size = Size.Small,
-        //     ShowFooter = false,
-        //     Title = $"{L["Users"]}{L["Permissions"]} - {context.UserName}",
-        // };
-        // op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<PermissionModal>(new KeyValuePair<string, object>[]
-        // {
-        //     new(nameof(PermissionModal.ProviderName), "U"),
-        //     new(nameof(PermissionModal.ProviderKey), context.Id.ToString()),
-        //     new(nameof(PermissionModal.OnClose), new Action(async () => await op.Dialog.Close()))
-        // }).Render();
-        // await DialogService.Show(op);
+        _permissionModal.ProviderKey = context.Id.ToString();
+        _permissionModal.ProviderName = "U";
+        await _permissionModal.ShowAsync();
+        PermissionIsOpen = true;
     }
 
 }

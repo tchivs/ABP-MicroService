@@ -8,7 +8,7 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="BootstrapBlazor" Version="5.18.4" />
+		<PackageReference Include="BootstrapBlazor" Version="6.0.3" />
 	  <ProjectReference Include="..\Tchivs.Abp.Blazor\Tchivs.Abp.Blazor.csproj" />
 	</ItemGroup>
 	<ItemGroup>

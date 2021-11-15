@@ -5,6 +5,8 @@
     "SamplePageMessage": "BasicManagement模块的示例页面",
     "Permission:BasicManagement": "基础管理",
     "Menu:DataDictionary": "数据字典",
+    "AddDetail": "添加明细",
+    "AddDetailTitle": "添加明细数据",
     "DataDictionary": "数据字典",
     "DataDictionaryKey": "键",
     "DataDictionaryRemark": "备注",

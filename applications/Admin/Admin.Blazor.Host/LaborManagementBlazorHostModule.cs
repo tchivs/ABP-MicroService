@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using BootstrapBlazor.Components;
 using IdentityModel;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Tchivs.Abp.Blazor.Routing;
 using Tchivs.Abp.Blazor.Theme.Bootstrap.Components;
 using Tchivs.Abp.Blazor.Theme.Bootstrap.WebAssembly;
+using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.Autofac;
 using Volo.Abp.Autofac.WebAssembly;
@@ -53,6 +55,7 @@ namespace Admin.Blazor.Host
             ConfigureAutoMapper(context);
         }
 
+ 
         private void ConfigureRouter(ServiceConfigurationContext context)
         {
             Configure<AbpRouterOptions>(options => { options.AppAssembly = typeof(AdminBlazorHostModule).Assembly; });

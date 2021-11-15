@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
 using Admin.Blazor.Server.Host.Menus;
+using BootstrapBlazor.Components;
 using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Authentication.OAuth;
@@ -60,9 +61,8 @@ namespace Admin.Blazor.Server.Host
         typeof(AbpTenantManagementHttpApiClientModule),
         typeof(AbpPermissionManagementHttpApiClientModule),
         typeof(AdminBlazorModule), 
-        typeof(BasicManagement.Blazor.Server.BasicManagementBlazorServerModule),
-        typeof(BasicManagement.BasicManagementHttpApiClientModule),
-          typeof(SystemManagement.SystemManagementHttpApiClientModule),typeof(SystemManagementBlazorServerModule)
+        typeof(BasicManagement.Blazor.Server.BasicManagementBlazorServerModule)
+      ,typeof(SystemManagementBlazorServerModule)
     )]
     public class AdminBlazorServerHostModule : AbpModule
     {
@@ -255,6 +255,7 @@ namespace Admin.Blazor.Server.Host
         {
             var env = context.GetEnvironment();
             var app = context.GetApplicationBuilder();
+            app.ApplicationServices.RegisterProvider();
 
             if (env.IsDevelopment())
             {

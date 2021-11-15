@@ -1,0 +1,26 @@
+﻿@using global::BasicManagement.DataDictionaries.Dtos
+@inherits BasicManagementComponent
+<div class="row g-3 form-inline">
+    <div class="col-12">
+        <BootstrapInput @bind-Value="@Context.Name" DisplayText=@L["Name"] maxlength="50"> </BootstrapInput>
+    </div>
+    <div class="col-12">
+        <BootstrapInput @bind-Value="@Context.Value" DisplayText=@L["Value"] maxlength="50"> </BootstrapInput>
+    </div>
+    <div class="col-12">
+        <BootstrapInput @bind-Value="@Context.Group" DisplayText=@L["Group"] maxlength="50"> </BootstrapInput>
+    </div>
+    <div class="col-12">
+        <BootstrapInput @bind-Value="@Context.Remark" DisplayText=@L["Remark"] maxlength="50"> </BootstrapInput>
+    </div>
+    <div class="col-12">
+        <BootstrapInput @bind-Value="@Context.Sort" type="number" DisplayText=@L["Sort"] maxlength="50"> </BootstrapInput>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public DataDictionaryDetailDtoBase Context { get; set; }
+
+}

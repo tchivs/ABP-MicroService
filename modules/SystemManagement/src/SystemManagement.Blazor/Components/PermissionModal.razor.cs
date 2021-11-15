@@ -45,6 +45,7 @@ namespace SystemManagement.Blazor.Components
 
         public   async Task ShowAsync()
         {
+            Items = new List<TreeItem>();
             var result = await PermissionAppService.GetAsync(this.ProviderName, this.ProviderKey);
             foreach (var group in result.Groups)
             {
@@ -86,7 +87,6 @@ namespace SystemManagement.Blazor.Components
                 item.Checked = item.Items.All(x => x.Checked);
             }
             await InvokeAsync(this.StateHasChanged);
-
         }
 
         public async Task Save()
@@ -104,11 +104,13 @@ namespace SystemManagement.Blazor.Components
                 await CurrentApplicationConfigurationCacheResetService.ResetAsync();
                 OnClose?.Invoke();
                 await this.Toast.Success("保存成功");
+                Items = new List<TreeItem>();
             }
             catch (Exception e)
             {
                 await this.HandleErrorAsync(e);
             }
+           
         }
     }
 }

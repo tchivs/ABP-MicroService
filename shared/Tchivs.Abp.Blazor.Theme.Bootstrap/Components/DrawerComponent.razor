@@ -17,7 +17,7 @@
                 </button>
                 @if (!IsReadOnly)
                 {
-                    <Button Color="Color.Primary" ButtonType="ButtonType.Submit" @onclick="Submit" Icon="fa fa-save" Text="@L["save"]"></Button>
+                    <Button IsAsync="true" Color="Color.Primary" ButtonType="ButtonType.Submit"  @onclick="OnSubmit" Icon="fa fa-save" Text="@L["SaveButtonText"]"></Button>
                 }
             }
             else
@@ -75,6 +75,12 @@
     {
         OnClose?.Invoke();
         this.IsOpen = false;
+    }
+
+    private async Task OnSubmit()
+    {
+        await this.Submit.InvokeAsync();
+        Close();
     }
 
 }

@@ -34,8 +34,7 @@ namespace BasicManagement.DataDictionaries.Dtos
         // public ICollection<DataDictionaryDetailDto> Children { get; set; }
     }
 
-    [Serializable]
-    public class CreateDataDictionaryDetailDto
+    public class DataDictionaryDetailDtoBase
     {
         [Required] [DisplayName("名称")] public string Name { get; set; }
         [Required] [DisplayName("值")] public string Value { get; set; }
@@ -45,12 +44,14 @@ namespace BasicManagement.DataDictionaries.Dtos
     }
 
     [Serializable]
-    public class UpdateDataDictionaryDetailDto
+    public class CreateDataDictionaryDetailDto:DataDictionaryDetailDtoBase
     {
-        [Required] [DisplayName("名称")] public string Name { get; set; }
-        [Required] [DisplayName("值")] public string Value { get; set; }
-        [DisplayName("组名")] public string Group { get; set; }
-        [DisplayName("备注")] public string Remark { get; set; }
-        [DisplayName("排序")] public int Sort { get; set; }
+         
+    }
+
+    [Serializable]
+    public class UpdateDataDictionaryDetailDto:DataDictionaryDetailDtoBase
+    {
+        
     }
 }

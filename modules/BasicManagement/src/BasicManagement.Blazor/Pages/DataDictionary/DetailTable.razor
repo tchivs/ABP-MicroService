@@ -1,0 +1,102 @@
+﻿@using global::BasicManagement.DataDictionaries.Dtos
+@using global::BasicManagement.DataDictionaries
+@inherits BasicManagementComponent
+<Table TItem="DataDictionaryDetailDto"
+       Height="200"
+       IsStriped="true" IsBordered="true"
+       AutoGenerateColumns="false"
+       ShowToolbar="false"
+       ShowDefaultButtons="true"
+       ShowExtendButtons="true"
+       ShowLineNo="true"
+       ShowAddButton="@HasCreatePermission"
+       ShowEditButton="@HasUpdatePermission"
+       ShowDeleteButton="@HasDeletePermission"
+       OnDeleteAsync="@OnDeleteAsync"
+       OnSaveAsync="OnSaveAsync"
+       Items="Context.Details">
+    <TableColumns Context="value">
+        <TableColumn @bind-Field="@value.Name" Text="@L["Name"]"/>
+        <TableColumn @bind-Field="@value.Group" Text="@L["Group"]"/>
+        <TableColumn @bind-Field="@value.Value" Text="@L["Value"]"/>
+        <TableColumn @bind-Field="@value.Remark" Text="@L["Remark"]"/>
+        <TableColumn @bind-Field="@value.Sort" Text="@L["Sort"]"/>
+    </TableColumns>
+</Table>
+
+@code {
+
+    [Parameter]
+    public DataDictionaryDto Context { get; set; }
+
+    [Parameter]
+    public bool HasCreatePermission { get; set; }
+
+    [Parameter]
+    public bool HasUpdatePermission { get; set; }
+
+    [Parameter]
+    public bool HasDeletePermission { get; set; }
+
+    [Inject]
+    public IDataDictionaryAppService AppService { get; set; }
+
+    [Parameter]
+    public EventCallback<DataDictionaryDto> ContextChanged { get; set; }
+
+    private async Task<bool> OnDeleteAsync(IEnumerable<DataDictionaryDetailDto> arg)
+    {
+        var res = false;
+        try
+        {
+            foreach (var item in arg)
+            {
+                await this.AppService.DeleteDetailAsync(item.Id);
+            }
+            res = true;
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception e)
+        {
+            await this.HandleErrorAsync(e);
+            res = false;
+        }
+
+        return res;
+    }
+
+    private async Task<bool> OnSaveAsync(DataDictionaryDetailDto dataDictionaryDetailDto, ItemChangedType itemChangedType)
+    {
+        var res = false;
+        try
+        {
+            if (itemChangedType == ItemChangedType.Add)
+            {
+                var dto = await this.AppService.CreateDetailAsync(Context.Id, this.ObjectMapper.Map<DataDictionaryDetailDto, CreateDataDictionaryDetailDto>(dataDictionaryDetailDto));
+                Context.Details.Add(dto);
+            }
+            else
+            {
+                var dto = await this.AppService.UpdateDetailAsync(Context.Id, this.ObjectMapper.Map<DataDictionaryDetailDto, UpdateDataDictionaryDetailDto>(dataDictionaryDetailDto));
+                var item = Context.Details.FirstOrDefault(x => x.Id == dataDictionaryDetailDto.Id);
+                if (item != null)
+                {
+                    Context.Details.Remove(item);
+                }
+                Context.Details.Add(dto);
+            }
+            res = true;
+            await InvokeAsync(StateHasChanged); //StateHasChanged不行
+
+        }
+        catch (Exception e)
+        {
+            await this.HandleErrorAsync(e);
+            res = false;
+        }
+
+        return res;
+    }
+
+
+}

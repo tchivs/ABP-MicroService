@@ -3,6 +3,7 @@
   "texts": {
     "MyAccount": "我的账户",
     "Menu:Home": "首页",
+    "RoleManagement": "权限管理",
     "ExecutionTime": "执行时间",
     "Client": "客户端",
     "TenantName": "租户名称",

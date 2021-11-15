@@ -1,62 +1,209 @@
 ﻿@page "/dataDictionary"
 @namespace BasicManagement.DataDictionaries.Dtos
+@using BasicManagement.Localization
+@using BasicManagement.Blazor.Pages.DataDictionary
+@using Console = System.Console
+@using System.Runtime.CompilerServices
 @inherits EasyTable<IDataDictionaryAppService, DataDictionaryDto, Guid, GetDataDictionaryInput, CreateDataDictionaryDto, UpdateDataDictionaryDto>
-<Table TItem="DataDictionaryDto"
-       AutoGenerateColumns="false"
-       IsMultipleSelect="true"
-       ShowSkeleton="true"
-       ShowLoading="true"
-       ShowSearch="true"
-       IsStriped="true"
-       IsBordered="true"
-       ShowExtendButtons="true"
-       ShowLineNo="true"
-       ShowDefaultButtons="true"
-       IsPagination="true"
-       PageItemsSource="PageItemsSource" ShowToolbar="true"
-       EditDialogRowType="RowType.Inline"
-       ShowAddButton="@HasCreatePermission"
-       ShowEditButton="@HasUpdatePermission"
-       ShowDeleteButton="@HasDeletePermission"
-       ShowDetailRow="x => x.Details.Count > 0"
-       OnSaveAsync="OnSaveAsync"
-       OnDeleteAsync="OnDeleteAsync"
-       OnQueryAsync="OnQueryAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.Name" Text="@L["Name"]"/>
-        <TableColumn @bind-Field="@context.AppName" IsReadonlyWhenEdit="true" Text="@L["AppName"]"/>
-        <TableColumn @bind-Field="@context.Key" IsReadonlyWhenEdit="true" Text="@L["Key"]"/>
-        <TableColumn @bind-Field="@context.Remark" Text="@L["Remark"]"/>
-        <TableColumn @bind-Field="@context.Sort" Text="@L["Sort"]"/>
-    </TableColumns>
-    <DetailRowTemplate>
+<div>
+    <div >
+        <Card>
+            <CardHeader>
+                @L["DataDictionary"]
+            </CardHeader>
+            <CardBody>
+                <Table TItem="DataDictionaryDto"
+                       AutoGenerateColumns="false"
+                       IsMultipleSelect="false"
+                       ShowSkeleton="true"
+                       ShowLoading="true"
+                       ShowSearch="true"
+                       IsStriped="true"
+                       IsBordered="true"
+                       ShowExtendButtons="true"
+                       ShowLineNo="true"
+                       ShowDefaultButtons="true"
+                       IsPagination="true"
+                       PageItemsSource="PageItemsSource" ShowToolbar="true"
+                       EditDialogRowType="RowType.Inline"
+                       ShowAddButton="@HasCreatePermission"
+                       ShowEditButton="@HasUpdatePermission"
+                       ShowDeleteButton="@HasDeletePermission"
+                       ClickToSelect="true"
+                       SelectedRowsChanged="SelectedRowsChanged"
+                       OnSaveAsync="OnSaveAsync"
+                       OnDeleteAsync="OnDeleteAsync"
+                       OnQueryAsync="OnQueryAsync">
+                    <TableColumns>
+                        <TableColumn @bind-Field="@context.Name" Text="@L["Name"]"/>
+                        <TableColumn @bind-Field="@context.AppName" IsReadonlyWhenEdit="true" Text="@L["AppName"]"/>
+                        <TableColumn @bind-Field="@context.Key" IsReadonlyWhenEdit="true" Text="@L["Key"]"/>
+                        <TableColumn @bind-Field="@context.Remark" Text="@L["Remark"]"/>
+                        <TableColumn @bind-Field="@context.Sort" Text="@L["Sort"]"/>
+                    </TableColumns>
+                    <BeforeRowButtonTemplate>
+                        @if (HasCreatePermission)
+                        {
+                            <Button Size="Size.ExtraSmall" OnClick="@ClickAddDetailButtonCallback(context)" Icon="fa fa-plus" Text="@L["AddDetail"]"/>
+                        }
+                    </BeforeRowButtonTemplate>
+                </Table>
 
-        @code{
-
-
-        }
-
-        <Table TItem="DataDictionaryDetailDto"
-               Height="200"
-               IsStriped="true" IsBordered="true"
-               AutoGenerateColumns="true"
-               ShowToolbar="true" ShowDefaultButtons="false" Items="context.Details">
-        </Table>
-    </DetailRowTemplate>
-</Table>
+            </CardBody>
+        </Card>
+    </div>
+    <div >
+        <Card>
+            <CardHeader>@L["Detail"]</CardHeader>
+            <CardBody>
+                <Table TItem="DataDictionaryDetailDto"
+                       AutoGenerateColumns="true"
+                       IsMultipleSelect="true"
+                       ShowSkeleton="true"
+                       ShowLoading="true"
+                       ShowSearch="true"
+                       IsStriped="true"
+                       IsBordered="true"
+                       ShowExtendButtons="true"
+                       ShowLineNo="true"
+                       ShowDefaultButtons="true"
+                       ShowAddButton="@HasCreatePermission"
+                       ShowEditButton="@HasUpdatePermission"
+                       ShowDeleteButton="@HasDeletePermission"
+                       OnDeleteAsync="@OnDeleteAsync"
+                       OnSaveAsync="OnSaveAsync"
+                       IsPagination="true" Items="CurrentDetails">
+                    <TableColumns Context="value">
+                        <TableColumn @bind-Field="@value.Name" Text="@L["Name"]"/>
+                        <TableColumn @bind-Field="@value.Group" Text="@L["Group"]"/>
+                        <TableColumn @bind-Field="@value.Value" Text="@L["Value"]"/>
+                        <TableColumn @bind-Field="@value.Remark" Text="@L["Remark"]"/>
+                        <TableColumn @bind-Field="@value.Sort" Text="@L["Sort"]"/>
+                    </TableColumns>
+                </Table>
+            </CardBody>
+        </Card>
+    </div>
+</div>
 
 @code {
+    public ICollection<DataDictionaryDetailDto> CurrentDetails { get; set; } = new List<DataDictionaryDetailDto>();
+    Guid CurrentId;
+
+    EventCallback<MouseEventArgs> ClickAddDetailButtonCallback(DataDictionaryDto item) =>
+        EventCallback.Factory.Create<MouseEventArgs>(this, () => AddDetailAsync(item));
+
+    private async Task EditDetailAsync(DataDictionaryDto item)
+    {
+    }
+
+    private async Task AddDetailAsync(DataDictionaryDto item)
+    {
+        CreateDataDictionaryDetailDto detailDto = new CreateDataDictionaryDetailDto();
+        await this.DialogService.ShowEditDialog<CreateDataDictionaryDetailDto>(new EditDialogOption<CreateDataDictionaryDetailDto>()
+        {
+            Title = L["AddDetailTitle"],
+            Model = detailDto, Size = Size.Medium,
+            OnSaveAsync = async editContext =>
+            {
+                var entity = (CreateDataDictionaryDetailDto) editContext.Model;
+                var result = false;
+                try
+                {
+                 var detail=   await this.AppService.CreateDetailAsync(item.Id, entity);
+                    this.CurrentDetails?.Add(detail);
+                    await InvokeAsync(StateHasChanged);  
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    result = false;
+                    await this.HandleErrorAsync(e);
+                }
+                return result;
+            },
+            DialogBodyTemplate = new RenderFragment<CreateDataDictionaryDetailDto>(r =>
+                BootstrapDynamicComponent.CreateComponent<AddOrUpdateDetail>(new[] {new KeyValuePair<string, object>("Context", r)}).Render())
+        });
+    }
 
     public Index()
     {
-        LocalizationResource = typeof(BasicManagement.Localization.BasicManagementResource);
+        LocalizationResource = typeof(BasicManagementResource);
+    }
+
+    protected override GetDataDictionaryInput Convert2Input(QueryPageOptions options)
+    {
+        var input = base.Convert2Input(options);
+        input.Include = true;
+        return input;
     }
 
     protected override Task OnInitializedAsync()
     {
-        this.CreatePolicyName = BasicManagement.Permissions.BasicManagementPermissions.DataDictionary.Create;
-        this.UpdatePolicyName =  BasicManagement.Permissions.BasicManagementPermissions.DataDictionary.Update;
-        this.DeletePolicyName =  BasicManagement.Permissions.BasicManagementPermissions.DataDictionary.Delete;
+        this.CreatePolicyName = Permissions.BasicManagementPermissions.DataDictionary.Create;
+        this.UpdatePolicyName = Permissions.BasicManagementPermissions.DataDictionary.Update;
+        this.DeletePolicyName = Permissions.BasicManagementPermissions.DataDictionary.Delete;
         return base.OnInitializedAsync();
     }
+
+    private Task SelectedRowsChanged(List<DataDictionaryDto> arg)
+    {
+        var ctx = arg.FirstOrDefault();
+        if (ctx != null)
+        {
+            this.CurrentDetails = ctx.Details;
+            CurrentId = ctx.Id;
+        }
+        return Task.CompletedTask;
+    }
+
+
+    private async Task<bool> OnDeleteAsync(IEnumerable<DataDictionaryDetailDto> arg)
+    {
+        var res = false;
+        try
+        {
+            foreach (var item in arg)
+            {
+                await this.AppService.DeleteDetailAsync(item.Id);
+            }
+            res = true;
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception e)
+        {
+            await this.HandleErrorAsync(e);
+            res = false;
+        }
+
+        return res;
+    }
+
+    private async Task<bool> OnSaveAsync(DataDictionaryDetailDto dataDictionaryDetailDto, ItemChangedType itemChangedType)
+    {
+        var res = false;
+        try
+        {
+            if (itemChangedType == ItemChangedType.Add)
+            {
+                var dto = await this.AppService.CreateDetailAsync(CurrentId, this.ObjectMapper.Map<DataDictionaryDetailDto, CreateDataDictionaryDetailDto>(dataDictionaryDetailDto));
+                CurrentDetails.Add(dto);
+                StateHasChanged();
+            }
+            else
+            {
+                await this.AppService.UpdateDetailAsync(CurrentId, this.ObjectMapper.Map<DataDictionaryDetailDto, UpdateDataDictionaryDetailDto>(dataDictionaryDetailDto));
+            }
+            res = true;
+        }
+        catch (Exception e)
+        {
+            await this.HandleErrorAsync(e);
+            res = false;
+        }
+
+        return res;
+    }
+
 }

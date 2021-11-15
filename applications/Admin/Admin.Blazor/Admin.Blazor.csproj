@@ -17,7 +17,9 @@
 		<PackageReference Include="Volo.Abp.TenantManagement.Application.Contracts" Version="$(AbpVersion)" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\modules\BasicManagement\src\BasicManagement.Blazor\BasicManagement.Blazor.csproj" />
+		<ProjectReference Include="..\..\..\modules\BasicManagement\src\BasicManagement.HttpApi.Client\BasicManagement.HttpApi.Client.csproj" />
+		<ProjectReference Include="..\..\..\modules\SystemManagement\src\SystemManagement.HttpApi.Client\SystemManagement.HttpApi.Client.csproj" />
+		<ProjectReference Include="..\..\..\modules\BasicManagement\src\BasicManagement.Blazor\BasicManagement.Blazor.csproj" />
 	  <ProjectReference Include="..\..\..\modules\SystemManagement\src\SystemManagement.Blazor\SystemManagement.Blazor.csproj" />
 	  <ProjectReference Include="..\..\..\shared\Tchivs.Abp.Blazor.Theme.Bootstrap\Tchivs.Abp.Blazor.Theme.Bootstrap.csproj" />
 	</ItemGroup>
