@@ -1,2 +1,2 @@
-cd ../microservices/SystemService
+cd ../gateways/BusinessGateway
 dotnet run
