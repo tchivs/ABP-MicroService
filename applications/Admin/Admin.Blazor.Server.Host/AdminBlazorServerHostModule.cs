@@ -44,6 +44,7 @@ using Volo.Abp.VirtualFileSystem;
 using Tchivs.Abp.Blazor.Routing;
 using Volo.Abp.Http.Client.IdentityModel.Web;
 using SystemManagement.Blazor.Server;
+using Tchivs.Abp.Blazor.Server;
 
 namespace Admin.Blazor.Server.Host
 {
@@ -122,12 +123,12 @@ namespace Admin.Blazor.Server.Host
 
                 //BLAZOR UI
                 options.StyleBundles.Configure(
-                    BasicThemeBundles.Styles.Global,
+                    BlazorThemeBundles.Styles.Global,
                     bundle =>
                     {
                         bundle.AddFiles("/blazor-global-styles.css");
                         //You can remove the following line if you don't use Blazor CSS isolation for components
-                        bundle.AddFiles("/Admin.Blazor.Server.Host.styles.css");
+                       // bundle.AddFiles("/Admin.Blazor.Server.Host.styles.css");
                     }
                 );
             });
